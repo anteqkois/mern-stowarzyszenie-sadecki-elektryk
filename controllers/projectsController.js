@@ -1,114 +1,64 @@
 const database = require('../config/database');
 const Project = require('../models/project');
+const { createError } = require('../middlewares/errors');
 
 const findAll = async (req, res, next) => {
-  const data = await Project.find();
-  if (!data) throw new Error(`Didn't find a projects`);
+  const data = await Project.find().populate('category', 'category');
+  if (!data) next(createError(`Didn't find a projects`, 404));
   req.data = data;
-  next();
+  return res.status(200).send(data);
 };
 
-const find = async (req, res, next) => {
+const findOne = async (req, res, next) => {
   const data = await Project.findOne({
     slug: req.params.slug,
-  });
-  if (!data) {
-    const err = new Error(`Didn't find a project`);
-    err.status = 404;
-    next(err);
-  }
+  }).populate('category', 'category');
+  if (!data) next(createError(`Didn't find a project`, 404));
   req.data = data;
-  next();
+  return res.status(200).send(data);
 };
 
 const create = async (req, res) => {
-  try {
-    const project = await new Project({
-      title: req.body.title,
-      category: req.body.category,
-      date: req.body.date,
-      description: req.body.description,
-    }).save();
-    return res
-      .status(201)
-      .send({ data: project, message: 'New project was created' });
-  } catch (error) {
-    console.log(error);
-  }
+  const project = await new Project({
+    title: req.body.title,
+    category: req.body.category,
+    date: req.body.date,
+    description: req.body.description,
+  }).save();
+  return res
+    .status(201)
+    .send({ data: project, message: 'New project was created' });
 };
 
 const update = async (req, res, next) => {
-  try {
-    let project = await Project.findOne({
-      slug: req.params.slug,
-    });
-    //!project && next();
-    
-    project.category = req.body.category;
-    project.title = req.body.title;
-    project.date = req.body.date;
-    project.description = req.body.description;
+  let project = await Project.findOne({
+    slug: req.params.slug,
+  });
 
-    await project.save();
-    
-    // let doc = await Project.findOneAndUpdate(
-    //   {
-    //     slug: req.params.slug,
-    //   },
-    //   {
-    //     category: req.body.category,
-    //     title: req.body.title,
-    //     date: req.body.date,
-    //     description: req.body.description,
-    //   },
-    //   {
-    //     new: true,
-    //   }
-    // );
+  if (!project) next(createError(`Didn't find project to update`, 404));
 
-    return res
-      .status(200)
-      .send({ data: project, message: 'Project was updated' });
-  } catch (error) {
-    console.log(error);
-  }
+  project.category = req.body.category ? req.body.category : project.category;
+  project.title = req.body.title ? req.body.title : project.title;
+  project.date = req.body.date ? req.body.date : project.date;
+  project.description = req.body.description ? req.body.description : project.description;
+
+  await project.save();
+
+  return res
+    .status(200)
+    .send({ data: project, message: 'Project was updated' });
 };
 
 const remove = async (req, res, next) => {
-  try {
-    const project = await Project.remove({
-      slug: req.params.slug,
-    });
-    return res.status(200).send({ message: `Deleted ${project} project/s` });
-  } catch (error) {
-    console.log(error);
-  }
+  const project = await Project.deleteOne({
+    slug: req.params.slug,
+  });
+
+  if (!project.ok) next(createError('Something went wrong !', 500));
+  if (!project.deletedCount) next(createError(`Didn't find a project to delet !`, 404));
+  return res
+    .status(200)
+    .send({ message: 'Project was deleted' });
 };
 
-module.exports = { findAll, find, create, update, remove };
-// category: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'Category',
-// },
-// title: {
-//     type: String,
-//     maxLength: 60,
-// },
-// date: Date,
-// description: {
-//     type: String,
-//     maxLength: 1100,
-// }
-
-// const fetchCategory = data.map(
-//   ({ slug, _id, category, title, date, description }) => {
-//     return {
-//       slug: slug,
-//       _id: _id,
-//       category: category,
-//       title: title,
-//       date: date,
-//       description: description,
-//     };
-//   },
-// );
+module.exports = { findAll, findOne, create, update, remove };

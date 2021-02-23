@@ -16,7 +16,7 @@ try {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
-    useFindAndModify: true,
+    useFindAndModify: false,
   });
   console.log(`Server connected with database`);
   return database;

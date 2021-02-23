@@ -8,19 +8,22 @@ const Project = mongoose.Schema({
   },
   title: {
     type: String,
+    required: true,
     maxLength: 60,
   },
-  date: Date,
+  date: {
+    type: Date,
+    required: true,
+  },
   description: {
     type: String,
+    required: true,
     maxLength: 1100,
   },
 });
 
 Project.plugin(
-  URLSlugs('title', {
-    field: 'slug',
-  }),
+  URLSlugs('title', { field: 'slug'}),
 );
 
 module.exports = mongoose.model('Project', Project);

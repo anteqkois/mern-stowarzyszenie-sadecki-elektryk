@@ -1,7 +1,8 @@
 const express = require('express');
 const { join } = require('path');
 const bodyParser = require('body-parser');
-const routes = require('./routes/projectRouter');
+const projectRoutes = require('./routes/projectRouter');
+const categoryRoutes = require('./routes/categoryRouter');
 const { notFound, catchErrors } = require('./middlewares/errors');
 
 const app = express();
@@ -20,7 +21,8 @@ if (process.env.MODULE === 'production') {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api/v1', routes);
+app.use('/api/v1/projects', projectRoutes);
+app.use('/api/v1/categories', categoryRoutes);
 
 //handling errors
 app.use(notFound);
