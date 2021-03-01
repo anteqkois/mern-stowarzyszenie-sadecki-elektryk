@@ -1,34 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
-import axios from 'axios';
-import './App.css';
+import Layout from './layouts/Layout';
+import Navigation from './containers/navigation/Navigation';
+
 
 function App() {
-  const [testHitting, setTestHitting] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios({
-        method: 'get',
-        url: '/api/v1/projects',
-      });
-      setTestHitting(data);
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
-  if (isLoading) {
-    return (
-      <h1>Data is loading.......</h1>
-    );
-  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>{testHitting.message.toString()}</p>
-      </header>
-    </div>
+  <Layout>
+    <Navigation />
+  </Layout>
   );
 }
 
