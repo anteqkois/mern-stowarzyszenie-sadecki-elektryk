@@ -1,6 +1,5 @@
-import { PromiseProvider } from 'mongoose';
 import React from 'react';
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Theme } from './utils';
 
 const GlobalStyle = createGlobalStyle`
@@ -11,7 +10,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body{
-    background-color: grey;
+    background-color: ${({theme}) => theme.colors.primary};
+    height: 200vh;
+    
   }
 
 `;

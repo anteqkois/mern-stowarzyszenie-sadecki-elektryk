@@ -4,52 +4,55 @@ import styled from 'styled-components';
 
 const StyledHamburgerMenu = styled.button`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-wrap: wrap;
   height: 60px;
   padding: 10px;
   margin: auto 10px auto 10px;
   background-color: transparent;
   border: transparent;
-  //outline: transparent;
+  outline: transparent;
   cursor: pointer;
+  z-index: ${({ theme }) => theme.zIndex.level1};
 
   span {
     background-color: black;
-    position: relative;
-    width: 50px;
+    width: 35px;
     height: 4px;
     border-radius: 15px;
-    transform: scale(1);
-    transition: transform 0.25s ease-in-out 0.25s;
-
-    ::before,
-    ::after {
-      background-color: black;
-      content: '';
-      position: absolute;
-      left: 0;
-      width: 50px;
-      height: 4px;
-      border-radius: 15px;
-      transition: transform 0.25s ease-in-out 0s;
-    }
-    ::before {
-      transform: translateY(10px) scale(1) rotate(0deg);
-    }
-
-    ::after {
-      transform: translateY(-10px) scale(1) rotate(0deg);
-    }
+    transform: ${({ isActive }) =>
+      isActive ? 'scale(0) translateX(40px)' : 'scale(1) translateX(0px)'};
+    transition: transform ease-in-out 0.25s;
+  }
+  span:nth-child(1) {
+    width: 50px;
+    transform-origin: center;
+    transform: ${({ isActive }) =>
+      isActive
+        ? '  translateY(13px) rotate(45deg)'
+        : ' translateY(0px)  rotate(0deg)'};
+    transition: transform ease-in-out 0.25s;
+  }
+  span:nth-child(3) {
+    width: 50px;
+    transform-origin: center;
+    transform: ${({ isActive }) =>
+      isActive
+        ? '  translateY(-13px) rotate(-45deg) '
+        : '  translateY(0px) rotate(0deg)'};
+    transition: transform  ease-in-out 0.25s;
   }
 `;
 
-const HamburgerMenu = () => {
+const HamburgerMenu = ({setIsActive, isActive}) => {
   return (
-    <StyledHamburgerMenu>
-    <span/>
+    <StyledHamburgerMenu onClick={() => setIsActive(!isActive)} isActive={isActive}>
+      <span />
+      <span />
+      <span />
     </StyledHamburgerMenu>
-  )
+  );
 }
 
 export default HamburgerMenu;
