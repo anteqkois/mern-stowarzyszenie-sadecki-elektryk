@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components';
-import { Theme } from '../layouts/utils';
 
 import About from '../containers/About'
 

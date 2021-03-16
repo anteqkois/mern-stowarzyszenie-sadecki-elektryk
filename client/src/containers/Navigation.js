@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
+import { WidthDeviceContext } from '../context/Context';
 
-import MenuList from '../../components/menuList/MenuList';
-import HamburgerMenu from '../../components/hamburgerMenu/HamburgerMenu';
-import DarkModeSwitch from '../../components/darkModeSwitch/DarkModeSwitch';
-import Logo from '../../components/logo/Logo';
+import MenuList from '../components/menuList/MenuList';
+import HamburgerMenu from '../components/hamburgerMenu/HamburgerMenu';
+import DarkModeSwitch from '../components/darkModeSwitch/DarkModeSwitch';
+import Logo from '../components/logo/Logo';
 
 const StyledNavigation = styled.nav`
   width: 100vw;
@@ -52,6 +53,10 @@ const StyledNavigation = styled.nav`
   }
 `;
 
+const StyledLogo = styled(Logo)`
+  height: 55px;
+`;
+
 const throttle = (fn, waitTime) => {
   let wait = false;
   return function () {
@@ -65,9 +70,10 @@ const throttle = (fn, waitTime) => {
   };
 };
 
-const Navigation = ({ isMobile }) => {
+const Navigation = () => {
   const [isActive, setIsActive] = useState(false);
   const [withSHadowAndBackground, setWithSHadowAndBackground] = useState(false);
+  const { isMobile } = useContext(WidthDeviceContext);
 
   const trackScroll = () => {
     throttle(
@@ -84,7 +90,7 @@ const Navigation = ({ isMobile }) => {
   return isMobile ? (
     <>
       <StyledNavigation isActive={isActive}>
-        <Logo height={55} />
+        <StyledLogo/>
         <DarkModeSwitch />
         <HamburgerMenu setIsActive={setIsActive} isActive={isActive} />
       </StyledNavigation>
@@ -95,7 +101,7 @@ const Navigation = ({ isMobile }) => {
       withSHadowAndBackground={withSHadowAndBackground}
       isActive={isActive}
     >
-      <Logo height={55} />
+      <StyledLogo />
       <MenuList isActive={true} />
       <DarkModeSwitch />
     </StyledNavigation>

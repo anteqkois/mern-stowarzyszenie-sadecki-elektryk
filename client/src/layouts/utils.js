@@ -8,18 +8,25 @@ const colors = {
 };
 
 const typography = {
-  sizeH1: '128px',
-  sizeH2: '92px',
-  sizeH3: '64px',
-  sizeH4: '48px',
-  sizeH5: '24px',
+  sizeLarge: '128px',
+  sizeH1: '92px',
+  sizeH2: '64px',
+  sizeH3: '42px',
+  sizeH4: '34px',
+  sizeH5: '26px',
+  sizeH6: '20px',
   sizeBodyText: '16px',
-  sizeTiny: '10px',
-  weightLight: '500',
-  weightMedium: '700',
-  weightBold: '900',
+  sizeTiny: '13px',
+  // weightLight: '500',
+  // weightMedium: '700',
+  // weightBold: '900',
+  weightMedium: '500',
+  weightBold: '700',
+  weightExtraBold: '800',
+  weightBlack: '900',
 };
 const zIndex = {
+  levelMinus1: '-1000',
   level1: '1000',
   level2: '2000',
   level3: '3000',
@@ -46,3 +53,5 @@ export const Theme = {
   zIndex,
   media,
 };
+
+// Limit line length to 70–80 characters.
