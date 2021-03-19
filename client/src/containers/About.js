@@ -7,11 +7,13 @@ import TeacherAndStudenIllustration from '../components/TeacherAndStudenIllustra
 import DescriptionOfAssociation from '../components/DescriptionOfAssociation/DescriptionOfAssociation';
 
 const StyledAbout = styled.div`
-  margin-top: 70px;
+  //margin: 70px 0 70px 0;
+  padding: 70px 0 15vw 0;
 
-  ${({ theme }) => theme.media.tablet} {
+  ${({ theme }) => theme.media.bigTablet} {
     display: grid;
-  };
+    //padding: 70px 0 120px 0;
+  } ;
 `;
 
 const StyledDescription = styled(DescriptionOfAssociation)`

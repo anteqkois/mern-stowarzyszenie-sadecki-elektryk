@@ -9,15 +9,17 @@ const StyledTeacherAndStudenIllustration = styled.div`
 `;
 
 const StyledStainTwo = styled(StainTwo)`
-    width: 60vw;
-    position: absolute;
-    right: 0;
+  width: 60vw;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 const StyledTeacherAndStudent = styled(TeacherAndStudent)`
     height: 60%;
     position: absolute;
-    right: 10%;
+    right: 10vw;
     top: 50%;
     transform: translateY(-60%);
 `;

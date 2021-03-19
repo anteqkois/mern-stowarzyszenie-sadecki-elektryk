@@ -38,7 +38,7 @@ const StyledHeadLine = styled.div`
   ${({ theme }) => theme.media.tablet} {
     display: flex;
     align-items: flex-end;
-    margin: 50px 0;
+    margin: 100px 0;
     height: auto;
 
     img {

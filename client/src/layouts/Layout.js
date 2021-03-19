@@ -17,8 +17,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     background-color: ${({ theme }) => theme.colors.primary};
-    height: 200vh;
-    
+    //height: 200vh;
   }
 
 `;
