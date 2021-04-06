@@ -7,8 +7,8 @@ const StyledItem = styled.li`
   text-align: center;
   color: ${({ theme }) => theme.colors.accent};
   font-size: 1rem;
-  font-weight: ${({ theme }) => theme.typography.weightMedium};
-  padding: 10px;
+  font-weight: ${({ theme }) => theme.typography.weightBold};
+  padding: 15px 10px;
   text-transform: uppercase;
   cursor: pointer;
 

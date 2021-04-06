@@ -21,7 +21,7 @@ const StyledButton = styled.button`
     position: absolute;
     left: 0;
     top: 0;
-    bottom:0;
+    bottom: 0;
     right: 0;
     /* width: 100%;
     height: 100%; */
@@ -37,15 +37,15 @@ const StyledButton = styled.button`
     transition: color ease-in-out 0.25s;
 
     ::before {
-      transform: scaleX(1.02);
+      transform: scaleX(1.02) scaleY(1.02);
       transition: transform ease-in-out 0.25s;
     }
   }
 `;
 
-const Button = ({children, className}) => {
+const Button = ({children, className, onClick}) => {
   return (
-    <StyledButton className={className}>
+    <StyledButton onClick={onClick} className={className}>
       {children}
     </StyledButton>
   )

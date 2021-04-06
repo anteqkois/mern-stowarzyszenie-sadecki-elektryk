@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../logo/Logo';
+import Logo from '../utils/Logo';
 import styled from 'styled-components';
 
 const StyledHeadLine = styled.div`

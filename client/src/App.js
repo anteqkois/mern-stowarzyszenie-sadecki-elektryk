@@ -5,6 +5,7 @@ import { WidthDeviceProvider } from './context/Context';
 import Layout from './layouts/Layout';
 import Navigation from './containers/Navigation';
 import Home from './pages/Home';
+import Fotter from './containers/Fotter';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Layout>
         <Navigation/>
         <Home/>
+        <Fotter/>
       </Layout>
     </WidthDeviceProvider>
   );

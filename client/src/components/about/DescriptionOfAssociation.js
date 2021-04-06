@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../Button/Button';
+import Button from '../utils/Button';
 import { ReactComponent as StainThree } from '../../assets/StainThree.svg';
 
 const StyledDescriptionOfAssociation = styled.div`
@@ -65,6 +65,7 @@ const StyledStainThree = styled(StainThree)`
     min-width: 700px;
     width: 65vw;
     max-width: 900px;
+    height: 150%;
     position: absolute;
     left: 0;
     top: 50%;

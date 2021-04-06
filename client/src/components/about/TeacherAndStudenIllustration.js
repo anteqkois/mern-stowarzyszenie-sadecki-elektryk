@@ -10,6 +10,7 @@ const StyledTeacherAndStudenIllustration = styled.div`
 
 const StyledStainTwo = styled(StainTwo)`
   width: 60vw;
+  height: 130%;
   position: absolute;
   right: 0;
   top: 50%;

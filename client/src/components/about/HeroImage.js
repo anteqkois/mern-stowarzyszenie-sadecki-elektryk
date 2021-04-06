@@ -17,10 +17,11 @@ const StyledHeroImage = styled.div`
     
     img {
       position: absolute;
-      left: 10%;
+      right: 10%;
       width: 40vw;
       max-width: 700px;
       clip-path: unset;
+border-radius: 10px;
     }
   }
 `;
@@ -29,7 +30,9 @@ const StyledStainOne = styled(StainOne)`
   display: none;
 
   ${({ theme }) => theme.media.tablet} {
-    width: 45vw;
+    width: 55vw;
+    height: 170%;
+    right: 0;
     display: inline-block;
     position: absolute;
   }

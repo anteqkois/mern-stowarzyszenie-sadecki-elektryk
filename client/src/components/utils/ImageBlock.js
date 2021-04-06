@@ -14,8 +14,9 @@ const StyledImageBlock = styled.div`
     background: rgb(255, 255, 255);
     background: linear-gradient(
       0deg,
-      rgba(255, 255, 255, 1) 21%,
-      rgba(255, 255, 255, 0.2757878151260504) 40%,
+      rgba(255, 255, 255, 1) 15%,
+      rgba(255, 255, 255, 0.5) 30%,
+      rgba(255, 255, 255, 0.25) 35%,
       rgba(255, 255, 255, 0) 100%
     );
   }
@@ -30,14 +31,15 @@ const StyledImageBlock = styled.div`
     width: 100%;
     position: absolute;
     left: 50%;
-    top: 100%;
+    top: 95%;
     transform: translate(-50%, -120%);
     text-align: center;
     text-transform: uppercase;
     color: ${({ theme }) => theme.colors.accent};
     font-size: ${({ theme }) => theme.typography.sizeH3};
     font-weight: ${({ theme }) => theme.typography.weightBlack};
-    text-shadow: 1px 3px 10px ${({ theme }) => theme.colors.text};
+    line-height: 0.9em;
+    text-shadow: 1px 2px 10px ${({ theme }) => theme.colors.label};
     z-index: ${({ theme }) => theme.zIndex.level1};
   }
 

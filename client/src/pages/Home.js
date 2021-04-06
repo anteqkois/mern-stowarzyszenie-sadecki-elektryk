@@ -3,12 +3,14 @@ import React from 'react'
 
 import About from '../containers/About'
 import Projects from '../containers/Projects';
+import Aid from '../containers/Aid';
 
 const Home = ({isMobile}) => {
   return (
     <>
       <About isMobile={isMobile}/>
       <Projects/>
+      <Aid/>
     </>
   )
 }

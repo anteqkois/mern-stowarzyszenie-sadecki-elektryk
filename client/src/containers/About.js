@@ -1,18 +1,23 @@
 import React, { useContext } from 'react';
 import { WidthDeviceContext } from '../context/Context';
 import styled from 'styled-components';
-import HeroImage from '../components/HeroImage/HeroImage';
-import HeadLine from '../components/HeadLine/HeadLine';
-import TeacherAndStudenIllustration from '../components/TeacherAndStudenIllustration/TeacherAndStudenIllustration';
-import DescriptionOfAssociation from '../components/DescriptionOfAssociation/DescriptionOfAssociation';
+import HeroImage from '../components/about/HeroImage';
+import HeadLine from '../components/about/HeadLine';
+import TeacherAndStudenIllustration from '../components/about/TeacherAndStudenIllustration';
+import DescriptionOfAssociation from '../components/about/DescriptionOfAssociation';
 
 const StyledAbout = styled.div`
   //margin: 70px 0 70px 0;
-  padding: 70px 0 15vw 0;
+  padding: 70px 0 0 0;
 
-  ${({ theme }) => theme.media.bigTablet} {
-    display: grid;
+  ${({ theme }) => theme.media.tablet} {
+    > div {
+      margin: 10% 0;
+    }
+    //display: grid;
     //padding: 70px 0 120px 0;
+    //grid-row-gap: 10%;
+    //display: flex;
   } ;
 `;
 
@@ -36,8 +41,8 @@ const About = () => {
     <StyledAbout>
       <StyledHeadLine />
       <HeroImage />
-      <TeacherAndStudenIllustration />
       <StyledDescription />
+      <TeacherAndStudenIllustration />
     </StyledAbout>
   );
 };

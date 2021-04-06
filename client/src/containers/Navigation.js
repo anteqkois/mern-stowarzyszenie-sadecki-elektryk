@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { WidthDeviceContext } from '../context/Context';
 
-import MenuList from '../components/menuList/MenuList';
-import HamburgerMenu from '../components/hamburgerMenu/HamburgerMenu';
-import DarkModeSwitch from '../components/darkModeSwitch/DarkModeSwitch';
-import Logo from '../components/logo/Logo';
+import MenuList from '../components/navigation/MenuList';
+import HamburgerMenu from '../components/navigation/HamburgerMenu';
+import DarkModeSwitch from '../components/navigation/DarkModeSwitch';
+import Logo from '../components/utils/Logo';
 
 const StyledNavigation = styled.nav`
   width: 100vw;
@@ -30,7 +30,9 @@ const StyledNavigation = styled.nav`
     position: absolute;
     top: 0;
     left: 0;
-    box-shadow: black 0px 0px 10px;
+    box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
+      ${({ theme }) => theme.colors.accent} 0px -12px 30px, 
+      black 0px 0px 10px;
     opacity: ${({ isActive }) => (isActive ? 0 : 1)};
     transition: opacity ease-in-out 0.25s;
   }
