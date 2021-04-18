@@ -18,6 +18,7 @@ const StyledHamburgerMenu = styled.button`
 
   span {
     background-color: black;
+    background: linear-gradient(35.25deg, #4d0a83 28.05%, #a2141b 107.82%);
     width: 35px;
     height: 4px;
     border-radius: 15px;
@@ -41,13 +42,13 @@ const StyledHamburgerMenu = styled.button`
       isActive
         ? '  translateY(-13px) rotate(-45deg) '
         : '  translateY(0px) rotate(0deg)'};
-    transition: transform  ease-in-out 0.25s;
+    transition: transform ease-in-out 0.25s;
   }
 `;
 
 const HamburgerMenu = ({setIsActive, isActive}) => {
   return (
-    <StyledHamburgerMenu onClick={() => setIsActive(!isActive)} isActive={isActive}>
+    <StyledHamburgerMenu onClick={() => setIsActive(isActive => !isActive)} isActive={isActive}>
       <span />
       <span />
       <span />

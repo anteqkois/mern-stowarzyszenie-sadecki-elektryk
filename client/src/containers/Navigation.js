@@ -18,7 +18,7 @@ const StyledNavigation = styled.nav`
   grid-template-columns: 80px auto 80px;
   align-items: center;
   justify-items: center;
-  color: ${({ theme }) => theme.colors.bodyText};
+  //color: ${({ theme }) => theme.colors.primary};
   background-color: ${({ theme }) => theme.colors.primary};
   //backdrop-filter: blur(10px);
   z-index: ${({ theme }) => theme.zIndex.level10};
@@ -104,7 +104,7 @@ const Navigation = () => {
       isActive={isActive}
     >
       <StyledLogo />
-      <MenuList isActive={true} />
+      <MenuList isActive={true} withSHadowAndBackground={withSHadowAndBackground} />
       <DarkModeSwitch />
     </StyledNavigation>
   );

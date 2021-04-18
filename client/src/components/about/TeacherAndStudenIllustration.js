@@ -1,21 +1,13 @@
 import React from 'react'
 import styled from 'styled-components';
 import {ReactComponent as TeacherAndStudent} from '../../assets/StudentAndTeacher.svg';
-import {ReactComponent as StainTwo} from '../../assets/StainTwo.svg';
 
 const StyledTeacherAndStudenIllustration = styled.div`
   position: relative;
   height: 40vw;
+  top: 100px;
 `;
 
-const StyledStainTwo = styled(StainTwo)`
-  width: 60vw;
-  height: 130%;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-`;
 
 const StyledTeacherAndStudent = styled(TeacherAndStudent)`
     height: 60%;
@@ -28,7 +20,6 @@ const StyledTeacherAndStudent = styled(TeacherAndStudent)`
 const TeacherAndStudenIllustration = () => {
   return (
     <StyledTeacherAndStudenIllustration>
-      <StyledStainTwo />
       <StyledTeacherAndStudent />
     </StyledTeacherAndStudenIllustration>
   );

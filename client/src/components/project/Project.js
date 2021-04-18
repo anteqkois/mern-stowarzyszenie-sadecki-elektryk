@@ -13,7 +13,19 @@ const StyledProject = styled.div`
   position: relative;
   max-width: 500px;
 
-  ::after {
+  background: rgb(231, 230, 230);
+  background: linear-gradient(
+    39deg,
+    rgba(231, 230, 230, 1) 0%,
+    rgba(240, 240, 240, 1) 41%,
+    rgba(241, 241, 241, 1) 95%
+  );
+  box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(5.5px);
+  -webkit-backdrop-filter: blur(5.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  /* ::after {
     content: '';
     position: absolute;
     bottom: -5px;
@@ -22,27 +34,29 @@ const StyledProject = styled.div`
     height: 1px;
     width: calc(100% - 30px);
     background-color: ${({ theme }) => theme.colors.noActive};
-  }
+  } */
 
   h1 {
     padding: 1.1em 0;
     font-size: ${({ theme }) => theme.typography.sizeH6};
     font-weight: ${({ theme }) => theme.typography.weightExtraBold};
-    color: ${({ theme }) => theme.colors.accent};
+    color: transparent;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: ${({ theme }) => theme.colors.accent};
     line-height: 1.1em;
     text-transform: uppercase;
   }
 
-  img{
+  img {
     position: absolute;
     right: 5%;
     top: 5%;
     width: 70%;
     max-width: 300px;
-    opacity: 0.15;
+    opacity: 0.1;
+    z-index: ${({ theme }) => theme.zIndex.levelMinus1};
   }
   p {
-    //padding: 0.7em 0;
     color: ${({ theme }) => theme.colors.label};
 
     :nth-of-type(2) {
@@ -71,8 +85,8 @@ const StyledProject = styled.div`
       }
     }
     button {
-      place-self: start;
-      transform: translateX(150%);
+      //place-self: start;
+      //transform: translateX(150%);
     }
   }
 `;
@@ -114,7 +128,7 @@ const Project = ({ slug, _id, title, category, date, description }) => {
       <img src={categoryOfProject} alt='category of project' />
       <p>{dateToPut}</p>
       <p>{description}</p>
-      <Button>Więcej</Button>
+      <Button>Więcej Projektów</Button>
     </StyledProject>
   );
 };

@@ -5,6 +5,7 @@ const colors = {
   text: '#333333',
   label: '#908E9B',
   noActive: '#C4C2CD',
+  gradient: 'linear-gradient(35.25deg, #4D0A83 28.05%, #A2141B 107.82%)',
 };
 
 const typography = {

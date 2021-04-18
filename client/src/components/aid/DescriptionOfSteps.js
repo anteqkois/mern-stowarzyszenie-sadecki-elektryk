@@ -11,7 +11,7 @@ const StyledDescriptionOfSteps = styled.ul`
 
   li {
     text-align: center;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.text};
     font-weight: ${({ theme }) => theme.typography.weightBold};
     max-width: 50ch;
   }
@@ -27,6 +27,7 @@ const StyledDescriptionOfSteps = styled.ul`
     justify-content: space-around;
 
     li {
+      color: ${({ theme }) => theme.colors.primary};
       opacity: 0.5;
       transform: scale(0.9);
       transition: transform ease-out 0.15s;
@@ -44,7 +45,7 @@ const StyledDescriptionOfSteps = styled.ul`
       top: 0;
       height: 100%;
       width: 125%;
-      background-color: ${({ theme }) => theme.colors.accent};
+      background: ${({ theme }) => theme.colors.gradient};
       border-radius: 8px;
       z-index: ${({ theme }) => theme.zIndex.levelMinus1};
     }

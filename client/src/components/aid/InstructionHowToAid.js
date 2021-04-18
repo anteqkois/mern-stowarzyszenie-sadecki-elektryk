@@ -9,14 +9,15 @@ const StyledInstructionHowToAid = styled.div`
   width: 100%;
   //height: 350px;
   padding: 35px 15px;
-  background-color: ${({ theme }) => theme.colors.accent};
-
+  //background: ${({ theme }) => theme.colors.gradient};
+  
   button {
-    color: ${({ theme }) => theme.colors.primary};
-    border: 3px solid ${({ theme }) => theme.colors.primary};
     left: 50%;
     transform: translateX(-50%);
     z-index: ${({ theme }) => theme.zIndex.level1};
+/*     
+    color: ${({ theme }) => theme.colors.primary};
+    border: 3px solid ${({ theme }) => theme.colors.primary};
 
     ::before {
       background-color: ${({ theme }) => theme.colors.primary};
@@ -25,7 +26,7 @@ const StyledInstructionHowToAid = styled.div`
     :hover,
     :focus {
       color: ${({ theme }) => theme.colors.accent};
-    }
+    } */
 
     ${({ theme }) => theme.media.tablet} {
       color: ${({ theme }) => theme.colors.accent};
@@ -81,12 +82,12 @@ const StyledInstructionHowToAid = styled.div`
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.18);
 
-      div{
-      position: absolute;
-      left: 50%;
-      bottom: 50%;
-      transform: translate(-50%, 50%);
-      width: 85%; 
+      div {
+        position: absolute;
+        left: 50%;
+        bottom: 50%;
+        transform: translate(-50%, 50%);
+        width: 85%;
       }
       button {
         position: absolute;

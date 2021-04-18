@@ -17,7 +17,7 @@ const StyledMenuList = styled.ul`
   transform: ${({ isActive }) =>
     isActive ? 'translateX(0vw)' : 'translateX(-100vw)'};
   transition: transform ease-in-out 0.25s;
-  z-index: ${({ theme }) => theme.zIndex.level1};
+  z-index: ${({ theme }) => theme.zIndex.level5};
 
   ${({ theme }) => theme.media.tablet} {
     width: 100%;
@@ -47,11 +47,16 @@ const menuItems = [
   },
 ];
 
-const MenuList = ({isActive}) => {
+const MenuList = ({ isActive, withSHadowAndBackground }) => {
   return (
     <StyledMenuList isActive={isActive}>
       {menuItems.map((item, index) => (
-        <MenuItem key={index} label={item.label} link={item.link} />
+        <MenuItem
+          key={index}
+          label={item.label}
+          link={item.link}
+          withSHadowAndBackground={withSHadowAndBackground}
+        />
       ))}
     </StyledMenuList>
   );

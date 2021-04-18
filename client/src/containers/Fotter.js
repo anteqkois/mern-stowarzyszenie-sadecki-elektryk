@@ -13,12 +13,7 @@ const StyledFotter = styled.footer`
   place-content: center;
   background: rgb(21, 1, 37);
   color: ${({ theme }) => theme.colors.primary};
-  background: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 1) 19%,
-    rgba(27, 2, 50, 1) 75%,
-    rgba(39, 4, 68, 1) 110%
-  );
+  background: ${({theme }) => 'linear-gradient(0deg, rgba(0,0,0,1) 19%, rgba(27,2,50,1) 65%, rgba(39,4,68,1) 100%)'};
 
   a {
     all: unset;
@@ -37,7 +32,6 @@ const StyledFotter = styled.footer`
     }
   }
   h4 {
-    //font-size: ${({ theme }) => theme.typography.sizeH6};
     font-weight: ${({ theme }) => theme.typography.weightBold};
     text-transform: uppercase;
     padding: 1em 0;
@@ -47,6 +41,7 @@ const StyledFotter = styled.footer`
     grid-template-rows: 1fr 0.5fr;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
+    background: ${({ theme }) => theme.colors.gradient};
   }
 `;
 

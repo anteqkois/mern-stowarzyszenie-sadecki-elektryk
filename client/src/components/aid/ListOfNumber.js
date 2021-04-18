@@ -18,9 +18,9 @@ const StyledDescriptionOfSteps = styled.ul`
     //padding: 15px;
     width: 35px;
     height: 35px;
-    color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.primary};
     font-weight: ${({ theme }) => theme.typography.weightExtraBold};
-    background-color: ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.accent};
     border-radius: 50%;
     cursor: pointer;
 
@@ -47,7 +47,7 @@ const StyledDescriptionOfSteps = styled.ul`
       width: 100%;
       height: 100%;
       position: absolute;
-      border: 2px solid ${({ theme }) => theme.colors.primary};
+      border: 2px solid ${({ theme }) => theme.colors.accent};
       border-radius: inherit;
       transform: scale(0.9);
       transition: transform ease-out 0.15s;
@@ -58,14 +58,22 @@ const StyledDescriptionOfSteps = styled.ul`
       transition: transform ease-out 0.15s;
 
       ::after {
-        transform: scale(1.35); 
+        transform: scale(1.35);
       }
     }
   }
 
   ${({ theme }) => theme.media.tablet} {
     flex-direction: column;
-    
+
+    li {
+      color: ${({ theme }) => theme.colors.accent};
+      background-color: ${({ theme }) => theme.colors.primary};
+
+      ::after {
+        border: 2px solid ${({ theme }) => theme.colors.primary};
+      }
+    }
   }
 `;
 

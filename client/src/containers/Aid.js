@@ -15,7 +15,6 @@ const StyledAid = styled.div`
   justify-content: center;
 
   ${({ theme }) => theme.media.desktop} {
-    //justify-content: space-around;
     column-gap: 10%;
     row-gap: 3em;
   }

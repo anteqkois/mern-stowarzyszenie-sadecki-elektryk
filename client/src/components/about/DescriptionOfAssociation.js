@@ -2,21 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '../utils/Button';
 import { ReactComponent as StainThree } from '../../assets/StainThree.svg';
+import { Link } from 'react-router-dom';
+
+const StyledLink = styled(Link)`
+all: unset;
+`;
 
 const StyledDescriptionOfAssociation = styled.div`
-  //width: 100vw;
-  //height: 400px;
   padding: 0 15px;
   position: relative;
+z-index: ${({ theme }) => theme.zIndex.level1};
 
   h1 {
-    font-size: ${({ theme }) => theme.typography.sizeH5};
     display: none;
   }
 
   p {
     max-width: 55ch;
-    margin: 1.5em 0;
+    margin: 2em 0;
   }
 
   ${({ theme }) => theme.media.tablet} {
@@ -24,6 +27,12 @@ const StyledDescriptionOfAssociation = styled.div`
     height: 400px;
     h1 {
       display: inline-block;
+      text-transform: uppercase;
+      margin: 0.6em 0;
+      max-width: 18ch;
+      line-height: 1.1em;
+      font-size: ${({ theme }) => theme.typography.sizeH3};
+      font-weight: ${({ theme }) => theme.typography.weightExtraBold};
       color: ${({ theme }) => theme.colors.primary};
     }
     p {
@@ -35,6 +44,12 @@ const StyledDescriptionOfAssociation = styled.div`
       transform: translateY(-50%);
     }
   }
+
+  ${({theme})=> theme.media.desktop}{
+    h1{
+      font-size: ${({ theme }) => theme.typography.sizeH2};
+    }
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -43,7 +58,7 @@ const StyledButton = styled(Button)`
 
   ${({ theme }) => theme.media.tablet} {
     left: 0;
-    transform: translateX(50%);
+    transform: translateX(40%);
     color: ${({ theme }) => theme.colors.primary};
     border: 3px solid ${({ theme }) => theme.colors.primary};
 
@@ -58,28 +73,12 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const StyledStainThree = styled(StainThree)`
-  display: none;
-  ${({ theme }) => theme.media.tablet} {
-    display: inline-block;
-    min-width: 700px;
-    width: 65vw;
-    max-width: 900px;
-    height: 150%;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: ${({ theme }) => theme.zIndex.levelMinus1};
-  }
-`;
 
 const DescriptionOfAssociation = ({ className }) => {
   return (
     <StyledDescriptionOfAssociation className={className}>
-      <StyledStainThree />
       <div>
-        <h1>Kim jesteśmy ?</h1>
+        <h1>Stowarzyszenie Sądecki Elektryk</h1>
         <p>
           To stowarzyszenie założone przez nauczycieli, by wspierać szkołę oraz
           młodzież przez organizowanie imprez, wydarzeń oraz realizację
@@ -91,7 +90,9 @@ const DescriptionOfAssociation = ({ className }) => {
           niekonwencjonalne podejście do popularyzacji nauki wśród młodych oraz
           kreowanie odpowiednich postaw społecznych.
         </p>
-        <StyledButton>Ostatnie Projekty</StyledButton>
+        <StyledLink to="/projects">
+          <StyledButton>Ostatnie Projekty</StyledButton>
+        </StyledLink>
       </div>
     </StyledDescriptionOfAssociation>
   );
