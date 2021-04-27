@@ -67,10 +67,18 @@ const StyledProject = styled.div`
   }
   button {
     place-self: center;
+    margin: 0.5em;
   }
 
   ${({ theme }) => theme.media.tablet} {
     max-width: 600px;
+
+    place-self: start;
+    transform: translate(45%, 0);
+    :nth-last-of-type(2n) {
+      place-self: end;
+      transform: translate(-45%, 0);
+    }
 
     ::after {
       content: unset;

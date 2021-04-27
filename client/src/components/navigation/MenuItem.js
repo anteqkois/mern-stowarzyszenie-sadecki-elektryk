@@ -5,7 +5,7 @@ const StyledItem = styled.li`
   position: relative;
   list-style-type: none;
   text-align: center;
-    color: ${({ theme }) => theme.colors.accent};
+  color: ${({ theme }) => theme.colors.accent};
   font-size: 1rem;
   font-weight: ${({ theme }) => theme.typography.weightBold};
   padding: 15px 10px;
@@ -21,8 +21,8 @@ const StyledItem = styled.li`
     bottom: 5px;
     left: 0;
 
-    background-color: ${({ withSHadowAndBackground, theme }) =>
-      withSHadowAndBackground ? theme.colors.accent : theme.colors.primary};
+    background: ${({ withSHadowAndBackground, theme }) =>
+      withSHadowAndBackground ? theme.colors.gradient : theme.colors.primary};
     transform: rotateY(-90deg);
     transition: all ease-out 0.25s;
   }
@@ -31,8 +31,8 @@ const StyledItem = styled.li`
   }
 
   ${({ theme }) => theme.media.tablet} {
-  color: ${({ withSHadowAndBackground, theme }) =>
-    withSHadowAndBackground ? theme.colors.accent : theme.colors.primary};
+    color: ${({ withSHadowAndBackground, theme }) =>
+      withSHadowAndBackground ? theme.colors.accent : theme.colors.primary};
     margin: 0 0.6em;
   }
 `;

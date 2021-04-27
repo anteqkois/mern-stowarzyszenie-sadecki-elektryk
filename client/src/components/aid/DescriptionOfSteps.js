@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledDescriptionOfSteps = styled.ul`
-  min-height: 100px;
+  min-height: 120px;
   //padding: 0 15px;
   list-style-type: none;
   display: flex;

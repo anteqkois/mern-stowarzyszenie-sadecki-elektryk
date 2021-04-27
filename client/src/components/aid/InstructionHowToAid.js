@@ -10,36 +10,15 @@ const StyledInstructionHowToAid = styled.div`
   //height: 350px;
   padding: 35px 15px;
   //background: ${({ theme }) => theme.colors.gradient};
-  
+
   button {
     left: 50%;
     transform: translateX(-50%);
     z-index: ${({ theme }) => theme.zIndex.level1};
-/*     
-    color: ${({ theme }) => theme.colors.primary};
-    border: 3px solid ${({ theme }) => theme.colors.primary};
-
-    ::before {
-      background-color: ${({ theme }) => theme.colors.primary};
-    }
-
+    
     :hover,
     :focus {
-      color: ${({ theme }) => theme.colors.accent};
-    } */
-
-    ${({ theme }) => theme.media.tablet} {
-      color: ${({ theme }) => theme.colors.accent};
-      border: 3px solid ${({ theme }) => theme.colors.accent};
-
-      ::before {
-        background-color: ${({ theme }) => theme.colors.accent};
-      }
-
-      :hover,
-      :focus {
-        color: ${({ theme }) => theme.colors.primary};
-      }
+      transform: translate(-50%, -7px);
     }
   }
 

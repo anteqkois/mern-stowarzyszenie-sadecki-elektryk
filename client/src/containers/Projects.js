@@ -10,33 +10,8 @@ const StyledProjects = styled.div`
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
-  grid-gap: 50px;
+  grid-gap: 70px;
   justify-items: center;
-
-  ${({ theme }) => theme.media.tablet} {
-    div {
-      justify-self: start;
-      transform: translateX(10vw);
-    }
-    div:nth-of-type(2n-1) {
-      justify-self: end;
-      transform: translateX(-10vw);
-    }
-    div:nth-of-type(1) {
-      transform: translateX(0vw);
-    }
-  }
-  ${({ theme }) => theme.media.bigTablet} {
-    div {
-      transform: translateX(20vw);
-    }
-    div:nth-of-type(2n-1) {
-      transform: translateX(-15vw);
-    }
-    div:nth-of-type(1) {
-      transform: translateX(0vw);
-    }
-  }
 `;
 
 const StyledLoading = styled.div`

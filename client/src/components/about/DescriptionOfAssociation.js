@@ -59,16 +59,17 @@ const StyledButton = styled(Button)`
   ${({ theme }) => theme.media.tablet} {
     left: 0;
     transform: translateX(40%);
-    color: ${({ theme }) => theme.colors.primary};
-    border: 3px solid ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.accent};
+    background: ${({ theme }) => theme.colors.primary};
 
     ::before {
-      background-color: ${({ theme }) => theme.colors.primary};
+      //background-color: ${({ theme }) => theme.colors.primary};
     }
 
     :hover,
     :focus {
-      color: ${({ theme }) => theme.colors.accent};
+      //color: ${({ theme }) => theme.colors.accent};
+      transform: translate(40%, -7px);
     }
   }
 `;
