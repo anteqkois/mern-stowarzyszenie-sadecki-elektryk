@@ -31,8 +31,8 @@ const StyledNavigation = styled.nav`
     top: 0;
     left: 0;
     box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
-      ${({ theme }) => theme.colors.accent} 0px -12px 30px, 
-      black 0px 0px 10px;
+      ${({ theme }) => theme.colors.primary} 0px -12px 30px,
+      black 0px 0px 10px -4px;
     opacity: ${({ isActive }) => (isActive ? 0 : 1)};
     transition: opacity ease-in-out 0.25s;
   }
@@ -42,15 +42,15 @@ const StyledNavigation = styled.nav`
         100px,
         auto
       );
-    background-color: ${({ withSHadowAndBackground, theme }) =>
-      withSHadowAndBackground ? theme.colors.primary : 'transparent'};
-    transform: ${({ withSHadowAndBackground }) =>
-      withSHadowAndBackground ? 'translateY(0px)' : 'translateY(10px)'};
+    background-color: ${({ withShadowAndBackground, theme }) =>
+      withShadowAndBackground ? theme.colors.primary : 'transparent'};
+    transform: ${({ withShadowAndBackground }) =>
+      withShadowAndBackground ? 'translateY(0px)' : 'translateY(10px)'};
     transition: background-color ease-in-out 0.25s, transform ease-in-out 0.25s;
 
     ::after {
-      opacity: ${({ withSHadowAndBackground }) =>
-        withSHadowAndBackground ? 1 : 0};
+      opacity: ${({ withShadowAndBackground }) =>
+        withShadowAndBackground ? 1 : 0};
     }
   }
 `;
@@ -74,14 +74,14 @@ const throttle = (fn, waitTime) => {
 
 const Navigation = () => {
   const [isActive, setIsActive] = useState(false);
-  const [withSHadowAndBackground, setWithSHadowAndBackground] = useState(false);
+  const [withShadowAndBackground, setWithShadowAndBackground] = useState(false);
   const { isMobile } = useContext(WidthDeviceContext);
 
   const trackScroll = () => {
     throttle(
       50 < window.pageYOffset
-        ? (setWithSHadowAndBackground(true), 0)
-        : (setWithSHadowAndBackground(false), 0),
+        ? (setWithShadowAndBackground(true), 0)
+        : (setWithShadowAndBackground(false), 0),
     );
   };
 
@@ -92,19 +92,22 @@ const Navigation = () => {
   return isMobile ? (
     <>
       <StyledNavigation isActive={isActive}>
-        <StyledLogo/>
         <DarkModeSwitch />
+        <StyledLogo />
         <HamburgerMenu setIsActive={setIsActive} isActive={isActive} />
       </StyledNavigation>
-      <MenuList isActive={isActive} />
+      <MenuList isActive={isActive} setIsActive={setIsActive} />
     </>
   ) : (
     <StyledNavigation
-      withSHadowAndBackground={withSHadowAndBackground}
+      withShadowAndBackground={withShadowAndBackground}
       isActive={isActive}
     >
       <StyledLogo />
-      <MenuList isActive={true} withSHadowAndBackground={withSHadowAndBackground} />
+      <MenuList
+        isActive={true}
+        withShadowAndBackground={withShadowAndBackground}
+      />
       <DarkModeSwitch />
     </StyledNavigation>
   );

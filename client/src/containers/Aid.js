@@ -1,4 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
+
+import { useLocation } from 'react-router-dom';
+
 import {WidthDeviceContext }from '../context/Context';
 import styled from 'styled-components';
 import ImageBlock from '../components/utils/ImageBlock'
@@ -9,11 +12,27 @@ import StudenIllustration from '../components/aid/StudentIllustration';
 import image from '../assets/aid-block.jpg';
 
 const StyledAid = styled.div`
-  margin: 10vw 0;
+  margin: 70px 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
+  ::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: ${({ theme }) => theme.colors.gradient};
+    display: ${({ location }) => location === '/aid' ? 'block':'none'};
+  }
+
+  ${({ theme }) => theme.media.tablet} {
+    margin: 90px 0;
+    column-gap: 10%;
+    row-gap: 3em;
+  }
   ${({ theme }) => theme.media.desktop} {
     column-gap: 10%;
     row-gap: 3em;
@@ -54,6 +73,8 @@ const Aid = () => {
   const [activeStep, setActiveStep] = useState(1);
   const [stepToShow, setStepToShow] = useState([activeStep - 1]);
 
+  let location = useLocation();
+
   useEffect(() => {
     isMobile
       ? setStepToShow([stepHowToAid[activeStep - 1]])
@@ -61,13 +82,12 @@ const Aid = () => {
   }, [isMobile, activeStep]);
 
   const handleNextStep = (step)=>{
-    //console.log(step);
     setActiveStep(step);
   }
 
   return stepToShow ? (
     
-    <StyledAid>
+    <StyledAid location={location.pathname} >
       <ImageBlock img={image} title="Jak wspomoć?" />
       <DescriptionOfAid />
       {!isMobile && <StudenIllustration />}

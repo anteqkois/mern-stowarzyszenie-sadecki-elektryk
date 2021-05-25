@@ -4,9 +4,6 @@ import Button from '../utils/Button';
 import { ReactComponent as StainThree } from '../../assets/StainThree.svg';
 import { Link } from 'react-router-dom';
 
-const StyledLink = styled(Link)`
-all: unset;
-`;
 
 const StyledDescriptionOfAssociation = styled.div`
   padding: 0 15px;
@@ -51,24 +48,25 @@ z-index: ${({ theme }) => theme.zIndex.level1};
     }
   }
 `;
+const StyledLink = styled(Link)`
+all: unset;
+`;
 
 const StyledButton = styled(Button)`
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 0);
+
+  :hover,
+  :focus {
+    transform: translate(-50%, -7px);
+  }
 
   ${({ theme }) => theme.media.tablet} {
     left: 0;
-    transform: translateX(40%);
-    color: ${({ theme }) => theme.colors.accent};
-    background: ${({ theme }) => theme.colors.primary};
-
-    ::before {
-      //background-color: ${({ theme }) => theme.colors.primary};
-    }
+    transform: translate(40%, 0);
 
     :hover,
     :focus {
-      //color: ${({ theme }) => theme.colors.accent};
       transform: translate(40%, -7px);
     }
   }
@@ -92,7 +90,7 @@ const DescriptionOfAssociation = ({ className }) => {
           kreowanie odpowiednich postaw społecznych.
         </p>
         <StyledLink to="/projects">
-          <StyledButton>Ostatnie Projekty</StyledButton>
+          <StyledButton white >Ostatnie Projekty</StyledButton>
         </StyledLink>
       </div>
     </StyledDescriptionOfAssociation>

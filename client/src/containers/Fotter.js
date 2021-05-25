@@ -7,15 +7,19 @@ import { ReactComponent as BackgroundFotter } from '../assets/backgroundFotter.s
 
 const StyledFotter = styled.footer`
   width: 100vw;
-  padding: 3em 5%;
+  padding: 10em 5% 2em 5%;
   position: relative;
   display: grid;
   grid-template-rows: 0.8fr 1fr 0.3fr;
   grid-row-gap: 2em;
   place-content: center;
   color: ${({ theme }) => theme.colors.primary};
-  //background: rgb(21, 1, 37);
- // background: ${({theme }) => 'linear-gradient(0deg, rgba(0,0,0,1) 19%, rgba(27,2,50,1) 65%, rgba(39,4,68,1) 100%)'};
+  overflow-x: hidden;
+  overflow-y: clip;
+
+  /* background: rgb(21, 1, 37);
+  background: ${({ theme }) =>
+    'linear-gradient(0deg, rgba(0,0,0,1) 19%, rgba(27,2,50,1) 65%, rgba(39,4,68,1) 100%)'}; */
 
   a {
     all: unset;
@@ -49,16 +53,11 @@ const StyledFotter = styled.footer`
 
 const StyledBackgroundFotter = styled(BackgroundFotter)`
   position: absolute;
-  left: -10%;
-  bottom: 0;
+  left: -0%;
+  top: -25%;
   width: 200%;
   height: 140%;
   z-index: ${({ theme }) => theme.zIndex.levelMinus1};
-
-  ${({ theme }) => theme.media.desktop} {
-    left: 0;
-    width: 100%;
-  }
 `;
 
 const Fotter = () => {

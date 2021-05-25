@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../utils/Button';
 import programing from '../../assets/iconmonstr-programing.svg';
@@ -65,7 +66,8 @@ const StyledProject = styled.div`
       line-height: 1.15em;
     }
   }
-  button {
+  a {
+    all: unset;
     place-self: center;
     margin: 0.5em;
   }
@@ -91,10 +93,6 @@ const StyledProject = styled.div`
       :nth-of-type(2) {
         max-width: 55ch;
       }
-    }
-    button {
-      //place-self: start;
-      //transform: translateX(150%);
     }
   }
 `;
@@ -133,10 +131,12 @@ const Project = ({ slug, _id, title, category, date, description }) => {
   return (
     <StyledProject>
       <h1>{title}</h1>
-      <img src={categoryOfProject} alt='category of project' />
+      <img src={categoryOfProject} alt="category of project" />
       <p>{dateToPut}</p>
       <p>{description}</p>
-      <Button>Więcej Projektów</Button>
+      <Link to="/projects">
+        <Button>Więcej Projektów</Button>
+      </Link>
     </StyledProject>
   );
 };

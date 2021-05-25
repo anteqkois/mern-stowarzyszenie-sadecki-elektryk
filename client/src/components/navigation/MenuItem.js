@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const StyledItem = styled.li`
+const StyledItem = styled(Link)`
+  text-decoration: none;
+
   position: relative;
   list-style-type: none;
   text-align: center;
@@ -21,8 +24,8 @@ const StyledItem = styled.li`
     bottom: 5px;
     left: 0;
 
-    background: ${({ withSHadowAndBackground, theme }) =>
-      withSHadowAndBackground ? theme.colors.gradient : theme.colors.primary};
+    background: ${({ withShadowAndBackground, theme }) =>
+      withShadowAndBackground ? theme.colors.gradient : theme.colors.primary};
     transform: rotateY(-90deg);
     transition: all ease-out 0.25s;
   }
@@ -31,15 +34,19 @@ const StyledItem = styled.li`
   }
 
   ${({ theme }) => theme.media.tablet} {
-    color: ${({ withSHadowAndBackground, theme }) =>
-      withSHadowAndBackground ? theme.colors.accent : theme.colors.primary};
+    color: ${({ withShadowAndBackground, theme }) =>
+      withShadowAndBackground ? theme.colors.accent : theme.colors.primary};
     margin: 0 0.6em;
   }
 `;
 
-const menuItem = ({ label, link, withSHadowAndBackground }) => {
+const menuItem = ({ setIsActive, label, link, withShadowAndBackground }) => {
   return (
-    <StyledItem withSHadowAndBackground={withSHadowAndBackground}>
+    <StyledItem
+      onClick={() => setIsActive && setIsActive(false)}
+      to={link}
+      withShadowAndBackground={withShadowAndBackground}
+    >
       {label}
     </StyledItem>
   );

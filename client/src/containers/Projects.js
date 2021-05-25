@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import axios from 'axios';
 import image from '../assets/project-block.jpg';
 import ImageBlock from '../components/utils/ImageBlock';
@@ -15,15 +15,10 @@ const StyledProjects = styled.div`
 `;
 
 const StyledLoading = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 60px;
-  flex-direction: column;
-  width: 100vw;
-  height: 150px;
+  margin: 0 auto;
+  width: 300px;
   text-align: center;
-  font-size: ${({ theme }) => theme.typography.sizeH6};
+  font-size: ${({ theme }) => theme.typography.sizeH5};
 `;
 
 
@@ -50,8 +45,8 @@ const Projects = () => {
     <>
       <ImageBlock img={image} title="Projekty" />
       <StyledLoading>
-        Pobieraie projektów z bazy danych...
         <Spinner />
+        <h5>Pobieraie projektów z bazy danych...</h5>
       </StyledLoading>
     </>
   ) : (

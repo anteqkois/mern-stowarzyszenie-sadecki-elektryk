@@ -31,31 +31,32 @@ const StyledMenuList = styled.ul`
 const menuItems = [
   {
     label: 'Strona główna',
-    link: 'test',
+    link: '/',
   },
   {
     label: 'Więcej projektów',
-    link: 'test',
+    link: '/projects',
   },
   {
     label: 'Jak wspomóć',
-    link: 'test',
+    link: '/aid',
   },
   {
     label: 'Panel Administratora',
-    link: 'test',
+    link: '/admin',
   },
 ];
 
-const MenuList = ({ isActive, withSHadowAndBackground }) => {
+const MenuList = ({ isActive, setIsActive, withShadowAndBackground }) => {
   return (
     <StyledMenuList isActive={isActive}>
       {menuItems.map((item, index) => (
         <MenuItem
+          setIsActive={setIsActive}
           key={index}
           label={item.label}
           link={item.link}
-          withSHadowAndBackground={withSHadowAndBackground}
+          withShadowAndBackground={withShadowAndBackground}
         />
       ))}
     </StyledMenuList>

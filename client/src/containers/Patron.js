@@ -59,50 +59,62 @@ const NameOfPatron = [
   {
     company: 'bogdański',
     extension: 'png',
+    href: 'http://www.bogdanski.com.pl/',
   },
   {
     company: 'novitus',
     extension: 'svg',
+    href: 'https://novitus.pl/',
   },
   {
     company: 'wiśniowski',
     extension: 'png',
+    href: 'https://www.wisniowski.pl/',
   },
   {
     company: 'erbet',
     extension: 'jpg',
+    href: 'https://www.erbet.pl/',
   },
   {
     company: 'fakro',
     extension: 'png',
+    href: 'https://www.fakro.pl/',
   },
   {
     company: 'ibcs',
     extension: 'png',
+    href: 'https://www.ibcs.pl/',
   },
   {
     company: 'gotoma',
     extension: 'png',
+    href: 'https://gotoma.pl/',
   },
   {
     company: 'nova',
     extension: 'png',
+    href: 'http://www.nova-ns.eu/',
   },
   {
     company: 'mpec',
     extension: 'png',
+    href: 'http://www.mpecns.pl/',
   },
   {
     company: 'sądeckie-wodociągi',
     extension: 'png',
+    href: 'https://swns.pl/',
   },
   {
     company: 'q-graf',
     extension: 'png',
+    href: 'https://www.q-graf.eu/',
   },
   {
     company: 'brdej',
     extension: 'png',
+    href: 'http://meblebrdej.pl/',
   },
 ];
 
@@ -112,8 +124,8 @@ const Patrons = () => {
       <StyledLines />
       <h1>Pomagają nam</h1>
       <StyledPatronContainer>
-        {NameOfPatron.map(({ company, extension }) => (
-          <Patron key={company} src={`${company}.${extension}`} alt={company} />
+        {NameOfPatron.map(({ company, extension, href }) => (
+          <Patron key={company} src={`${company}.${extension}`} alt={company} href={href}/>
         ))}
       </StyledPatronContainer>
     </StyledPatron>

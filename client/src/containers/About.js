@@ -59,7 +59,7 @@ const About = () => {
   ) : (
     <>
       <StyledAbout>
-        <StyledBackground fill="url(#light)"></StyledBackground>
+        <StyledBackground fill="url(#light)"/>
         <DescriptionOfAssociation />
         <StyledTeacherAndStuden />
       </StyledAbout>
