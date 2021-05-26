@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import image from '../assets/project-block.jpg';
 import ImageBlock from '../components/utils/ImageBlock';
 import Project from '../components/project/Project';
 import Spinner from '../components/utils/Spinner';
+
+import * as projectsAPI from '../helpers/projectsAPI.js';
 
 const StyledProjects = styled.div`
   display: grid;
@@ -23,22 +24,14 @@ const StyledLoading = styled.div`
 
 
 const Projects = () => {
-  const [project, setProject] = useState('');
+  const [projects, setProjects] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(async () => {
-      const { data } = await axios.get('projects');
-      setProject(data);
-      setIsLoading(false);
-    }, 0);
-
-    // const fetchData = async () => {
-    //   const { data } = await axios.get('projects');
-    //   console.log(data);
-    //   setProject(data);
-    // };
-    // fetchData();
+    (async()=>{
+        setProjects(await projectsAPI.getAll());
+        setIsLoading(false);
+    })();
   }, []);
 
   return isLoading === true ? (
@@ -52,7 +45,7 @@ const Projects = () => {
   ) : (
     <StyledProjects>
       <ImageBlock img={image} title="Projekty" />
-      {project.map(({ slug, _id, title, category, date, description }) => (
+      {projects.map(({ slug, _id, title, category, date, description }) => (
         <Project
           key={_id}
           slug={slug}

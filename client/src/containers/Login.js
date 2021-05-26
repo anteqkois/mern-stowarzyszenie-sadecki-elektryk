@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
 
@@ -44,10 +45,14 @@ const StyledLoginForm = styled.form`
   }
 `;
 
-const Login = () => {
+const Login = (props) => {
   
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [finished, setFinished] = useState(false);
+
+  const { from } = props.location.state || { from: '/'};
+
   const formik = useFormik({
     initialValues: {
       login: login,
@@ -56,12 +61,14 @@ const Login = () => {
     onSubmit: (values, { setSubmitting }) => {
       setLogin(values.login);
       setPassword(values.password);
-      // console.log(login, password);
-      
       sessionStorage.setItem('isLogged', true)
-
+      setFinished(true);
     },
   });
+  
+  if(finished){
+    return <Redirect to={from.pathname}/>
+  }
 
   return (
     <StyledLogin>

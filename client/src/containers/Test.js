@@ -2,6 +2,17 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+const pathVariants = {
+  moon: {
+    d: 'M45 0 C20 30 30 90 95 70 C85 98 54 100 50 100 C0 98 0 50 0 50 C0 0 50 0 45 0',
+    fill: '#e1dfe9',
+  },
+  sun: {
+    d: 'M50 0 C100 2 100 50 100 50 C100 98 54 100 50 100 C0 98 0 50 0 50 C0 0 50 0 50 0',
+    fill: '#DE8704',
+  },
+};
+
 const StyledDiv = styled.div`
   width: 100vw;
   height: 100vh;
@@ -19,23 +30,7 @@ const StyledDiv = styled.div`
 
 const StyledSvg = styled.svg`
   path {
-    /* d: path(
-      'M50 0 C100 2 100 50 100 50 C100 98 54 100 50 100 C0 98 0 50 0 50 C0 0 50 0 50 0'
-    ); */
-    d: ${({ isDarkMod }) =>
-      isDarkMod
-        ? `path('M50 0 C100 2 100 50 100 50 C100 98 54 100 50 100 C0 98 0 50 0 50 C0 0 50 0 50 0')`
-        : `path('M45 0 C20 30 30 90 100 60 C90 98 54 100 50 100 C0 98 0 50 0 50 C0 0 50 0 45 0')`};
-    fill: ${({ isDarkMod }) => (isDarkMod ? '#e1dfe9' : '#DE8704')};
     transition: all 1s ease;
-
-    /* &:hover {
-      d: path(
-        'M45 0 C20 30 30 90 100 60 C90 98 54 100 50 100 C0 98 0 50 0 50 C0 0 50 0 45 0'
-      );
-      fill: #DE8704;
-      transition: all 2s ease;
-    } */
   }
 `;
 
@@ -43,20 +38,25 @@ const Test = () => {
   const [isDarkMod, setIsDarkMod] = useState(false);
 
   return (
-    <StyledDiv onClick={()=> setIsDarkMod(!isDarkMod)}>
+    <StyledDiv onClick={() => setIsDarkMod(!isDarkMod)}>
       <StyledSvg
-      isDarkMod={isDarkMod}
+        isDarkMod={isDarkMod}
         width="500"
         height="500"
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path
+        <motion.path
+          variants={pathVariants}
+          //initial="moon"
+          //whileHover={{ scale: 1.1 }}
+          transition={{ esse: 'easeInOut' }}
+          animate={isDarkMod ? 'moon' : 'sun'}
           //d="M45 0 C20 30 30 90 100 60 C90 98 54 100 50 100 C0 98 0 50 0 50 C0 0 50 0 45 0"
           //d="M50 0 C100 2 100 50 100 50 C100 98 54 100 50 100 C0 98 0 50 0 50 C0 0 50 0 50 0"
           fill="#E1DFE9"
-          />
+        />
       </StyledSvg>
     </StyledDiv>
   );

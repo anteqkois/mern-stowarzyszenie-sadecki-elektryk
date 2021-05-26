@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import Project from '../components/project/Project';
 import Spinner from '../components/utils/Spinner';
+
+import * as projectsAPI from '../helpers/projectsAPI.js';
+
+const StyledProjects = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  grid-gap: 70px;
+  justify-items: center;
+`;
 
 const StyledLoading = styled.div`
   /* display: flex;
@@ -15,45 +25,16 @@ const StyledLoading = styled.div`
   }
 `;
 
-const StyledProjects = styled.div`
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: auto;
-  grid-gap: 70px;
-  justify-items: center;
-`;
-
 const AllProjects = () => {
-  const [projects, setProjects] = useState('');
+  const [project, setProjects] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(
-  //   () => async () => {
-  //     const { data } = await axios.get('projects');
-  //     setProjects(data);
-  //     console.log('i am working !')
-  //     data && setIsLoading(false);
-  //   },
-  //   [],
-  // );
-
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.get('projects');
-      setProjects(data);
+    (async () => {
+      setProjects(await projectsAPI.getAll());
       setIsLoading(false);
-    };
-    fetchData();
+    })();
   }, []);
-
-  // useEffect(() => {
-  //   setTimeout(async () => {
-  //     const { data } = await axios.get('projects');
-  //     setProjects(data);
-  //     console.log(data);
-  //     setIsLoading(false);
-  //   }, 0);
-  //     }, []);
 
   return isLoading ? (
     <StyledLoading>
@@ -62,7 +43,7 @@ const AllProjects = () => {
     </StyledLoading>
   ) : (
     <StyledProjects>
-      {projects.map(({ slug, _id, title, category, date, description }) => (
+      {project.map(({ slug, _id, title, category, date, description }) => (
         <Project
           key={_id}
           slug={slug}

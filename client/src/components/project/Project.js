@@ -72,7 +72,7 @@ const StyledProject = styled.div`
     margin: 0.5em;
   }
 
-  ${({ theme }) => theme.media.tablet} {
+  ${({ theme }) => theme.media.bigTablet} {
     max-width: 600px;
 
     place-self: start;
