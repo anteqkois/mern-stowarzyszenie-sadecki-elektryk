@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 
 const StyledItem = styled(Link)`
   text-decoration: none;
-
   position: relative;
   list-style-type: none;
   text-align: center;
-  color: ${({ theme }) => theme.colors.accent};
+  color: inherit;
   font-size: 1rem;
   font-weight: ${({ theme }) => theme.typography.weightBold};
   padding: 15px 10px;

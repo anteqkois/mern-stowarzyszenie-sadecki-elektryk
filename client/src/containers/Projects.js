@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import image from '../assets/project-block.jpg';
+
 import ImageBlock from '../components/utils/ImageBlock';
 import Project from '../components/project/Project';
 import Spinner from '../components/utils/Spinner';
+
+import image from '../assets/project-block.jpg';
 
 import * as projectsAPI from '../helpers/projectsAPI.js';
 
@@ -57,21 +59,6 @@ const Projects = () => {
       ))}
     </StyledProjects>
   );
-  // <StyledProjects>
-  //   <ImageBlock img={image} title="Projekty" />
-  //   {isLoading ? <div>Loading...</div> :
-  //   {project.map(({ slug, _id, title, category, date, description }) => (
-  //        <Project
-  //          key={_id}
-  //          slug={slug}
-  //          title={title}
-  //          category={category}
-  //          date={date}
-  //          description={description}
-  //        />
-  //      ))}
-  //   }
-  // </StyledProjects>
 };
 
 export default Projects;

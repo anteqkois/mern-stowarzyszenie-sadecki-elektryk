@@ -1,6 +1,7 @@
 import React from 'react';
-import Logo from '../utils/Logo';
 import styled from 'styled-components';
+
+import Logo from '../utils/Logo';
 
 const StyledHeadLine = styled.div`
   position: relative;
@@ -11,7 +12,6 @@ const StyledHeadLine = styled.div`
     position: absolute;
     right: 10vw;
     bottom: 65px;
-    //height: 120px;
     min-height: 120px;
     height: 40vw;
     max-height: 155px;

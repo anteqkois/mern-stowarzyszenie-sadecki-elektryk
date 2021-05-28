@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { WidthDeviceContext } from '../context/Context';
 import styled from 'styled-components';
+
 import HeroImage from '../components/about/HeroImage';
 import HeadLine from '../components/about/HeadLine';
 import LogoAndQuote from '../components/about/LogoAndQuote';
-//import TeacherAndStudenIllustration from '../components/about/TeacherAndStudenIllustration';
-import { ReactComponent as TeacherAndStudent } from '../assets/StudentAndTeacher.svg';
 import DescriptionOfAssociation from '../components/about/DescriptionOfAssociation';
+
+import { ReactComponent as TeacherAndStudent } from '../assets/StudentAndTeacher.svg';
 import { ReactComponent as Background } from '../assets/background.svg';
 
 const StyledAbout = styled.div`
@@ -25,9 +26,6 @@ const StyledBackground = styled(Background)`
   top: 0;
   max-height: 100%;
   fill: ${({ theme }) => theme.colors.gradient};
-  //fill: red;
-  //background: ${({ theme }) => theme.colors.gradient};
-  //mix-blend-mode: overlay;
 
   ${({ theme }) => theme.media.desktop} {
     width: 100vw;

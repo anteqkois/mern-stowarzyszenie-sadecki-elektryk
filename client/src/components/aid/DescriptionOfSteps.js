@@ -23,7 +23,6 @@ const StyledDescriptionOfSteps = styled.ul`
     position: relative;
     padding: 25px 15px 25px 25px;
     flex-direction: column;
-    //align-items: flex-start;
     justify-content: space-around;
 
     li {

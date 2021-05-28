@@ -28,7 +28,6 @@ const StyledLoginForm = styled.form`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-
   padding: 30px 30px;
   height: 400px;
   width: 300px;

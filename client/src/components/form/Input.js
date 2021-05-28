@@ -45,7 +45,6 @@ const Input = ({ type, name, label, handleChange }) => {
         type={type}
         name={name}
         required
-        
       ></input>
       <label >{label}</label>
     </StyledInput>

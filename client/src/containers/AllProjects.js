@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
 import Project from '../components/project/Project';
 import Spinner from '../components/utils/Spinner';
 
@@ -15,11 +16,6 @@ const StyledProjects = styled.div`
 `;
 
 const StyledLoading = styled.div`
-  /* display: flex;
-  align-items: center;
-  flex-direction: column; */
-  //width: 100%;
-
   h5 {
     font-size: ${({ theme }) => theme.typography.sizeH5};
   }
@@ -58,62 +54,3 @@ const AllProjects = () => {
 };
 
 export default AllProjects;
-
-// const Projects = () => {
-//   const [project, setProject] = useState('');
-//   const [isLoading, setIsLoading] = useState(true);
-
-//   useEffect(() => {
-//     setTimeout(async () => {
-//       const { data } = await axios.get('projects');
-//       setProject(data);
-//       setIsLoading(false);
-//     }, 0);
-
-//     // const fetchData = async () => {
-//     //   const { data } = await axios.get('projects');
-//     //   console.log(data);
-//     //   setProject(data);
-//     // };
-//     // fetchData();
-//   }, []);
-
-//   return isLoading === true ? (
-//     <>
-//       <ImageBlock img={image} title="Projekty" />
-//       <StyledLoading>
-//         Pobieraie projektów z bazy danych...
-//         <Spinner />
-//       </StyledLoading>
-//     </>
-//   ) : (
-//     <StyledProjects>
-//       <ImageBlock img={image} title="Projekty" />
-//       {project.map(({ slug, _id, title, category, date, description }) => (
-//         <Project
-//           key={_id}
-//           slug={slug}
-//           title={title}
-//           category={category.category}
-//           date={date}
-//           description={description}
-//         />
-//       ))}
-//     </StyledProjects>
-//   );
-//   // <StyledProjects>
-//   //   <ImageBlock img={image} title="Projekty" />
-//   //   {isLoading ? <div>Loading...</div> :
-//   //   {project.map(({ slug, _id, title, category, date, description }) => (
-//   //        <Project
-//   //          key={_id}
-//   //          slug={slug}
-//   //          title={title}
-//   //          category={category}
-//   //          date={date}
-//   //          description={description}
-//   //        />
-//   //      ))}
-//   //   }
-//   // </StyledProjects>
-// };

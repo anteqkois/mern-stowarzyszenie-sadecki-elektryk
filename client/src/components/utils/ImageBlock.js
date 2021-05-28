@@ -22,7 +22,6 @@ const StyledImageBlock = styled.div`
   }
   img {
     width: 100vw;
-    //height: 150px;
     height: 40vw;
     object-fit: cover;
   }
@@ -35,19 +34,14 @@ const StyledImageBlock = styled.div`
     transform: translate(-50%, -120%);
     text-align: center;
     text-transform: uppercase;
-
     background-image: ${({ theme }) => theme.colors.gradient};
-    //background-clip: text;
-    //text-fill-color: transparent;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -moz-background-clip: text;
     -moz-text-fill-color: transparent;
-
     font-size: ${({ theme }) => theme.typography.sizeH3};
     font-weight: ${({ theme }) => theme.typography.weightBlack};
     line-height: 0.9em;
-    //text-shadow: 1px 2px 10px ${({ theme }) => theme.colors.label};
     z-index: ${({ theme }) => theme.zIndex.level1};
   }
 

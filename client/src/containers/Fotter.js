@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import Association from '../components/fotter/Association';
 import Created from '../components/fotter/Created';
 import Copyright from '../components/fotter/Copyright';
+
 import { ReactComponent as BackgroundFotter } from '../assets/backgroundFotter.svg'
 
 const StyledFotter = styled.footer`
@@ -16,10 +18,6 @@ const StyledFotter = styled.footer`
   color: ${({ theme }) => theme.colors.primary};
   overflow-x: hidden;
   overflow-y: clip;
-
-  /* background: rgb(21, 1, 37);
-  background: ${({ theme }) =>
-    'linear-gradient(0deg, rgba(0,0,0,1) 19%, rgba(27,2,50,1) 65%, rgba(39,4,68,1) 100%)'}; */
 
   a {
     all: unset;
@@ -47,7 +45,6 @@ const StyledFotter = styled.footer`
     grid-template-rows: 1fr 0.5fr;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
-    //background: ${({ theme }) => theme.colors.gradient};
   }
 `;
 

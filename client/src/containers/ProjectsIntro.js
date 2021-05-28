@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ReactComponent as Background } from '../assets/background.svg';
+
 import Button from '../components/utils/Button';
+
+import { ReactComponent as Background } from '../assets/background.svg';
 
 const StyledHeader = styled.header`
   position: relative;

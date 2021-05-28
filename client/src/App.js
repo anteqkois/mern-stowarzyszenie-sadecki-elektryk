@@ -5,7 +5,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-//import styled from 'styled-components';
+
 import { WidthDeviceProvider } from './context/Context';
 
 import Layout from './layouts/Layout';

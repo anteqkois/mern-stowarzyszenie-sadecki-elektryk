@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import DescriptionOfSteps from '../aid/DescriptionOfSteps';
 import ListOfNumber from '../aid/ListOfNumber';
 import Button from '../utils/Button';
@@ -125,11 +126,6 @@ const StyledStepWrapper = styled.div`
 
   ${({ theme }) => theme.media.tablet} {
     img {
-      /* position: absolute;
-      left: 50%;
-      bottom: 50%;
-      transform: translate(-50%, 50%);
-      width: 85%; */
       max-width: 800px;
     }
   }
@@ -149,10 +145,7 @@ const InstructionHowToAid = ({ activeStep, stepToShow, handleNextStep }) => {
           <span data="4"></span>
         </StyledStepWrapper>
         <Button
-          onClick={() => {
-            handleNextStep(activeStep < 5 ? activeStep + 1 : 1);
-            //console.log(activeStep);
-          }}
+          onClick={() => handleNextStep(activeStep < 5 ? activeStep + 1 : 1)}
         >
           Next
         </Button>

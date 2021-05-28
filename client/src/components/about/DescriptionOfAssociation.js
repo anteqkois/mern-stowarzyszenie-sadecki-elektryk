@@ -1,14 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
-import Button from '../utils/Button';
-import { ReactComponent as StainThree } from '../../assets/StainThree.svg';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
+import Button from '../utils/Button';
 
 const StyledDescriptionOfAssociation = styled.div`
   padding: 0 15px;
   position: relative;
-z-index: ${({ theme }) => theme.zIndex.level1};
+  z-index: ${({ theme }) => theme.zIndex.level1};
 
   h1 {
     display: none;
@@ -42,14 +41,14 @@ z-index: ${({ theme }) => theme.zIndex.level1};
     }
   }
 
-  ${({theme})=> theme.media.desktop}{
-    h1{
+  ${({ theme }) => theme.media.desktop} {
+    h1 {
       font-size: ${({ theme }) => theme.typography.sizeH2};
     }
   }
 `;
 const StyledLink = styled(Link)`
-all: unset;
+  all: unset;
 `;
 
 const StyledButton = styled(Button)`
@@ -72,7 +71,6 @@ const StyledButton = styled(Button)`
   }
 `;
 
-
 const DescriptionOfAssociation = ({ className }) => {
   return (
     <StyledDescriptionOfAssociation className={className}>
@@ -90,7 +88,7 @@ const DescriptionOfAssociation = ({ className }) => {
           kreowanie odpowiednich postaw społecznych.
         </p>
         <StyledLink to="/projects">
-          <StyledButton white >Ostatnie Projekty</StyledButton>
+          <StyledButton white>Ostatnie Projekty</StyledButton>
         </StyledLink>
       </div>
     </StyledDescriptionOfAssociation>

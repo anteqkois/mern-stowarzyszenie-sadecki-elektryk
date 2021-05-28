@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
-
 import { useLocation } from 'react-router-dom';
-
 import {WidthDeviceContext }from '../context/Context';
 import styled from 'styled-components';
+
 import ImageBlock from '../components/utils/ImageBlock'
 import DescriptionOfAid from '../components/aid/DescriptionOfAid';
 import InstructionHowToAid from '../components/aid/InstructionHowToAid';

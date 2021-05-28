@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 const StyledButton = styled.button`
   all: unset;
-  //box-sizing: border-box;
-
   padding: 0.5em 1em;
   position: relative;
   text-transform: uppercase;
@@ -31,7 +29,6 @@ const StyledButton = styled.button`
     bottom: 0;
     right: 0;
     border-radius: 5px;
-    //box-shadow: 0px 15px 20px ${({ theme }) => theme.colors.accent};
     box-shadow: ${({ theme, white }) =>
       white
         ? `0px 5px 20px -5px ${theme.colors.primary}`
@@ -42,9 +39,6 @@ const StyledButton = styled.button`
 
   :hover,
   :focus {
-    //color: ${({ theme }) => theme.colors.primary};
-    //transition: color ease-in-out 0.25s;
-    //background-image: linear-gradient(35.25deg, #4d0a83 18.05%, #a2141b 60.82%);
     background-position: right;
     transform: translateY(-4px);
 

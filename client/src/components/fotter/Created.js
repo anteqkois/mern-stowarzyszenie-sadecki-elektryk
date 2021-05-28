@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { ReactComponent as Emial} from '../../assets/iconmonstr-email-2.svg';
 import { ReactComponent as Messenger} from '../../assets/iconmonstr-facebook-messenger-1.svg';
 
 const StyledCreated = styled.div`
   display: flex;
   flex-direction: column;
-
-
 `;
 
 const Created = () => {

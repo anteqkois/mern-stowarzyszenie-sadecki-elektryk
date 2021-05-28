@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 import Button from '../utils/Button';
+
 import programing from '../../assets/iconmonstr-programing.svg';
 import nature from '../../assets/iconmonstr-nature.svg';
 import culture from '../../assets/iconmonstr-culture.svg';
@@ -26,16 +28,6 @@ const StyledProject = styled.div`
   -webkit-backdrop-filter: blur(5.5px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  /* ::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    height: 1px;
-    width: calc(100% - 30px);
-    background-color: ${({ theme }) => theme.colors.noActive};
-  } */
 
   h1 {
     padding: 1.1em 0;

@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Lines } from '../assets/Lines.svg';
+
 import Patron from '../components/patron/Patron';
+
+import { ReactComponent as Lines } from '../assets/Lines.svg';
 
 const StyledPatron = styled.div`
   h1 {
