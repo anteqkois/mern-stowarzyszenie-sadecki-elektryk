@@ -15,7 +15,6 @@ const StyledProject = styled.div`
   padding: 15px;
   position: relative;
   max-width: 500px;
-
   background: rgb(231, 230, 230);
   background: linear-gradient(
     39deg,

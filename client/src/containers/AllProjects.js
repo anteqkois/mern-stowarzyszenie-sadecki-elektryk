@@ -13,6 +13,9 @@ const StyledProjects = styled.div`
   grid-template-rows: auto;
   grid-gap: 70px;
   justify-items: center;
+  div {
+    margin: 0 10px;
+  }
 `;
 
 const StyledLoading = styled.div`

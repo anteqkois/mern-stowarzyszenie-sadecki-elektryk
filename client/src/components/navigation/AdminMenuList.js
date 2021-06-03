@@ -28,20 +28,24 @@ const menuItems = [
     link: '/',
   },
   {
+    label: 'Wszystkie projekty',
+    link: '/admin/projects',
+  },
+  {
     label: 'Dodaj nowy projekt',
-    link: '/projects',
+    link: '/admin/projects/add',
   },
   {
     label: 'Edytuj projekt',
-    link: '/aid',
+    link: '/admin/projects/edit:id',
   },
   {
     label: 'Dodaj nową kategorię',
-    link: '/admin',
+    link: '/admin/categories/add',
   },
   {
     label: 'Edytuj kategorię',
-    link: '/admin',
+    link: '/admin/categories/edit:id',
   },
 ];
 

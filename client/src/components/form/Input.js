@@ -37,13 +37,14 @@ const StyledInput = styled.div`
   }
 `;
 
-const Input = ({ type, name, label, handleChange }) => {
+const Input = ({ type, name, label, handleChange, value }) => {
   return (
     <StyledInput>
       <input
         onChange={handleChange}
         type={type}
         name={name}
+        value={value}
         required
       ></input>
       <label >{label}</label>

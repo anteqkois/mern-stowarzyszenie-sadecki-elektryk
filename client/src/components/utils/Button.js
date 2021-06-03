@@ -8,12 +8,45 @@ const StyledButton = styled.button`
   text-transform: uppercase;
   font-size: ${({ theme }) => theme.typography.sizeH6};
   font-weight: ${({ theme }) => theme.typography.weightBold};
-  color: ${({ theme, white }) =>
-    white ? theme.colors.accent : theme.colors.primary};
-  background: ${({ theme, white }) =>
-    white
-      ? theme.colors.primary
-      : 'linear-gradient(35.25deg, #4d0a83 38.05%, #a2141b 90%)'};
+  color: ${({theme, option})=>{
+
+    let property = ''
+    
+    switch (option) {
+      case 'normal':
+        property = theme.colors.primary;
+        break;
+      case 'white':
+        property = theme.colors.accent;
+        break;
+      case 'ghost':
+        property = theme.colors.text;
+        break;
+    
+      default:
+        break;
+    }
+    return property;
+  }};
+  background: ${({ theme, option }) =>{
+    let property = '';
+
+    switch (option) {
+      case 'normal':
+        property = 'linear-gradient(35.25deg, #4d0a83 38.05%, #a2141b 90%)';
+        break;
+      case 'white':
+        property = theme.colors.primary;
+        break;
+      case 'ghost':
+        property = theme.colors.secondary;
+        break;
+
+      default:
+        break;
+    }
+    return property;
+  }};
   background-size: 150%;
   border-radius: 5px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4);
@@ -29,10 +62,25 @@ const StyledButton = styled.button`
     bottom: 0;
     right: 0;
     border-radius: 5px;
-    box-shadow: ${({ theme, white }) =>
-      white
-        ? `0px 5px 20px -5px ${theme.colors.primary}`
-        : `0px 15px 20px ${theme.colors.accent}`};
+    box-shadow: ${({ theme, option }) =>{
+      let property = '';
+
+      switch (option) {
+        case 'normal':
+          property = `0px 15px 20px ${theme.colors.accent}`;
+          break;
+        case 'white':
+          property = `0px 5px 20px -5px ${theme.colors.primary}`;
+          break;
+        case 'ghost':
+          property = `0px 15px 20px ${theme.colors.text}`;
+          break;
+
+        default:
+          break;
+      }
+      return property;
+    }};
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
   }
@@ -49,9 +97,9 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({children, className, onClick, white}) => {
+const Button = ({children, className, onClick, option='normal'}) => {
   return (
-    <StyledButton onClick={onClick} className={className} white={white}>
+    <StyledButton onClick={onClick} className={className} option={option}>
       {children}
     </StyledButton>
   )

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { WidthDeviceContext } from '../../context/Context';
 
 import Button from '../utils/Button';
 
@@ -71,9 +73,12 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const DescriptionOfAssociation = ({ className }) => {
+const DescriptionOfAssociation = () => {
+
+  const { isMobile } = useContext(WidthDeviceContext);
+
   return (
-    <StyledDescriptionOfAssociation className={className}>
+    <StyledDescriptionOfAssociation >
       <div>
         <h1>Stowarzyszenie Sądecki Elektryk</h1>
         <p>
@@ -88,7 +93,7 @@ const DescriptionOfAssociation = ({ className }) => {
           kreowanie odpowiednich postaw społecznych.
         </p>
         <StyledLink to="/projects">
-          <StyledButton white>Ostatnie Projekty</StyledButton>
+          <StyledButton option={isMobile ? 'normal' : 'white'}>Ostatnie Projekty</StyledButton>
         </StyledLink>
       </div>
     </StyledDescriptionOfAssociation>

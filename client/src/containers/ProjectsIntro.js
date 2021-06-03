@@ -82,7 +82,7 @@ const ProjectsIntro = () => {
         reszta kart z zrealizwoanymi projektami, które zostały narazie opisane.
       </p>
       <StyledLink to="/">
-        <StyledButton  white >Strona główna</StyledButton>
+        <StyledButton  option='white' >Strona główna</StyledButton>
       </StyledLink>
     </StyledHeader>
   );

@@ -15,6 +15,14 @@ const StyledProjects = styled.div`
   grid-template-rows: auto;
   grid-gap: 70px;
   justify-items: center;
+
+  div{
+    margin: 0 10px;
+
+    &:nth-of-type(1){
+      margin: unset;
+    }
+  }
 `;
 
 const StyledLoading = styled.div`
@@ -31,12 +39,12 @@ const Projects = () => {
 
   useEffect(() => {
     (async()=>{
-        setProjects(await projectsAPI.getAll());
-        setIsLoading(false);
+  setProjects(await projectsAPI.getAll());
+  setIsLoading(false);
     })();
   }, []);
 
-  return isLoading === true ? (
+  return isLoading ? (
     <>
       <ImageBlock img={image} title="Projekty" />
       <StyledLoading>

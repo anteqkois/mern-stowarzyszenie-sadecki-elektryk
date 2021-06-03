@@ -12,6 +12,7 @@ const StyledQuote = styled.h2`
   padding: 0.6em;
   white-space: nowrap;
   color: transparent;
+  overflow-x:  hidden;
   -webkit-text-stroke-width: 5px;
   -webkit-text-stroke-color: ${({ theme }) => theme.colors.accent};
 `;

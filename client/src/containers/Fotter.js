@@ -5,7 +5,7 @@ import Association from '../components/fotter/Association';
 import Created from '../components/fotter/Created';
 import Copyright from '../components/fotter/Copyright';
 
-import { ReactComponent as BackgroundFotter } from '../assets/backgroundFotter.svg'
+import { ReactComponent as BackgroundFooter } from '../assets/backgroundFooter.svg'
 
 const StyledFotter = styled.footer`
   width: 100vw;
@@ -48,19 +48,29 @@ const StyledFotter = styled.footer`
   }
 `;
 
-const StyledBackgroundFotter = styled(BackgroundFotter)`
+const StyledBackgroundFooter = styled(BackgroundFooter)`
   position: absolute;
-  left: -0%;
-  top: -25%;
+  bottom: 0;
+  left: -45%;
   width: 200%;
-  height: 140%;
   z-index: ${({ theme }) => theme.zIndex.levelMinus1};
+
+  ${({ theme }) => theme.media.tablet} {
+    left: 0;
+    width: 150%;
+    height: 95%;
+  }
+  ${({ theme }) => theme.media.desktop} {
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const Fotter = () => {
   return (
     <StyledFotter>
-      <StyledBackgroundFotter/>
+      <StyledBackgroundFooter/>
       <Created />
       <Association />
       <Copyright />

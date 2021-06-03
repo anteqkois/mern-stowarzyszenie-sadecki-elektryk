@@ -11,7 +11,7 @@ import { WidthDeviceProvider } from './context/Context';
 import Layout from './layouts/Layout';
 import Navigation from './containers/Navigation';
 import Home from './pages/Home';
-import AdminPanel from './pages/AdminPanel'
+import AdminPanel from './pages/AdminPanel';
 import Projects from './pages/Projects';
 import Aid from './containers/Aid';
 import Login from './containers/Login';
@@ -41,7 +41,7 @@ function App() {
         <Layout>
           <ScrollToTop />
           <Switch>
-            <PrivateRoute exact path="/admin" component={AdminPanel} />
+            <PrivateRoute path="/admin" component={AdminPanel} />
             <>
               <Navigation />
               <Route exact path="/" component={Home} />
