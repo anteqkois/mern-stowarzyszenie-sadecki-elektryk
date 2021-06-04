@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 
 import MenuItem from './MenuItem';
+import AdminMenuItem from './AdminMenuItem';
 
 const StyledMenuList = styled.ul`
   width: 100%;
@@ -20,6 +21,16 @@ const StyledMenuList = styled.ul`
     align-items: start;
     margin-left: 30px;
   }
+`;
+
+const StyledMenuMainView = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 10px;
+  margin-top: 100px;
+  margin: 0 auto;
+  max-width: 640px;
 `;
 
 const menuItems = [
@@ -49,12 +60,18 @@ const menuItems = [
   },
 ];
 
-
-const AdminMenuList = () => {
-  return (
-    <StyledMenuList >
+const AdminMenuList = ({ setIsActive, mainView }) => {
+  return mainView ? (
+    <StyledMenuMainView>
+      {menuItems.map((item, index) => (
+        <AdminMenuItem key={index} label={item.label} link={item.link} />
+      ))}
+    </StyledMenuMainView>
+  ) : (
+    <StyledMenuList>
       {menuItems.map((item, index) => (
         <MenuItem
+          setIsActive={setIsActive}
           key={index}
           label={item.label}
           link={item.link}
@@ -63,6 +80,6 @@ const AdminMenuList = () => {
       ))}
     </StyledMenuList>
   );
-}
+};
 
-export default AdminMenuList
+export default AdminMenuList;
