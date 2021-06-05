@@ -39,7 +39,7 @@ const AdminPanel = ({ history}) => {
             component={ProjectsAdminView}
           />
           <Route exact path={`${path}/projects/add`} component={ProjectsAdd} />
-          <Route path={`${path}/projects/edit`} component={ListOfProjectsToEdit} />
+          <Route exact path={`${path}/projects/edit`} component={ListOfProjectsToEdit} />
           <Route path={`${path}/projects/edit/:id`} component={ProjectsEdit} />
           <Route exact path={`${path}/categories`} component={Categories} />
           <Route

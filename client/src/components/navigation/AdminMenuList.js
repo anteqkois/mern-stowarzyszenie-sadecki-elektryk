@@ -48,7 +48,7 @@ const menuItems = [
   },
   {
     label: 'Edytuj projekt',
-    link: '/admin/projects/edit:id',
+    link: '/admin/projects/edit',
   },
   {
     label: 'Dodaj nową kategorię',

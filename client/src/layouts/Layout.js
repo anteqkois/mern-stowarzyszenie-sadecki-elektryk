@@ -19,6 +19,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.primary};
   }
 
+  *:focus{
+    outline: solid 1px ${({ theme }) => theme.colors.accent};
+  }
+
 `;
 
 const Layout = ({ children }) => {

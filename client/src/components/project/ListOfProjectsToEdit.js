@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+import Button from '../utils/Button'
 
 import * as projectsAPI from '../../helpers/projectsAPI';
 
@@ -104,9 +107,79 @@ const testData = [
   },
 ];
 
-const StyledContainer = styled.main``;
+const StyledContainer = styled.main`
+  padding: 5px 10px;
 
-const ListOfProjectsToEdit = () => {
+  header {
+    text-align: center;
+    margin: 20px 0;
+    font-size: ${({ theme }) => theme.typography.sizeH5};
+    font-weight: ${({ theme }) => theme.typography.weightBold};
+    text-transform: uppercase;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 10px;
+    margin: 20px 0;
+    max-width: 500px;
+    list-style-type: none;
+    color: ${({ theme }) => theme.colors.accent};
+    font-weight: ${({ theme }) => theme.typography.weightBold};
+    border-left: ${({ theme }) => theme.colors.noActive} 1px solid;
+    border-bottom: ${({ theme }) => theme.colors.noActive} 1px solid;
+    border-radius: 10px;
+    background: rgb(231, 230, 230);
+    background: linear-gradient(
+      39deg,
+      rgba(190, 190, 190, 1) 0%,
+      rgba(210, 210, 210, 1) 41%,
+      rgba(251, 251, 251, 1) 95%
+    );
+    background-size: 150%;
+    box-shadow: 0 4px 20px 0 rgba(31, 38, 135, 0.3);
+    transition: background 0.4s ease-in-out;
+
+    button {
+      text-align: center;
+    }
+
+    :hover {
+      background-position: right;
+    }
+    ${({ theme }) => theme.media.desktop} {
+      display: grid;
+      place-items: center;
+      grid-template-columns: repeat(2, 1fr);
+
+      header {
+        text-align: center;
+      }
+    }
+  }
+  ${({ theme }) => theme.media.desktop} {
+
+    ul{
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    }
+
+    header {
+      grid-column: 1/3;
+
+    }
+  }
+`;
+
+const StyledLink = styled(Link)`
+  all: unset;
+`;
+
+
+const ListOfProjectsToEdit = ({location}) => {
   const [projects, setProjects] = useState(testData);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -122,9 +195,20 @@ const ListOfProjectsToEdit = () => {
   ) : (
     <StyledContainer>
       <header>Wszyskie projekty</header>
-      {projects.map(({ slug, _id, title, category, date, description }) => (
-        <li key={_id}>{title}</li>
-      ))}
+      <ul>
+        {projects.map(({ slug, _id, title }) => (
+          <>
+            <li key={_id}>
+              {title}
+              <StyledLink
+                to={(location) => `${location.pathname}/edit/${slug}`}
+              >
+                <Button option="normal">Edytuj</Button>
+              </StyledLink>
+            </li>
+          </>
+        ))}
+      </ul>
     </StyledContainer>
   );
 };

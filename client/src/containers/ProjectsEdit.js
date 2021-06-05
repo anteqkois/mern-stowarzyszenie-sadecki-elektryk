@@ -161,6 +161,10 @@ const ProjectsEdit = ({ match }) => {
   //   })();
   // }, []);
 
+  // Przy resetowaniu formularza wywołuje się także funkcja onSubmit (nie znalezione dlaczego, powinno działać?), jednak pownno dobrze działać
+  // dzięki kolejnośći, najpierw wywołuje się funkcja reste, czyli finalnie formularz wraca do pierwotnej wersji,
+  // a następnie zostaje zapisany, czyli nic nie pownno sięzmienić
+
   const formik = useFormik({
     initialValues: {
       slug: testData.slug,
@@ -169,14 +173,21 @@ const ProjectsEdit = ({ match }) => {
       date: convertDate(testData.date),
       description: testData.description,
     },
-    onSubmit: (values, { setSubmitting }) => {
+    onSubmit: (values, { setSubmitting, resetForm }) => {
       setSlug(values.slug);
       setTitle(values.title);
       setCategory(values.category);
       setDate(values.date);
       setDescription(values.description);
+      resetForm();
+      //console.log('submit');
     },
   });
+
+  const handleReset = (resetForm) =>{
+    //console.log('reset');
+    resetForm();
+  }
 
   return (
     <StyledContainer>
@@ -227,8 +238,17 @@ const ProjectsEdit = ({ match }) => {
           value={formik.values.description}
         />
         <div>
-          <Button option="ghost">Anuluj</Button>
-          <Button>Zapisz</Button>
+          <Button
+            type="reset"
+            onClick={() => handleReset(formik.resetForm)}
+            option="ghost"
+          >
+            Anuluj
+          </Button>
+          <button type="reset" onClick={() => handleReset(formik.resetForm)}>
+            reset
+          </button>
+          <Button type="submit">Zapisz</Button>
         </div>
       </StyledForm>
     </StyledContainer>

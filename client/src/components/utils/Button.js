@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
@@ -97,9 +97,17 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({children, className, onClick, option='normal'}) => {
+const Button = ({children, className, onClick=null, option='normal'}) => {
+
+  const button = useRef(null)
+
+  const handleClick = ()=>{
+    button.current.blur();
+    onClick && onClick();
+  }
+
   return (
-    <StyledButton onClick={onClick} className={className} option={option}>
+    <StyledButton ref={button} onClick={handleClick} className={className} option={option}>
       {children}
     </StyledButton>
   )
