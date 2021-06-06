@@ -40,15 +40,15 @@ const StyledNavigation = styled.nav`
         100px,
         auto
       );
-    background-color: ${({ withShadowAndBackground, theme }) =>
-      withShadowAndBackground ? theme.colors.primary : 'transparent'};
-    transform: ${({ withShadowAndBackground }) =>
-      withShadowAndBackground ? 'translateY(0px)' : 'translateY(10px)'};
+    background-color: ${({ withshadowandbackground, theme }) =>
+      withshadowandbackground ? theme.colors.primary : 'transparent'};
+    transform: ${({ withshadowandbackground }) =>
+      withshadowandbackground ? 'translateY(0px)' : 'translateY(10px)'};
     transition: background-color ease-in-out 0.25s, transform ease-in-out 0.25s;
 
     ::after {
-      opacity: ${({ withShadowAndBackground }) =>
-        withShadowAndBackground ? 1 : 0};
+      opacity: ${({ withshadowandbackground }) =>
+        withshadowandbackground ? 1 : 0};
     }
   }
 `;
@@ -72,14 +72,14 @@ const throttle = (fn, waitTime) => {
 
 const Navigation = () => {
   const [isActive, setIsActive] = useState(false);
-  const [withShadowAndBackground, setWithShadowAndBackground] = useState(false);
+  const [withshadowandbackground, setwithshadowandbackground] = useState(false);
   const { isMobile } = useContext(WidthDeviceContext);
 
   const trackScroll = () => {
     throttle(
       50 < window.pageYOffset
-        ? (setWithShadowAndBackground(true), 0)
-        : (setWithShadowAndBackground(false), 0),
+        ? (setwithshadowandbackground(true), 0)
+        : (setwithshadowandbackground(false), 0),
     );
   };
 
@@ -98,13 +98,13 @@ const Navigation = () => {
     </>
   ) : (
     <StyledNavigation
-      withShadowAndBackground={withShadowAndBackground}
+      withshadowandbackground={withshadowandbackground}
       isActive={isActive}
     >
       <StyledLogo />
       <MenuList
         isActive={true}
-        withShadowAndBackground={withShadowAndBackground}
+        withshadowandbackground={withshadowandbackground}
       />
       <DarkModeSwitch />
     </StyledNavigation>

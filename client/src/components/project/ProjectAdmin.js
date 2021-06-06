@@ -31,9 +31,10 @@ const StyledProject = styled.div`
   p:last-of-type {
     border-bottom: unset;
   }
+
   button {
-    display: block;
-    margin: 10px auto;
+    display: inline-block;
+    margin: 10px;
   }
 `;
 
@@ -72,9 +73,12 @@ const ProjectAdmin = ({ slug, _id, title, category, date, description, location 
         <span>Opis: </span>
         {description}
       </p>
-      <StyledLink to={location => `${location.pathname}/edit/${slug}`}>
+      <div>
+      <Button option='ghost'>Usuń</Button>
+      <StyledLink to={(location) => `${location.pathname}/edit/${slug}`}>
         <Button>Edytuj</Button>
       </StyledLink>
+      </div>
     </StyledProject>
   );
 };

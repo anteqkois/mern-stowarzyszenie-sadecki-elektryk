@@ -114,6 +114,7 @@ const AdminNavigation = ({ isActive, setIsActive, history }) => {
       <StyledHamburgerMenu isActive={isActive}>
         <HamburgerMenu isActive={isActive} setIsActive={setIsActive} />
         <svg
+        tabIndex='0'
         onClick={()=> history.goBack()}
           xmlns="http://www.w3.org/2000/svg"
           width="55"

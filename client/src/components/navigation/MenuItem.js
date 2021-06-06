@@ -23,8 +23,8 @@ const StyledItem = styled(Link)`
     bottom: 5px;
     left: 0;
 
-    background: ${({ withShadowAndBackground, theme }) =>
-      withShadowAndBackground ? theme.colors.gradient : theme.colors.primary};
+    background: ${({ withshadowandbackground, theme }) =>
+      withshadowandbackground ? theme.colors.gradient : theme.colors.primary};
     transform: rotateY(-90deg);
     transition: all ease-out 0.25s;
   }
@@ -33,18 +33,18 @@ const StyledItem = styled(Link)`
   }
 
   ${({ theme }) => theme.media.tablet} {
-    color: ${({ withShadowAndBackground, theme }) =>
-      withShadowAndBackground ? theme.colors.accent : theme.colors.primary};
+    color: ${({ withshadowandbackground, theme }) =>
+      withshadowandbackground ? theme.colors.accent : theme.colors.primary};
     margin: 0 0.6em;
   }
 `;
 
-const menuItem = ({ setIsActive, label, link, withShadowAndBackground }) => {
+const menuItem = ({ setIsActive, label, link, withshadowandbackground }) => {
   return (
     <StyledItem
       onClick={() => setIsActive && setIsActive(false)}
       to={link}
-      withShadowAndBackground={withShadowAndBackground}
+      withshadowandbackground={withshadowandbackground}
     >
       {label}
     </StyledItem>

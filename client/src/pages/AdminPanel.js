@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ListOfProjectsToEdit from '../components/project/ListOfProjectsToEdit'
+import ListOfProjectsToEdit from '../containers/ListOfProjectsToEdit'
 import AdminNavigation from '../containers/AdminNavigation';
 import AdminMain from '../containers/AdminMain'
 import ProjectsAdminView from '../containers/ProjectsAdminView';
-import ProjectsAdd from '../containers/ProjectsAdd';
-import ProjectsEdit from '../containers/ProjectsEdit';
-import Categories from '../containers/Categories';
+import ProjectsEditAndAdd from '../containers/ProjectsEditAndAdd';
 import CategoriesAdd from '../containers/CategoriesAdd';
-import CategoriesEdit from '../containers/CategoriesEdit';
+import Categories from '../containers/Categories';
 
 const StyledWrapper = styled.main`
 margin: 70px auto;
@@ -38,10 +36,20 @@ const AdminPanel = ({ history}) => {
             path={`${path}/projects`}
             component={ProjectsAdminView}
           />
-          <Route exact path={`${path}/projects/add`} component={ProjectsAdd} />
-          <Route exact path={`${path}/projects/edit`} component={ListOfProjectsToEdit} />
-          <Route path={`${path}/projects/edit/:id`} component={ProjectsEdit} />
-          <Route exact path={`${path}/categories`} component={Categories} />
+          <Route
+            exact
+            path={`${path}/projects/add`}
+            component={ProjectsEditAndAdd}
+          />
+          <Route
+            exact
+            path={`${path}/projects/edit`}
+            component={ListOfProjectsToEdit}
+          />
+          <Route
+            path={`${path}/projects/edit/:id`}
+            component={ProjectsEditAndAdd}
+          />
           <Route
             exact
             path={`${path}/categories/add`}
@@ -49,8 +57,8 @@ const AdminPanel = ({ history}) => {
           />
           <Route
             exact
-            path={`${path}/categories/edit:id`}
-            component={CategoriesEdit}
+            path={`${path}/categories`}
+            component={Categories}
           />
         </Switch>
       </StyledWrapper>

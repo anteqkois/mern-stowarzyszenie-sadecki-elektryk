@@ -48,7 +48,7 @@ const menuItems = [
   },
 ];
 
-const MenuList = ({ isActive, setIsActive, withShadowAndBackground }) => {
+const MenuList = ({ isActive, setIsActive, withshadowandbackground }) => {
   return (
     <StyledMenuList isActive={isActive}>
       {menuItems.map((item, index) => (
@@ -57,7 +57,7 @@ const MenuList = ({ isActive, setIsActive, withShadowAndBackground }) => {
           key={index}
           label={item.label}
           link={item.link}
-          withShadowAndBackground={withShadowAndBackground}
+          withshadowandbackground={withshadowandbackground}
         />
       ))}
     </StyledMenuList>

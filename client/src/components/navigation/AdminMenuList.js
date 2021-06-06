@@ -39,7 +39,7 @@ const menuItems = [
     link: '/',
   },
   {
-    label: 'Wszystkie projekty',
+    label: 'Projekty',
     link: '/admin/projects',
   },
   {
@@ -51,12 +51,12 @@ const menuItems = [
     link: '/admin/projects/edit',
   },
   {
-    label: 'Dodaj nową kategorię',
-    link: '/admin/categories/add',
+    label: 'Kategorie',
+    link: '/admin/categories',
   },
   {
-    label: 'Edytuj kategorię',
-    link: '/admin/categories/edit:id',
+    label: 'Dodaj nową kategorię',
+    link: '/admin/categories/add',
   },
 ];
 
