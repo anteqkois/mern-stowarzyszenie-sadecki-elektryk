@@ -85,7 +85,6 @@ const Aid = () => {
   }
 
   return stepToShow ? (
-    
     <StyledAid location={location.pathname} >
       <ImageBlock img={image} title="Jak wspomoć?" />
       <DescriptionOfAid />

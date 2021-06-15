@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components';
 
 
@@ -47,8 +47,16 @@ const StyledHamburgerMenu = styled.button`
 `;
 
 const HamburgerMenu = ({setIsActive, isActive}) => {
+
+  const hamburger = useRef(null)
+
+  const handleClick = ()=>{
+    hamburger.current.blur();
+    setIsActive((isActive) => !isActive);
+  }
+
   return (
-    <StyledHamburgerMenu onClick={() => setIsActive(isActive => !isActive)} isActive={isActive}>
+    <StyledHamburgerMenu ref={hamburger} onClick={handleClick} isActive={isActive}>
       <span />
       <span />
       <span />

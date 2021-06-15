@@ -8,3 +8,7 @@ export const getAll = () =>{
 export const get = (slug) => {
   return api.get(projects(slug));
 };
+
+export const post = (data) => {
+  return api.post(projects(), data);
+};

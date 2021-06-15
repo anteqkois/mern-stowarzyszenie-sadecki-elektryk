@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import Button from '../components/utils/Button';
 
-import { get } from '../helpers/projectsAPI';
+import { get, post } from '../helpers/projectsAPI';
 import { getAll } from '../helpers/categoriesAPI';
 
 const testData = {
@@ -22,33 +22,33 @@ const testData = {
   __v: 0,
 };
 
-const testCategories = [
-  {
-    _id: '60151f1133b10306b42ad8ad',
-    category: 'nature',
-    __v: 0,
-  },
-  {
-    _id: '60151f1133b10306b42ad8ab',
-    category: 'culture',
-    __v: 0,
-  },
-  {
-    _id: '60151f1133b10306b42ad8aa',
-    category: 'mechanics',
-    __v: 0,
-  },
-  {
-    _id: '60151f1133b10306b42ad8ae',
-    category: 'programing',
-    __v: 0,
-  },
-  {
-    _id: '60151f1133b10306b42ad8ac',
-    category: 'learn',
-    __v: 0,
-  },
-];
+// const testCategories = [
+//   {
+//     _id: '60151f1133b10306b42ad8ad',
+//     category: 'nature',
+//     __v: 0,
+//   },
+//   {
+//     _id: '60151f1133b10306b42ad8ab',
+//     category: 'culture',
+//     __v: 0,
+//   },
+//   {
+//     _id: '60151f1133b10306b42ad8aa',
+//     category: 'mechanics',
+//     __v: 0,
+//   },
+//   {
+//     _id: '60151f1133b10306b42ad8ae',
+//     category: 'programing',
+//     __v: 0,
+//   },
+//   {
+//     _id: '60151f1133b10306b42ad8ac',
+//     category: 'learn',
+//     __v: 0,
+//   },
+// ];
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -79,13 +79,17 @@ const StyledContainer = styled.div`
     border-right: unset;
     border-radius: 5px;
 
+    :disabled {
+      background-color: ${({ theme }) => theme.colors.noActive};
+      cursor: not-allowed;
+    }
+
     &:nth-of-type(3) {
       height: 520px;
 
-      ${({theme}) => theme.media.bigTablet}{
+      ${({ theme }) => theme.media.bigTablet} {
         height: 180px;
       }
-
     }
   }
   label {
@@ -108,7 +112,7 @@ const StyledForm = styled.form`
   );
   box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.3);
 
-  div{
+  div {
     display: flex;
     justify-content: center;
     gap: 30px;
@@ -137,29 +141,70 @@ const convertDate = (date) => {
 const ProjectsEdit = ({ match }) => {
   convertDate(testData.date);
 
-  const [categories, setCategories] = useState(testCategories);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [project, setProject] = useState(testData);
-  const [isLoading, setIsLoading] = useState(false);
+  const [categories, setCategories] = useState('');
+  const [project, setProject] = useState('');
 
-  const [title, setTitle] = useState(testData.title);
-  const [date, setDate] = useState(convertDate(testData.date));
-  const [slug, setSlug] = useState(testData.slug);
-  const [category, setCategory] = useState(testData.category);
-  const [description, setDescription] = useState(testData.description);
+  const [title, setTitle] = useState('');
+  const [date, setDate] = useState('');
+  const [slug, setSlug] = useState('');
+  const [category, setCategory] = useState('');
+  const [description, setDescription] = useState('');
+
+  const toAdd = match.path.search(/add/) >= 0;
+
+  useEffect(() => {
+    (async () => {
+
+      // !toAdd &&
+      //   (async () => {
+      //     const data = await get(match.params.id);
+
+      //     setProject(await get(match.params.id));
+      //     setSlug(data.slug);
+      //     setTitle(data.title);
+      //     setDate(convertDate(data.date));
+      //     setCategory(data.category);
+      //     setDescription(data.description);
+      //   })();
+
+      const data = !toAdd ? await get(match.params.id) : '';
+
+      setProject(!toAdd ? await get(match.params.id) : '');
+      setSlug(data ? data.slug : '');
+      setTitle(data ? data.title : '');
+      setDate(data ? data.date : '');
+      setCategory(data ? convertDate(data.date) : '');
+      setDescription(data ? data.description : '');
+
+      setCategories(await getAll());
+      setIsLoading(false);
+    })();
+  }, [match.params.id, toAdd]);
 
   // useEffect(() => {
   //   (async () => {
-  //     setProject(await get(match.params.id));
   //     setIsLoading(false);
   //   })();
   // }, []);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     setCategories(await getAll());
-  //   })();
-  // }, []);
+  const handlePOST = () => {
+    const data = {
+      title: title,
+      category: category,
+      date: date,
+      description: description,
+    };
+
+    console.log(data);
+
+    //post()
+  };
+
+  const handlePUT = () => {
+    console.log('PUT');
+  };
 
   // Przy resetowaniu formularza wywołuje się także funkcja onSubmit (nie znalezione dlaczego, powinno działać?), jednak pownno dobrze działać
   // dzięki kolejnośći, najpierw wywołuje się funkcja reste, czyli finalnie formularz wraca do pierwotnej wersji,
@@ -167,11 +212,11 @@ const ProjectsEdit = ({ match }) => {
 
   const formik = useFormik({
     initialValues: {
-      slug: testData.slug,
-      title: testData.title,
-      category: testData.category,
-      date: convertDate(testData.date),
-      description: testData.description,
+      slug: slug,
+      title: title,
+      category: category,
+      date: date,
+      description: description,
     },
     onSubmit: (values, { setSubmitting, resetForm }) => {
       setSlug(values.slug);
@@ -179,24 +224,40 @@ const ProjectsEdit = ({ match }) => {
       setCategory(values.category);
       setDate(values.date);
       setDescription(values.description);
+      (() => (toAdd ? handlePOST() : handlePUT()))();
       resetForm();
-      console.log('submit');
+      //console.log('submit');
     },
+    enableReinitialize: true,
   });
 
-  const handleReset = (resetForm) =>{
-    console.log('reset');
+  const handleReset = (resetForm) => {
+    //console.log('reset');
+    console.log(project);
     resetForm();
-  }
+    setSlug(toAdd ? '' : project.slug);
+    setTitle(toAdd ? '' : project.title);
+    setDate(toAdd ? '' : convertDate(project.date));
+    setCategory(toAdd ? '' : project.category);
+    setDescription(toAdd ? '' : project.description);
+  };
 
-  return (
+  return isLoading ? (
+    <h5>Loading...</h5>
+  ) : (
     <StyledContainer>
-      <h5>
-        Edytujesz: <span>{title}</span>
-      </h5>
+      {toAdd ? (
+        <h5>Wypełnij dane projektu:</h5>
+      ) : (
+        <h5>
+          Edytujesz: <span>{title}</span>
+        </h5>
+      )}
       <StyledForm onSubmit={formik.handleSubmit}>
         <label htmlFor="slug">Slug:</label>
         <textarea
+          disabled={toAdd ? true : false}
+          required
           id="slug"
           name="slug"
           onChange={formik.handleChange}
@@ -206,6 +267,7 @@ const ProjectsEdit = ({ match }) => {
         <textarea
           id="title"
           name="title"
+          required
           onChange={formik.handleChange}
           value={formik.values.title}
         />
@@ -213,11 +275,15 @@ const ProjectsEdit = ({ match }) => {
         <select
           id="category"
           name="category"
+          required
           onChange={formik.handleChange}
           value={formik.values.category.category}
         >
-          {testCategories.map(({ category, _id }) => (
-            <option key={_id} value={category}>
+          <option key={'default'} value="" selected disabled hidden>
+            Wybierz kategorię
+          </option>
+          {categories.map(({ category, _id }) => (
+            <option key={_id} value={_id}>
               {category}
             </option>
           ))}
@@ -227,6 +293,7 @@ const ProjectsEdit = ({ match }) => {
           id="date"
           name="date"
           type="date"
+          required
           onChange={formik.handleChange}
           value={formik.values.date}
         />
@@ -234,6 +301,7 @@ const ProjectsEdit = ({ match }) => {
         <textarea
           id="description"
           name="description"
+          required
           onChange={formik.handleChange}
           value={formik.values.description}
         />

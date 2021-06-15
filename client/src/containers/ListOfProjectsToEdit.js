@@ -193,7 +193,7 @@ const ListOfProjectsToEdit = ({ location }) => {
           <li key={_id}>
             <p>{title}</p>
             <Button option="ghost">Usuń</Button>
-            <StyledLink to={(location) => `${location.pathname}/edit/${slug}`}>
+            <StyledLink to={(location) => `${location.pathname}/${slug}`}>
               <Button option="normal">Edytuj</Button>
             </StyledLink>
           </li>

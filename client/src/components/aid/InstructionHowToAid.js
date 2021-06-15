@@ -147,7 +147,7 @@ const InstructionHowToAid = ({ activeStep, stepToShow, handleNextStep }) => {
         <Button
           onClick={() => handleNextStep(activeStep < 5 ? activeStep + 1 : 1)}
         >
-          Next
+          Następny krok
         </Button>
       </div>
     </StyledInstructionHowToAid>
