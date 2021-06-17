@@ -1,54 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import Button from '../components/utils/Button';
+import Delete from '../components/utils/Delete';
 
 import { get, post } from '../helpers/projectsAPI';
 import { getAll } from '../helpers/categoriesAPI';
-
-const testData = {
-  slug: 'zsem-z-ii-miejscem-w-rankingu-perspektyw',
-  _id: '601d9972e4b1cf0eac3e84e3',
-  title: 'ZSEM z II miejscem w Rankingu Perspektyw',
-  category: {
-    _id: '60151f1133b10306b42ad8ac',
-    category: 'learn',
-    __v: 0,
-  },
-  date: '2021-01-26T23:00:00.000Z',
-  description:
-    'W dniach 25-26 października 2019 odbyła się pierwsza edycja Coding Night w Elektryku. A w niej wzięło udział 12 zespołów, w każdym od 2 do 5 uczniów, w sumie 37 programistów. Cała impreza zaczęła się o godzinie 13 i trwała aż 20, jednak znalazł się też czas choćby na zjedzenie pizzy ! Tematem pierwszej edycji był bardzo przyjemny dla uczniów, a mianowicie wyzywanie polegało na zaprojektowaniu gry komputerowej. Zwycięzcy byli wybrani przez jury złożone m.in z programistów z dwóch firm programistycznych IBCS Poland oraz GOTOMA, które są partnerami stowarzyszenia i wspierali je w realizacji tego przedsięwzięcia. W komisji znajdowali się również przedstawiciele z firmy FAKRO, która od wielu lat wspiera stowarzyszenie. Również Prezydent Nowego Sącza, Ludomir Handzel objął Patronatem Honorowym I Maraton Programistyczny w sądeckim Elektryku. Trzy zwycięskie drużyny zgarnęły wypasione nagrody pieniężne, jednak pozostałe również otrzymały nagrody pocieszenia w kwocie 100 zł, a pizzernia GONDOLA przygotowało niespodziankę dla wszystkich zawodników w postaci bonu.',
-  __v: 0,
-};
-
-// const testCategories = [
-//   {
-//     _id: '60151f1133b10306b42ad8ad',
-//     category: 'nature',
-//     __v: 0,
-//   },
-//   {
-//     _id: '60151f1133b10306b42ad8ab',
-//     category: 'culture',
-//     __v: 0,
-//   },
-//   {
-//     _id: '60151f1133b10306b42ad8aa',
-//     category: 'mechanics',
-//     __v: 0,
-//   },
-//   {
-//     _id: '60151f1133b10306b42ad8ae',
-//     category: 'programing',
-//     __v: 0,
-//   },
-//   {
-//     _id: '60151f1133b10306b42ad8ac',
-//     category: 'learn',
-//     __v: 0,
-//   },
-// ];
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -119,6 +78,62 @@ const StyledForm = styled.form`
   }
 `;
 
+const StyledProcessing = styled.div`
+  > div {
+    :nth-of-type(1) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: ${({ theme }) => theme.colors.noActive};
+      z-index: ${({ theme }) => theme.zIndex.level2};
+      opacity: 0.7;
+    }
+    :nth-of-type(2) {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 80vw;
+      height: 70vh;
+      display: flex;
+      gap: 40px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      text-align: center;
+      font-size: ${({ theme }) => theme.typography.sizeH5};
+      font-weight: ${({ theme }) => theme.typography.weightBold};
+      background: ${({ theme }) => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.accent};
+      z-index: ${({ theme }) => theme.zIndex.level3};
+      box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.37);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      transform: translate(-50%, -50%);
+    }
+  }
+`;
+
+const StyledLoading = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  gap: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  //text-align: center;
+  font-size: ${({ theme }) => theme.typography.sizeH5};
+  font-weight: ${({ theme }) => theme.typography.weightBold};
+  color: ${({ theme }) => theme.colors.accent};
+  transform: translate(-50%, -50%);
+`;
+
 const addZero = (element) => {
   return `0${element}`;
 };
@@ -138,10 +153,15 @@ const convertDate = (date) => {
   return finalDate;
 };
 
-const ProjectsEdit = ({ match }) => {
-  convertDate(testData.date);
+const OPTION_TYPE = {
+  normal: 'normal',
+  processing: 'processing',
+  saved: 'saved',
+};
 
+const ProjectsEdit = ({ match }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [option, setOption] = useState('normal');
 
   const [categories, setCategories] = useState('');
   const [project, setProject] = useState('');
@@ -156,26 +176,13 @@ const ProjectsEdit = ({ match }) => {
 
   useEffect(() => {
     (async () => {
-
-      // !toAdd &&
-      //   (async () => {
-      //     const data = await get(match.params.id);
-
-      //     setProject(await get(match.params.id));
-      //     setSlug(data.slug);
-      //     setTitle(data.title);
-      //     setDate(convertDate(data.date));
-      //     setCategory(data.category);
-      //     setDescription(data.description);
-      //   })();
-
       const data = !toAdd ? await get(match.params.id) : '';
 
       setProject(!toAdd ? await get(match.params.id) : '');
       setSlug(data ? data.slug : '');
       setTitle(data ? data.title : '');
-      setDate(data ? data.date : '');
-      setCategory(data ? convertDate(data.date) : '');
+      setDate(data ? convertDate(data.date) : '');
+      setCategory(data ? data.category : '');
       setDescription(data ? data.description : '');
 
       setCategories(await getAll());
@@ -183,32 +190,19 @@ const ProjectsEdit = ({ match }) => {
     })();
   }, [match.params.id, toAdd]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     setIsLoading(false);
-  //   })();
-  // }, []);
+  const handlePOST = async (values) => {
+    // setTimeout(() => {
+    //   setOption('saved');
+    // }, 3000);
 
-  const handlePOST = () => {
-    const data = {
-      title: title,
-      category: category,
-      date: date,
-      description: description,
-    };
-
+    const data = await post(values);
     console.log(data);
-
-    //post()
+    setOption('saved');
   };
 
   const handlePUT = () => {
     console.log('PUT');
   };
-
-  // Przy resetowaniu formularza wywołuje się także funkcja onSubmit (nie znalezione dlaczego, powinno działać?), jednak pownno dobrze działać
-  // dzięki kolejnośći, najpierw wywołuje się funkcja reste, czyli finalnie formularz wraca do pierwotnej wersji,
-  // a następnie zostaje zapisany, czyli nic nie pownno sięzmienić
 
   const formik = useFormik({
     initialValues: {
@@ -219,31 +213,22 @@ const ProjectsEdit = ({ match }) => {
       description: description,
     },
     onSubmit: (values, { setSubmitting, resetForm }) => {
+      setOption('processing');
       setSlug(values.slug);
       setTitle(values.title);
       setCategory(values.category);
       setDate(values.date);
       setDescription(values.description);
-      (() => (toAdd ? handlePOST() : handlePUT()))();
+      (() => (toAdd ? handlePOST(values) : handlePUT()))();
       resetForm();
-      //console.log('submit');
     },
     enableReinitialize: true,
   });
 
-  const handleReset = (resetForm) => {
-    //console.log('reset');
-    console.log(project);
-    resetForm();
-    setSlug(toAdd ? '' : project.slug);
-    setTitle(toAdd ? '' : project.title);
-    setDate(toAdd ? '' : convertDate(project.date));
-    setCategory(toAdd ? '' : project.category);
-    setDescription(toAdd ? '' : project.description);
-  };
-
   return isLoading ? (
-    <h5>Loading...</h5>
+    <StyledLoading>
+      <h5>Loading...</h5>
+    </StyledLoading>
   ) : (
     <StyledContainer>
       {toAdd ? (
@@ -253,178 +238,89 @@ const ProjectsEdit = ({ match }) => {
           Edytujesz: <span>{title}</span>
         </h5>
       )}
-      <StyledForm onSubmit={formik.handleSubmit}>
-        <label htmlFor="slug">Slug:</label>
-        <textarea
-          disabled={toAdd ? true : false}
-          required
-          id="slug"
-          name="slug"
-          onChange={formik.handleChange}
-          value={formik.values.slug}
-        />
-        <label htmlFor="title">Tytuł:</label>
-        <textarea
-          id="title"
-          name="title"
-          required
-          onChange={formik.handleChange}
-          value={formik.values.title}
-        />
-        <label htmlFor="category">Kategoria:</label>
-        <select
-          id="category"
-          name="category"
-          required
-          onChange={formik.handleChange}
-          value={formik.values.category.category}
-        >
-          <option key={'default'} value="" selected disabled hidden>
-            Wybierz kategorię
-          </option>
-          {categories.map(({ category, _id }) => (
-            <option key={_id} value={_id}>
-              {category}
-            </option>
-          ))}
-        </select>
-        <label htmlFor="date">Data:</label>
-        <input
-          id="date"
-          name="date"
-          type="date"
-          required
-          onChange={formik.handleChange}
-          value={formik.values.date}
-        />
-        <label htmlFor="description">Opis:</label>
-        <textarea
-          id="description"
-          name="description"
-          required
-          onChange={formik.handleChange}
-          value={formik.values.description}
-        />
-        <div>
-          <Button
-            type="reset"
-            onClick={() => handleReset(formik.resetForm)}
-            option="ghost"
+
+      {option === OPTION_TYPE.normal && (
+        <StyledForm onSubmit={formik.handleSubmit}>
+          <label htmlFor="slug">Slug:</label>
+          <textarea
+            disabled={toAdd ? true : false}
+            //required
+            id="slug"
+            name="slug"
+            onChange={formik.handleChange}
+            value={formik.values.slug}
+          />
+          <label htmlFor="title">Tytuł:</label>
+          <textarea
+            id="title"
+            name="title"
+            //required
+            onChange={formik.handleChange}
+            value={formik.values.title}
+          />
+          <label htmlFor="category">Kategoria:</label>
+          <select
+            id="category"
+            name="category"
+            //required
+            onChange={formik.handleChange}
+            value={formik.values.category.category}
           >
-            Anuluj
-          </Button>
-          <Button type="submit">Zapisz</Button>
-        </div>
-      </StyledForm>
+            <option key={'default'} value="" selected disabled hidden>
+              Wybierz kategorię
+            </option>
+            {categories.map(({ category, _id }) => (
+              <option key={_id} value={_id}>
+                {category}
+              </option>
+            ))}
+          </select>
+          <label htmlFor="date">Data:</label>
+          <input
+            id="date"
+            name="date"
+            type="date"
+            //required
+            onChange={formik.handleChange}
+            value={formik.values.date}
+          />
+          <label htmlFor="description">Opis:</label>
+          <textarea
+            id="description"
+            name="description"
+            //required
+            onChange={formik.handleChange}
+            value={formik.values.description}
+          />
+          <div>
+            <Delete onClick={formik.resetForm}></Delete>
+            <Button type="submit">Zapisz</Button>
+          </div>
+        </StyledForm>
+      )}
+
+      {option !== OPTION_TYPE.normal && (
+        <StyledProcessing>
+          <div></div>
+          <div>
+            {option === OPTION_TYPE.processing && (
+              <p>Trwa zapisywanie projektu</p>
+            )}
+            {option === OPTION_TYPE.saved && (
+              <>
+                <p>
+                  Projekt <q>{title}</q> został zapisany
+                </p>
+                <Link to="/admin">
+                  <Button>Wróć do menu</Button>
+                </Link>
+              </>
+            )}
+          </div>
+        </StyledProcessing>
+      )}
     </StyledContainer>
   );
 };
 
-//  return (
-//    <StyledContainer>
-//      <h5>Edytujesz:{title}</h5>
-//      <StyledForm onSubmit={formik.handleSubmit}>
-//        <Input
-//          type="text"
-//          name="slug"
-//          handleChange={formik.handleChange}
-//          label="slug"
-//          value={formik.values.slug}
-//        />
-//        <Input
-//          type="text"
-//          name="title"
-//          handleChange={formik.handleChange}
-//          label="title"
-//          value={formik.values.title}
-//        />
-//        <Input
-//          type="text"
-//          name="category"
-//          handleChange={formik.handleChange}
-//          label="category"
-//          value={formik.values.category}
-//        />
-//        <Input
-//          type="date"
-//          name="date"
-//          handleChange={formik.handleChange}
-//          label="date"
-//          value={formik.values.date}
-//        />
-//        <Input
-//          type="text"
-//          name="description"
-//          handleChange={formik.handleChange}
-//          label="description"
-//          value={formik.values.description}
-//        />
-//        <Button>Zaloguj</Button>
-//      </StyledForm>
-//    </StyledContainer>
-//  );
-
-// const Login = (props) => {
-//   const [login, setLogin] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [finished, setFinished] = useState(false);
-
-//   const { from } = props.location.state || { from: '/' };
-
-//   const formik = useFormik({
-//     initialValues: {
-//       login: login,
-//       password: password,
-//     },
-//     onSubmit: (values, { setSubmitting }) => {
-//       setLogin(values.login);
-//       setPassword(values.password);
-//       sessionStorage.setItem('isLogged', true);
-//       setFinished(true);
-//     },
-//   });
-
-//   if (finished) {
-//     return <Redirect to={from.pathname} />;
-//   }
-
-//   return (
-//     <StyledLogin>
-//       <StyledLoginForm onSubmit={formik.handleSubmit}>
-//         <h2>Zaloguj się</h2>
-//         <Input
-//           type="text"
-//           name="login"
-//           handleChange={formik.handleChange}
-//           label="login"
-//         />
-//         <Input
-//           type="password"
-//           name="password"
-//           handleChange={formik.handleChange}
-//           label="hasło"
-//         />
-//         <Button>Zaloguj</Button>
-//       </StyledLoginForm>
-//     </StyledLogin>
-//   );
-// };
-
 export default ProjectsEdit;
-
-// {
-//   testCategories.map(({ category, _id }) => {
-//     const selected =
-//       category === formik.values.category.category ? true : false;
-
-//     return selected ? (
-//       <option key={_id} value={category} selected>
-//         {category}
-//       </option>
-//     ) : (
-//       <option key={_id} value={category}>
-//         {category}
-//       </option>
-//     );
-//   });
-// }
