@@ -146,11 +146,19 @@ const ProjectsEdit = ({ match }) => {
     const data = await projectsAPI.put(slug, values);
     console.log(data);
     setOption('saved');
-    //console.log('PUT');
   };
 
-  const handleSlug = () => {
-    console.log('sluggg');
+  const handleSlug = (titleToConvert) => {
+    const slugToAdd = titleToConvert.toLowerCase()
+      .replaceAll(' ', '-')
+      .replaceAll('ć', 'c')
+      .replaceAll('ś', 's')
+      .replaceAll('ź', 'z')
+      .replaceAll('ż', 'z')
+      .replaceAll('ą', 'a')
+      .replaceAll('ę', 'e');
+    console.log(slugToAdd);
+    formik.setValues({ ...formik.values, slug: slugToAdd });
   };
 
   const handleDelete = (fn) => {
@@ -167,8 +175,6 @@ const ProjectsEdit = ({ match }) => {
       fn();
     }
   };
-
-  // obsługa sluga do zrobienia !!!!!!!
 
   const formik = useFormik({
     initialValues: {
@@ -220,6 +226,7 @@ const ProjectsEdit = ({ match }) => {
             id="title"
             name="title"
             //required
+            onKeyUp={()=>handleSlug(formik.values.title)}
             onChange={formik.handleChange}
             value={formik.values.title}
           />
