@@ -59,7 +59,7 @@ const StyledCross = styled.span`
   }
 `;
 
-const Delete = ({ children, onClick = null }) => {
+const Delete = ({ className, children, onClick = null }) => {
 
   const button = useRef(null);
 
@@ -69,11 +69,8 @@ const Delete = ({ children, onClick = null }) => {
   };
   
   return (
-    <StyledDelete
-      ref={button}
-      onClick={handleClick}
-    >
-      {children ? (children):(<StyledCross></StyledCross>)}
+    <StyledDelete className={className} ref={button} onClick={handleClick}>
+      {children ? children : <StyledCross></StyledCross>}
     </StyledDelete>
   );
 };

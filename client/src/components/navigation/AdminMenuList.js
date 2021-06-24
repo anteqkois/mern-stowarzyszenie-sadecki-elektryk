@@ -31,12 +31,20 @@ const StyledMenuMainView = styled.div`
   margin-top: 100px;
   margin: 0 auto;
   max-width: 640px;
+  
+  a[href='/admin'] {
+    display: none;
+  }
 `;
 
 const menuItems = [
   {
     label: 'Strona główna',
     link: '/',
+  },
+  {
+    label: 'Panel Administratora',
+    link: '/admin',
   },
   {
     label: 'Projekty',

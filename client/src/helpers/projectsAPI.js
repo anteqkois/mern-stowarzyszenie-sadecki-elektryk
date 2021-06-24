@@ -12,3 +12,11 @@ export const get = (slug) => {
 export const post = (data) => {
   return api.post(projects(), data);
 };
+
+export const put = (slug, data) => {
+  return api.put(projects(slug), data);
+};
+
+export const remove = (slug) => {
+  return api.remove(projects(slug));
+};

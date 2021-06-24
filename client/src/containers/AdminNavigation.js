@@ -90,20 +90,6 @@ const StyledHamburgerMenu = styled.nav`
   }
 `;
 
-// const StyledHamburgerMenu = styled.nav`
-//   position: absolute;
-//   top: 0;
-//   left: 100%;
-//   background-color: ${({ theme }) => theme.colors.primary};
-//   border-radius: 0 0 0 20px;
-//   transform: ${({ isActive }) =>
-//     isActive ? 'translateX(-100%)' : 'translateX(0)'};
-//   transition: transform 0.3s ease-in-out 0.25s;
-
-//   ${({ theme }) => theme.media.tablet} {
-//   }
-// `;
-
 const AdminNavigation = ({ isActive, setIsActive, history }) => {
   
   return (

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Button from '../components/utils/Button';
+import Loading from '../components/utils/Loading';
+
+import { getAll }from '../helpers/categoriesAPI'
 
 const StyledContainer = styled.main`
   padding: 5px 10px;
@@ -60,43 +63,21 @@ const StyledContainer = styled.main`
   }
 `;
 
-
-const testData = [
-  {
-    _id: '60151f1133b10306b42ad8ad',
-    category: 'nature',
-    __v: 0,
-  },
-  {
-    _id: '60151f1133b10306b42ad8ab',
-    category: 'culture',
-    __v: 0,
-  },
-  {
-    _id: '60151f1133b10306b42ad8aa',
-    category: 'mechanics',
-    __v: 0,
-  },
-  {
-    _id: '60151f1133b10306b42ad8ae',
-    category: 'programing',
-    __v: 0,
-  },
-  {
-    _id: '60151f1133b10306b42ad8ac',
-    category: 'learn',
-    __v: 0,
-  },
-];
-
-
 const Categories = () => {
-
-  const [categories, setCategories] = useState(testData);
-  const [isLoading, setIsLoading] = useState(false)
   
+  const [categories, setCategories] = useState('');
+  const [isLoading, setIsLoading] = useState(true)
+  
+  useEffect(() => {
+    (async()=>{
+      setCategories(await getAll());
+      setIsLoading(false);
+    })()
+  
+  }, [])
+
     return isLoading ? (
-      <div>Loading...</div>
+      <Loading/>
     ) : (
       <StyledContainer>
         <header>Wszyskie projekty</header>

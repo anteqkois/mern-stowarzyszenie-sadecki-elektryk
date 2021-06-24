@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 
 import Button from '../components/utils/Button';
 import Delete from '../components/utils/Delete';
+import Loading from '../components/utils/Loading';
+import Modal from '../components/utils/Modal';
 
-import { get, post } from '../helpers/projectsAPI';
-import { getAll } from '../helpers/categoriesAPI';
+import * as projectsAPI from '../helpers/projectsAPI';
+import * as categoriesAPI from '../helpers/categoriesAPI';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -78,62 +80,6 @@ const StyledForm = styled.form`
   }
 `;
 
-const StyledProcessing = styled.div`
-  > div {
-    :nth-of-type(1) {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: ${({ theme }) => theme.colors.noActive};
-      z-index: ${({ theme }) => theme.zIndex.level2};
-      opacity: 0.7;
-    }
-    :nth-of-type(2) {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 80vw;
-      height: 70vh;
-      display: flex;
-      gap: 40px;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border-radius: 10px;
-      text-align: center;
-      font-size: ${({ theme }) => theme.typography.sizeH5};
-      font-weight: ${({ theme }) => theme.typography.weightBold};
-      background: ${({ theme }) => theme.colors.primary};
-      color: ${({ theme }) => theme.colors.accent};
-      z-index: ${({ theme }) => theme.zIndex.level3};
-      box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.37);
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      transform: translate(-50%, -50%);
-    }
-  }
-`;
-
-const StyledLoading = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  gap: 40px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  //text-align: center;
-  font-size: ${({ theme }) => theme.typography.sizeH5};
-  font-weight: ${({ theme }) => theme.typography.weightBold};
-  color: ${({ theme }) => theme.colors.accent};
-  transform: translate(-50%, -50%);
-`;
-
 const addZero = (element) => {
   return `0${element}`;
 };
@@ -176,33 +122,53 @@ const ProjectsEdit = ({ match }) => {
 
   useEffect(() => {
     (async () => {
-      const data = !toAdd ? await get(match.params.id) : '';
+      const data = !toAdd ? await projectsAPI.get(match.params.id) : '';
 
-      setProject(!toAdd ? await get(match.params.id) : '');
+      setProject(!toAdd ? await projectsAPI.get(match.params.id) : '');
       setSlug(data ? data.slug : '');
       setTitle(data ? data.title : '');
       setDate(data ? convertDate(data.date) : '');
       setCategory(data ? data.category : '');
       setDescription(data ? data.description : '');
 
-      setCategories(await getAll());
+      setCategories(await categoriesAPI.getAll());
       setIsLoading(false);
     })();
   }, [match.params.id, toAdd]);
 
   const handlePOST = async (values) => {
-    // setTimeout(() => {
-    //   setOption('saved');
-    // }, 3000);
-
-    const data = await post(values);
+    const data = await projectsAPI.post(values);
     console.log(data);
     setOption('saved');
   };
 
-  const handlePUT = () => {
-    console.log('PUT');
+  const handlePUT = async (values) => {
+    const data = await projectsAPI.put(slug, values);
+    console.log(data);
+    setOption('saved');
+    //console.log('PUT');
   };
+
+  const handleSlug = () => {
+    console.log('sluggg');
+  };
+
+  const handleDelete = (fn) => {
+    const accpet = window.confirm(
+      title
+        ? `Czy napewno chcesz cofnąć zmiany w projekcie ,,${title}''?`
+        : 'Czy napewno nie chcesz zapisać nowego projektu?',
+    );
+
+    if (accpet) {
+      // const { data } = await projectsAPI.remove(slug);
+      // console.log(data);
+      //setDeleted(title);
+      fn();
+    }
+  };
+
+  // obsługa sluga do zrobienia !!!!!!!
 
   const formik = useFormik({
     initialValues: {
@@ -219,16 +185,14 @@ const ProjectsEdit = ({ match }) => {
       setCategory(values.category);
       setDate(values.date);
       setDescription(values.description);
-      (() => (toAdd ? handlePOST(values) : handlePUT()))();
+      (() => (toAdd ? handlePOST(values) : handlePUT(values)))();
       resetForm();
     },
     enableReinitialize: true,
   });
 
   return isLoading ? (
-    <StyledLoading>
-      <h5>Loading...</h5>
-    </StyledLoading>
+    <Loading />
   ) : (
     <StyledContainer>
       {toAdd ? (
@@ -243,7 +207,8 @@ const ProjectsEdit = ({ match }) => {
         <StyledForm onSubmit={formik.handleSubmit}>
           <label htmlFor="slug">Slug:</label>
           <textarea
-            disabled={toAdd ? true : false}
+            disabled
+            //disabled={toAdd ? true : false}
             //required
             id="slug"
             name="slug"
@@ -293,31 +258,30 @@ const ProjectsEdit = ({ match }) => {
             value={formik.values.description}
           />
           <div>
-            <Delete onClick={formik.resetForm}></Delete>
+            <Delete onClick={() => handleDelete(formik.resetForm)}></Delete>
             <Button type="submit">Zapisz</Button>
           </div>
         </StyledForm>
       )}
 
       {option !== OPTION_TYPE.normal && (
-        <StyledProcessing>
-          <div></div>
-          <div>
-            {option === OPTION_TYPE.processing && (
+        <>
+          {option === OPTION_TYPE.processing && (
+            <Modal setIsOpen={() => setOption(OPTION_TYPE.normal)}>
               <p>Trwa zapisywanie projektu</p>
-            )}
-            {option === OPTION_TYPE.saved && (
-              <>
-                <p>
-                  Projekt <q>{title}</q> został zapisany
-                </p>
-                <Link to="/admin">
-                  <Button>Wróć do menu</Button>
-                </Link>
-              </>
-            )}
-          </div>
-        </StyledProcessing>
+            </Modal>
+          )}
+          {option === OPTION_TYPE.saved && (
+            <Modal setIsOpen={() => setOption(OPTION_TYPE.normal)}>
+              <p>
+                Projekt <q>{title}</q> został zapisany!
+              </p>
+              <Link to="/admin">
+                <Button>Wróć do menu</Button>
+              </Link>
+            </Modal>
+          )}
+        </>
       )}
     </StyledContainer>
   );
