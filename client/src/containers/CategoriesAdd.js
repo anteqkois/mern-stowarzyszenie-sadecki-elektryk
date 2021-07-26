@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
 
 import Button from '../components/utils/Button';
+import Delete from '../components/utils/Delete';
+import Modal from '../components/utils/Modal';
+
+import * as categoriesAPI from '../helpers/categoriesAPI';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -55,54 +59,61 @@ const StyledForm = styled.form`
   }
 `;
 
+const OPTION_TYPE = {
+  normal: 'normal',
+  processing: 'processing',
+  saved: 'saved',
+};
 
 const CategoriesAdd = () => {
-
   const [category, setCategory] = useState('');
+  const [option, setOption] = useState(OPTION_TYPE.normal);
 
-  
-    const formik = useFormik({
-      initialValues: {
-        category: '',
-      },
-      onSubmit: (values, { setSubmitting, resetForm }) => {
-        setCategory(values.category);
-        resetForm();
-        console.log('submit');
-      },
-    });
+  const handlePost = async (values) => {
+    const data = await categoriesAPI.post(values);
+    // console.log(data);
+    setOption(OPTION_TYPE.saved);
+  };
 
-    const handleReset = (resetForm) => {
-      console.log('reset');
+  const formik = useFormik({
+    initialValues: {
+      category: '',
+    },
+    onSubmit: (values, { setSubmitting, resetForm }) => {
+      setOption(OPTION_TYPE.processing);
+      setCategory(values.category);
       resetForm();
-    };
+      handlePost(values);
+    },
+  });
 
-  
   return (
     <StyledContainer>
-      <h5>
-        Dodaj nową kategorię:
-      </h5>
+      <h5>Dodaj nową kategorię:</h5>
       <StyledForm onSubmit={formik.handleSubmit}>
         <label htmlFor="slug">Nazwa kategorii:</label>
         <input
-        type='text'
+          type="text"
           id="category"
           name="category"
           onChange={formik.handleChange}
           value={formik.values.category}
         />
         <div>
-          <Button
-            type="reset"
-            onClick={() => handleReset(formik.resetForm)}
-            option="ghost"
-          >
-            Anuluj
-          </Button>
+          <Delete onClick={formik.resetForm}>Anuluj</Delete>
           <Button type="submit">Zapisz</Button>
         </div>
       </StyledForm>
+      {option === OPTION_TYPE.processing && (
+        <Modal setIsOpen={() => setOption(OPTION_TYPE.normal)}>
+          Dodawanie nowej kategorii...
+        </Modal>
+      )}
+      {option === OPTION_TYPE.saved && (
+        <Modal setIsOpen={() => setOption(OPTION_TYPE.normal)}>
+          Udało się dodać ,,{category}'' do kategorii!
+        </Modal>
+      )}
     </StyledContainer>
   );
 };

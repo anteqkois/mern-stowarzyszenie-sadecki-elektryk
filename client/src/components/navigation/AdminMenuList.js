@@ -66,6 +66,10 @@ const menuItems = [
     label: 'Dodaj nową kategorię',
     link: '/admin/categories/add',
   },
+  {
+    label: 'Wyloguj się',
+    link: '/logout',
+  },
 ];
 
 const AdminMenuList = ({ setIsActive, mainView }) => {

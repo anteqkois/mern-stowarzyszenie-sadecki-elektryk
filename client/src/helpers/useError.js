@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import Delete from '../components/utils/Delete';
 
-import Delete from '../utils/Delete';
-
-const StyledModal = styled.div`
+const StyledError = styled.div`
   position: relative;
+  z-index: ${({ theme }) => theme.zIndex.level4};
   > div {
     :nth-of-type(1) {
       position: fixed;
@@ -13,32 +13,27 @@ const StyledModal = styled.div`
       width: 100vw;
       height: 100vh;
       background: ${({ theme }) => theme.colors.noActive};
-      z-index: ${({ theme }) => theme.zIndex.level2};
+      z-index: ${({ theme }) => theme.zIndex.levelMinus1};
       opacity: 0.7;
     }
+
     :nth-of-type(2) {
       position: fixed;
       top: 50%;
       left: 50%;
       width: 90vw;
       max-width: 1000px;
-      height: 70vh;
-      display: flex;
-      gap: 40px;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      padding: 70px 0;
       border-radius: 10px;
       text-align: center;
       font-size: ${({ theme }) => theme.typography.sizeH6};
       font-weight: ${({ theme }) => theme.typography.weightBold};
       background: ${({ theme }) => theme.colors.primary};
-      color: ${({ theme }) => theme.colors.accent};
+      color: rgba(255, 15, 15, 1);
       box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.37);
       border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      border: 3px solid rgba(255, 15, 15, 1);
       transform: translate(-50%, -50%);
-      z-index: ${({ theme }) => theme.zIndex.level3};
     }
   }
   ${({ theme }) => theme.media.tablet} {
@@ -59,16 +54,33 @@ const StyledDelete = styled(Delete)`
   }
 `;
 
-const Modal = ({ children, setIsOpen }) => {
-  return (
-    <StyledModal>
-      <div></div>
-      <div>
-        {children}
-        <StyledDelete onClick={setIsOpen} />
-      </div>
-    </StyledModal>
-  );
-};
+export const useError = (afterClosedModal = false) => {
+  const [haveError, setHaveError] = useState(null);
 
-export default Modal;
+  //error && setHaveError(error);
+
+  const setIsOpen = () => {
+    afterClosedModal && afterClosedModal();
+    setHaveError(false);
+  };
+
+  const showError = () => {
+
+    //console.log(haveError);
+
+    return (
+      haveError && (
+        <StyledError>
+          <div></div>
+          <div>{haveError}
+          
+          <StyledDelete onClick={setIsOpen} />
+          </div>
+        </StyledError>
+      )
+    );
+  };
+
+  return [haveError, setHaveError, showError];
+};
+// importowanie działa, dodać teraz wyświetlanie poprawne błedu

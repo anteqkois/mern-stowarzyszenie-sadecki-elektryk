@@ -10,6 +10,7 @@ import Modal from '../components/utils/Modal';
 
 import * as projectsAPI from '../helpers/projectsAPI';
 import * as categoriesAPI from '../helpers/categoriesAPI';
+import { useError } from '../helpers/useError';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -79,6 +80,9 @@ const StyledForm = styled.form`
     gap: 30px;
   }
 `;
+const StyledLink = styled(Link)`
+  all: unset;
+`;
 
 const addZero = (element) => {
   return `0${element}`;
@@ -103,11 +107,13 @@ const OPTION_TYPE = {
   normal: 'normal',
   processing: 'processing',
   saved: 'saved',
+  deleted: 'deleted',
 };
 
 const ProjectsEdit = ({ match }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [option, setOption] = useState('normal');
+  //const [error, setError] = useState('')
 
   const [categories, setCategories] = useState('');
   const [project, setProject] = useState('');
@@ -118,38 +124,77 @@ const ProjectsEdit = ({ match }) => {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
 
+  const [haveError, setHaveError, showError] = useError(() =>
+    window.location.assign('/admin'),
+  );
+
   const toAdd = match.path.search(/add/) >= 0;
 
   useEffect(() => {
     (async () => {
-      const data = !toAdd ? await projectsAPI.get(match.params.id) : '';
+      try {
+        const data = !toAdd ? await projectsAPI.get(match.params.id) : '';
 
-      setProject(!toAdd ? await projectsAPI.get(match.params.id) : '');
-      setSlug(data ? data.slug : '');
-      setTitle(data ? data.title : '');
-      setDate(data ? convertDate(data.date) : '');
-      setCategory(data ? data.category : '');
-      setDescription(data ? data.description : '');
+        setProject(!toAdd ? await projectsAPI.get(match.params.id) : '');
+        setSlug(data ? data.slug : '');
+        setTitle(data ? data.title : '');
+        setDate(data ? convertDate(data.date) : '');
+        setCategory(data ? data.category : '');
+        setDescription(data ? data.description : '');
 
-      setCategories(await categoriesAPI.getAll());
+        setCategories(await categoriesAPI.getAll());
+      } catch (error) {
+        console.log(error.response.data);
+        setHaveError(error.response.data);
+      }
+
       setIsLoading(false);
     })();
   }, [match.params.id, toAdd]);
 
-  const handlePOST = async (values) => {
-    const data = await projectsAPI.post(values);
-    console.log(data);
-    setOption('saved');
+  // useEffect(() => {
+  //   (async () => {
+  //     const data = !toAdd ? await projectsAPI.get(match.params.id) : '';
+
+  //     setProject(!toAdd ? await projectsAPI.get(match.params.id) : '');
+  //     setSlug(data ? data.slug : '');
+  //     setTitle(data ? data.title : '');
+  //     setDate(data ? convertDate(data.date) : '');
+  //     setCategory(data ? data.category : '');
+  //     setDescription(data ? data.description : '');
+
+  //     setCategories(await categoriesAPI.getAll());
+  //     setIsLoading(false);
+  //   })();
+  // }, [match.params.id, toAdd]);
+
+  const handlePost = async (values) => {
+    await projectsAPI
+      .post(values)
+      .then(({ data }) => {
+        setOption(OPTION_TYPE.saved);
+      })
+      .catch((error) => {
+        setHaveError(error.response.data);
+        setOption(OPTION_TYPE.normal);
+      });
   };
 
-  const handlePUT = async (values) => {
-    const data = await projectsAPI.put(slug, values);
-    console.log(data);
-    setOption('saved');
+  const handlePut = async (values) => {
+    await projectsAPI
+      .put(slug, values)
+      .then(({ data }) => {
+        setOption(OPTION_TYPE.saved);
+      })
+      .catch((error) => {
+        setHaveError(error.response.data);
+        setOption(OPTION_TYPE.normal);
+      });
   };
 
   const handleSlug = (titleToConvert) => {
-    const slugToAdd = titleToConvert.toLowerCase()
+    const slugToAdd = titleToConvert
+      .toLowerCase()
       .replaceAll(' ', '-')
       .replaceAll('ć', 'c')
       .replaceAll('ś', 's')
@@ -157,21 +202,29 @@ const ProjectsEdit = ({ match }) => {
       .replaceAll('ż', 'z')
       .replaceAll('ą', 'a')
       .replaceAll('ę', 'e');
-    console.log(slugToAdd);
     formik.setValues({ ...formik.values, slug: slugToAdd });
   };
 
   const handleDelete = (fn) => {
     const accpet = window.confirm(
-      title
+      !toAdd
         ? `Czy napewno chcesz cofnąć zmiany w projekcie ,,${title}''?`
         : 'Czy napewno nie chcesz zapisać nowego projektu?',
     );
 
     if (accpet) {
-      // const { data } = await projectsAPI.remove(slug);
-      // console.log(data);
-      //setDeleted(title);
+      !toAdd &&
+        (async () => {
+          await projectsAPI
+            .remove(slug)
+            .then(({ data }) => {
+              setOption(OPTION_TYPE.deleted);
+            })
+            .catch((error) => {
+              setHaveError(error.response.data);
+              setOption(OPTION_TYPE.normal);
+            });
+        })();
       fn();
     }
   };
@@ -191,7 +244,7 @@ const ProjectsEdit = ({ match }) => {
       setCategory(values.category);
       setDate(values.date);
       setDescription(values.description);
-      (() => (toAdd ? handlePOST(values) : handlePUT(values)))();
+      (() => (toAdd ? handlePost(values) : handlePut(values)))();
       resetForm();
     },
     enableReinitialize: true,
@@ -199,6 +252,8 @@ const ProjectsEdit = ({ match }) => {
 
   return isLoading ? (
     <Loading />
+  ) : haveError ? (
+    showError()
   ) : (
     <StyledContainer>
       {toAdd ? (
@@ -226,7 +281,7 @@ const ProjectsEdit = ({ match }) => {
             id="title"
             name="title"
             //required
-            onKeyUp={()=>handleSlug(formik.values.title)}
+            onKeyUp={() => handleSlug(formik.values.title)}
             onChange={formik.handleChange}
             value={formik.values.title}
           />
@@ -270,25 +325,30 @@ const ProjectsEdit = ({ match }) => {
           </div>
         </StyledForm>
       )}
-
-      {option !== OPTION_TYPE.normal && (
-        <>
-          {option === OPTION_TYPE.processing && (
-            <Modal setIsOpen={() => setOption(OPTION_TYPE.normal)}>
-              <p>Trwa zapisywanie projektu</p>
-            </Modal>
-          )}
-          {option === OPTION_TYPE.saved && (
-            <Modal setIsOpen={() => setOption(OPTION_TYPE.normal)}>
-              <p>
-                Projekt <q>{title}</q> został zapisany!
-              </p>
-              <Link to="/admin">
-                <Button>Wróć do menu</Button>
-              </Link>
-            </Modal>
-          )}
-        </>
+      {option === OPTION_TYPE.processing && (
+        <Modal setIsOpen={() => setOption(OPTION_TYPE.normal)}>
+          <p>Trwa zapisywanie projektu</p>
+        </Modal>
+      )}
+      {option === OPTION_TYPE.saved && (
+        <Modal setIsOpen={() => setOption(OPTION_TYPE.normal)}>
+          <p>
+            Projekt <q>{title}</q> został zapisany!
+          </p>
+          <StyledLink to="/admin">
+            <Button>Wróć do menu</Button>
+          </StyledLink>
+        </Modal>
+      )}
+      {option === OPTION_TYPE.deleted && (
+        <Modal setIsOpen={() => setOption(OPTION_TYPE.normal)}>
+          <p>
+            Projekt <q>{title}</q> został usunięty!
+          </p>
+          <StyledLink to="/admin">
+            <Button>Wróć do menu</Button>
+          </StyledLink>
+        </Modal>
       )}
     </StyledContainer>
   );

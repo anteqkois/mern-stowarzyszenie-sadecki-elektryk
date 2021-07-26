@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { WidthDeviceProvider } from './context/Context';
+import * as projectsAPI from './helpers/projectsAPI';
 
 import Layout from './layouts/Layout';
 import Navigation from './containers/Navigation';
@@ -15,6 +16,7 @@ import AdminPanel from './pages/AdminPanel';
 import Projects from './pages/Projects';
 import Aid from './containers/Aid';
 import Login from './containers/Login';
+import Logout from './containers/Logout';
 import Fotter from './containers/Fotter';
 import ScrollToTop from './components/utils/ScrollToTop';
 
@@ -35,6 +37,22 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 function App() {
+  // useEffect(() => {
+  //   (async () => {
+  //     await projectsAPI
+  //       .error()
+  //       .then(({data}) => {
+  //         console.log(data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error.response);
+  //       });
+  //     // console.log(data);
+  //     // const { data } = await projectsAPI.error();
+  //     // console.log(data);
+  //   })();
+  // }, []);
+
   return (
     <WidthDeviceProvider>
       <Router>
@@ -48,6 +66,7 @@ function App() {
               <Route exact path="/projects" component={Projects} />
               <Route exact path="/aid" component={Aid} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/logout" component={Logout} />
               <Fotter />
             </>
           </Switch>

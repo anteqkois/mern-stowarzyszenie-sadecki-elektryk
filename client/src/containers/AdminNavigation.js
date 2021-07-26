@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useRef} from 'react';
 import styled from 'styled-components';
 
 import HamburgerMenu from '../components/navigation/HamburgerMenu';
@@ -91,6 +91,12 @@ const StyledHamburgerMenu = styled.nav`
 `;
 
 const AdminNavigation = ({ isActive, setIsActive, history }) => {
+
+  const backButton = useRef(null);
+
+  const handleBlur = () =>{
+    backButton.current.blur();
+  }
   
   return (
     <>
@@ -101,7 +107,8 @@ const AdminNavigation = ({ isActive, setIsActive, history }) => {
         <HamburgerMenu isActive={isActive} setIsActive={setIsActive} />
         <svg
         tabIndex='0'
-        onClick={()=> history.goBack()}
+        ref={backButton}
+        onClick={()=> {history.goBack(); handleBlur()}}
           xmlns="http://www.w3.org/2000/svg"
           width="55"
           height="50"

@@ -5,6 +5,7 @@ const projectControllers = require('../controllers/projectsController');
 const { catchAsyncErrors } = require('../middlewares/errors');
 
 //GET
+router.get('/error', catchAsyncErrors(projectControllers.error));
 router.get('/', catchAsyncErrors(projectControllers.findAll));
 
 router.get('/:slug', catchAsyncErrors(projectControllers.findOne));

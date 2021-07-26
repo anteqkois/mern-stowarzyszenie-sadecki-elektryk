@@ -5,15 +5,17 @@ import { Link } from 'react-router-dom';
 import Button from '../components/utils/Button';
 import Delete from '../components/utils/Delete';
 import Modal from '../components/utils/Modal';
+import Loading from '../components/utils/Loading';
 
 import * as projectsAPI from '../helpers/projectsAPI';
+import { useError } from '../helpers/useError';
 
 const StyledContainer = styled.main`
   padding: 5px 10px;
 
   header {
     text-align: center;
-    margin: 20px 0;
+    margin: 30px 0;
     font-size: ${({ theme }) => theme.typography.sizeH5};
     font-weight: ${({ theme }) => theme.typography.weightBold};
     text-transform: uppercase;
@@ -78,28 +80,44 @@ const ListOfProjectsToEdit = ({ location }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
 
+  const [haveError, setHaveError, showError] = useError(() =>
+    window.location.assign('/admin')
+  );
+
   useEffect(() => {
     (async () => {
-      setProjects(await projectsAPI.getAll());
+      try {
+        setProjects(await projectsAPI.getAll());
+      } catch (error) {
+        setHaveError(error.response.data);
+      }
       setIsLoading(false);
     })();
   }, []);
 
   const handleDelete = async (slug, title) => {
-
     const accpet = window.confirm(
       `Czy napewno chcesz usunąć projekt ,,${title}'' ?`,
     );
 
     if (accpet) {
-      // const { data } = await projectsAPI.remove(slug);
-      // console.log(data);
-      setDeleted(title);
+      (async () => {
+        await projectsAPI
+          .remove(slug)
+          .then(({ data }) => {
+            setDeleted(title);
+          })
+          .catch((error) => {
+            setHaveError(error.response.data);
+          });
+      })();
     }
   };
 
   return isLoading ? (
-    <div>Loading...</div>
+    <Loading />
+  ) : haveError ? (
+    showError()
   ) : (
     <StyledContainer>
       <header>Wszyskie projekty</header>
@@ -114,13 +132,19 @@ const ListOfProjectsToEdit = ({ location }) => {
           </li>
         ))}
       </ul>
-        {deleted && (
-          <Modal setIsOpen={()=>setDeleted(!deleted)}>
-            <p>
-              Projekt <q>{deleted}</q> został usunięty!
-            </p>
-          </Modal>
-        )}
+      {deleted && (
+        <Modal
+          setIsOpen={() => {
+            setDeleted(!deleted);
+            window.location.reload();
+          }}
+        >
+          <p>
+            Projekt <q>{deleted}</q> został usunięty!
+          </p>
+        </Modal>
+      )}
+      {showError()}
     </StyledContainer>
   );
 };

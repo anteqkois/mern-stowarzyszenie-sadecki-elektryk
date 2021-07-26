@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import Button from '../components/utils/Button';
+import Delete from '../components/utils/Delete';
 import Loading from '../components/utils/Loading';
+import Modal from '../components/utils/Modal';
 
-import { getAll }from '../helpers/categoriesAPI'
+import * as categoriesAPI from '../helpers/categoriesAPI';
 
 const StyledContainer = styled.main`
   padding: 5px 10px;
@@ -47,7 +48,6 @@ const StyledContainer = styled.main`
     box-shadow: 0 4px 20px 0 rgba(31, 38, 135, 0.3);
     transition: background 0.4s ease-in-out;
 
-
     button {
       text-align: center;
     }
@@ -64,33 +64,54 @@ const StyledContainer = styled.main`
 `;
 
 const Categories = () => {
-  
   const [categories, setCategories] = useState('');
-  const [isLoading, setIsLoading] = useState(true)
-  
-  useEffect(() => {
-    (async()=>{
-      setCategories(await getAll());
-      setIsLoading(false);
-    })()
-  
-  }, [])
+  const [isLoading, setIsLoading] = useState(true);
+  const [deleted, setDeleted] = useState(false);
 
-    return isLoading ? (
-      <Loading/>
-    ) : (
-      <StyledContainer>
-        <header>Wszyskie projekty</header>
-        <ul>
-          {categories.map(({ category, _id}) => (
-            <li key={_id}>
-              <p>{category}</p>
-              <Button option="ghost">Usuń</Button>
-            </li>
-          ))}
-        </ul>
-      </StyledContainer>
+  useEffect(() => {
+    (async () => {
+      setCategories(await categoriesAPI.getAll());
+      setIsLoading(false);
+    })();
+  }, []);
+
+  const handleDelete = async (id, category) => {
+    const accpet = window.confirm(
+      `Czy napewno chcesz usunąć kategorię ,,${category}'' ?`,
     );
+
+    if (accpet) {
+      const { data } = await categoriesAPI.remove(id);
+      // console.log(data);
+      setDeleted(category);
+    }
+  };
+
+  return isLoading ? (
+    <Loading />
+  ) : (
+    <StyledContainer>
+      <header>Wszyskie projekty</header>
+      <ul>
+        {categories.map(({ category, _id }) => (
+          <li key={_id}>
+            <p>{category}</p>
+            <Delete onClick={() => handleDelete(_id, category)}>Usuń</Delete>
+          </li>
+        ))}
+      </ul>
+      {deleted && (
+        <Modal
+          setIsOpen={() => {
+            setDeleted();
+            window.location.reload();
+          }}
+        >
+          Kategoria ,,{deleted}'' została usunięta
+        </Modal>
+      )}
+    </StyledContainer>
+  );
 };
 
 export default Categories;

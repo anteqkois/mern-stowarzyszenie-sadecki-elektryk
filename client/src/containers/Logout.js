@@ -1,9 +1,11 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Delete from '../utils/Delete';
+import Button from '../components/utils/Button';
 
-const StyledModal = styled.div`
+const StyledLogout = styled.div`
   position: relative;
   > div {
     :nth-of-type(1) {
@@ -12,13 +14,12 @@ const StyledModal = styled.div`
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: ${({ theme }) => theme.colors.noActive};
+      background: ${({ theme }) => theme.colors.gradient};
       z-index: ${({ theme }) => theme.zIndex.level2};
-      opacity: 0.7;
     }
     :nth-of-type(2) {
       position: fixed;
-      top: 50%;
+      top: calc(50% + 35px);
       left: 50%;
       width: 90vw;
       max-width: 1000px;
@@ -48,27 +49,27 @@ const StyledModal = styled.div`
   }
 `;
 
-const StyledDelete = styled(Delete)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 50px;
-  width: 50px;
-  :hover {
-    transform: translate(0, 0);
-  }
+const StyledLink = styled(Link)`
+all: unset;
 `;
 
-const Modal = ({ children, setIsOpen }) => {
+const Logout = () => {
+
+  useEffect(() => {
+    sessionStorage.removeItem('isLogged');
+  }, [])
+  
   return (
-    <StyledModal>
+    <StyledLogout>
       <div></div>
       <div>
-        {children}
-        <StyledDelete onClick={setIsOpen} />
+      Zostałeś wylogowany !
+      <StyledLink  to={'/'} >
+        <Button >Strona główna</Button>
+      </StyledLink>
       </div>
-    </StyledModal>
+    </StyledLogout>
   );
 };
 
-export default Modal;
+export default Logout;

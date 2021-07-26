@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-import Button from '../utils/Button'
+import Button from '../utils/Button';
+import Delete from '../utils/Delete';
+import Modal from '../utils/Modal';
+
+import * as projectsAPI from '../../helpers/projectsAPI';
+import { useError } from '../../helpers/useError';
 
 const StyledProject = styled.div`
   padding: 10px;
@@ -42,7 +47,18 @@ const StyledLink = styled(Link)`
   all: unset;
 `;
 
-const ProjectAdmin = ({ slug, _id, title, category, date, description, location }) => {
+const ProjectAdmin = ({
+  slug,
+  _id,
+  title,
+  category,
+  date,
+  description,
+  location,
+}) => {
+  const [deleted, setDeleted] = useState(false);
+  const [haveError, setHaveError, showError] = useError();
+
   const dateToConvert = new Date(date);
   const dateToPut = `${dateToConvert.getDate()} ${dateToConvert.toLocaleString(
     'default',
@@ -51,35 +67,65 @@ const ProjectAdmin = ({ slug, _id, title, category, date, description, location 
     },
   )} ${dateToConvert.getFullYear()}`;
 
+  const handleDelete = async () => {
+    const accpet = window.confirm(
+      `Czy napewno chcesz usunąć projekt ,,${title}'' ?`,
+    );
+
+    if (accpet) {
+      (async () => {
+        await projectsAPI
+          .remove(slug)
+          .then(({ data }) => {
+            setDeleted(title);
+          })
+          .catch((error) => {
+            setHaveError(error.response.data);
+          });
+      })();
+    }
+  };
+
   return (
-    <StyledProject>
-      <p>
-        <span>Tytuł: </span>
-        {title}
-      </p>
-      <p>
-        <span>Kategoria: </span>
-        {category}
-      </p>
-      <p>
-        <span>Data: </span>
-        {dateToPut}
-      </p>
-      <p>
-        <span>id: </span>
-        {_id}
-      </p>
-      <p>
-        <span>Opis: </span>
-        {description}
-      </p>
-      <div>
-      <Button option='ghost'>Usuń</Button>
-      <StyledLink to={(location) => `${location.pathname}/edit/${slug}`}>
-        <Button>Edytuj</Button>
-      </StyledLink>
-      </div>
-    </StyledProject>
+    <>
+      <StyledProject>
+        <p>
+          <span>Tytuł: </span>
+          {title}
+        </p>
+        <p>
+          <span>Kategoria: </span>
+          {category}
+        </p>
+        <p>
+          <span>Data: </span>
+          {dateToPut}
+        </p>
+        <p>
+          <span>id: </span>
+          {_id}
+        </p>
+        <p>
+          <span>Opis: </span>
+          {description}
+        </p>
+        <div>
+          <Delete onClick={handleDelete}>Usuń</Delete>
+          <StyledLink to={(location) => `${location.pathname}/edit/${slug}`}>
+            <Button>Edytuj</Button>
+          </StyledLink>
+        </div>
+      </StyledProject>
+      {deleted && (
+        <Modal
+          setIsOpen={() => {
+            setDeleted();
+            window.location.reload();
+          }}
+        >{`Projekt ,,${title}'' został usunięty!`}</Modal>
+      )}
+      {showError()}
+    </>
   );
 };
 

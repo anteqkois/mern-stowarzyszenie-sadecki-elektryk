@@ -1,5 +1,3 @@
-const { findById } = require('../models/project');
-
 const notFound = (req, res, next) => {
   const err = new Error('404 api endpoint not found');
   err.status = 404;
@@ -21,11 +19,40 @@ const createError = (message, status) => {
   throw err;
 };
 
+class ApiError extends Error {
+  constructor(message, status) {
+    super(message);
+    this.name = 'ApiError';
+    this.status = status;
+  }
+}
+const createApiError = (message, status) => {
+  const err = new ApiError(message, status);
+  throw err;
+};
+
 const catchErrors = (err, req, res, next) => {
-  res.status(err.status || 500).send({
-    message: err.message || `Something did wrong :(`,
-  });
+  //console.log(err.name, err.status, err.message);
+
+  return res
+    .status(err.status || 500)
+    .send(err.message);
+    // .send(err.message || `Something did wrong :(`);
   next();
 };
 
-module.exports = { notFound, catchAsyncErrors, createError, catchErrors };
+// const catchErrors = (err, req, res, next) => {
+
+//   return res.status(err.status || 500).send({
+//     data: err.message || `Something did wrong :(`,
+//   });
+//   next();
+// };
+
+module.exports = {
+  notFound,
+  catchAsyncErrors,
+  createError,
+  createApiError,
+  catchErrors,
+};

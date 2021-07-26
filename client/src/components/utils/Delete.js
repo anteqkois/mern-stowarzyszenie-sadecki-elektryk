@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 const StyledDelete = styled.div`
+display: inline-block;
   padding: 0.5em 1em;
   position: relative;
   text-transform: uppercase;
