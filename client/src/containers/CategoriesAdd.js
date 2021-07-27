@@ -7,6 +7,7 @@ import Delete from '../components/utils/Delete';
 import Modal from '../components/utils/Modal';
 
 import * as categoriesAPI from '../helpers/categoriesAPI';
+import { useError } from '../helpers/useError';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -69,10 +70,20 @@ const CategoriesAdd = () => {
   const [category, setCategory] = useState('');
   const [option, setOption] = useState(OPTION_TYPE.normal);
 
+  const [haveError, setHaveError, showError] = useError(() =>
+    window.location.assign('/admin'),
+  );
+
   const handlePost = async (values) => {
-    const data = await categoriesAPI.post(values);
-    // console.log(data);
-    setOption(OPTION_TYPE.saved);
+    await categoriesAPI
+      .post(values)
+      .then(({ data }) => {
+        setOption(OPTION_TYPE.saved);
+      })
+      .catch((error) => {
+        setHaveError(error.response.data);
+        setOption(OPTION_TYPE.normal);
+      });
   };
 
   const formik = useFormik({
@@ -87,7 +98,9 @@ const CategoriesAdd = () => {
     },
   });
 
-  return (
+  return haveError ? (
+    showError()
+  ) : (
     <StyledContainer>
       <h5>Dodaj nową kategorię:</h5>
       <StyledForm onSubmit={formik.handleSubmit}>

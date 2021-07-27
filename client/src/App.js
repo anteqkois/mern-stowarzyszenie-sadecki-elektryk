@@ -37,6 +37,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 function App() {
+  //TESTOWANIE USEERROR
+
   // useEffect(() => {
   //   (async () => {
   //     await projectsAPI

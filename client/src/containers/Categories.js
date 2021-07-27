@@ -6,6 +6,7 @@ import Loading from '../components/utils/Loading';
 import Modal from '../components/utils/Modal';
 
 import * as categoriesAPI from '../helpers/categoriesAPI';
+import { useError } from '../helpers/useError';
 
 const StyledContainer = styled.main`
   padding: 5px 10px;
@@ -68,9 +69,17 @@ const Categories = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
 
+  const [haveError, setHaveError, showError] = useError(() =>
+    window.location.assign('/admin'),
+  );
+
   useEffect(() => {
     (async () => {
-      setCategories(await categoriesAPI.getAll());
+      try {
+        setCategories(await categoriesAPI.getAll());
+      } catch (error) {
+        setHaveError(error.response.data);
+      }
       setIsLoading(false);
     })();
   }, []);
@@ -81,14 +90,21 @@ const Categories = () => {
     );
 
     if (accpet) {
-      const { data } = await categoriesAPI.remove(id);
-      // console.log(data);
-      setDeleted(category);
+      await categoriesAPI
+        .remove(id)
+        .then(({ data }) => {
+          setDeleted(category);
+        })
+        .catch((error) => {
+          setHaveError(error.response.data);
+        });
     }
   };
 
   return isLoading ? (
     <Loading />
+  ) : haveError ? (
+    showError()
   ) : (
     <StyledContainer>
       <header>Wszyskie projekty</header>

@@ -2,9 +2,9 @@ import { projects } from './routes';
 import * as api from './api';
 // import handleApiError from './handleApiError'
 
-export const error = () =>{
-  return api.get(projects('error'));
-}
+// export const error = () =>{
+//   return api.get(projects('error'));
+// }
 
 export const getAll = () =>{
   return api.get(projects());
