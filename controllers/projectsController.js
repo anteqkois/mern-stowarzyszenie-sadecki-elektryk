@@ -44,7 +44,6 @@ const create = async (req, res, next) => {
     date: req.body.date,
     description: req.body.description,
   }).save();
-  //console.log(project);
   return res.status(201).send({ data: project });
 };
 
