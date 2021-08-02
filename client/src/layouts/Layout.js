@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   ::-webkit-scrollbar {
-      display: none;
+      //display: none;
   }
   body{
     background-color: ${({ theme }) => theme.colors.primary};

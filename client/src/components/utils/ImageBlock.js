@@ -21,7 +21,7 @@ const StyledImageBlock = styled.div`
     );
   }
   img {
-    width: 100%;
+    width: 100vw;
     height: 40vw;
     object-fit: cover;
   }
