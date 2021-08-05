@@ -1,5 +1,49 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import gsap from 'gsap';
+
+const Loading = () => {
+  const wrapper = useRef(null);
+
+  useEffect(() => {
+    const element = wrapper.current.children;
+
+    
+    const tl = gsap.timeline({ keyframes: true, 
+  keyframesEase: "circ" })
+    
+    .set(element, { x: '-=150', scale: 0.5, autoAlpha: 0 })
+    .to(element, { autoAlpha: 1, duration: 0.5 })
+    .to(element, { x: '+=50', scale: 1, duration: 2 })
+    .to(element, { x: '+=200', duration: 2 });
+
+    //gsap.to(tl, {time:tl.duration(), duration:tl.duration(), ease: 'circ.easeInOut'})
+
+
+
+    // const tl = gsap.timeline({paused: true});
+    
+    // tl.set(element, { x: '-=150', scale: 0.5, autoAlpha: 0 });
+
+    // tl.to(element, { autoAlpha: 1, duration: 0.5 })
+    // .to(element, { x: '+=50', scale: 1, duration: 2 })
+    // .to(element, { x: '+=200', duration: 2 });
+
+    // gsap.to(tl, {time:tl.duration(), duration:tl.duration(), ease: 'circ.easeInOut'})
+
+  }, []);
+
+  return (
+    <StyledLoading>
+      <h5>Ładowanie...</h5>
+      <StyledContainer>
+        <StyledLoadingScene ref={wrapper}>
+          <span></span>
+        </StyledLoadingScene>
+      </StyledContainer>
+    </StyledLoading>
+  );
+};
 
 const StyledLoading = styled.div`
   position: fixed;
@@ -22,89 +66,25 @@ const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: azure;
   width: 100%;
   height: 200px;
+  background-color: azure;
 `;
 
 const StyledLoadingScene = styled.div`
-  position: relative;
-`;
-
-const StyledSquere = styled.div`
-  transform-style: preserve-3d;
-  transform: rotate3d(0.6, 0.3, -0.5, 65deg);
-
-  :nth-of-type(3) {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-  }
-  :nth-of-type(2) {
-    position: absolute;
-    left: 41px;
-    top: 3px;
-  }
-  :nth-of-type(1) {
-    position: absolute;
-    left: 21px;
-    top: -11px;
-  }
-  :nth-of-type(4) {
-    position: absolute;
-    left: 21px;
-    top: 15px;
-  }
+  //position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  perspective: 300px;
 
   span {
-    position: absolute;
-    display: inline-block;
-    background-color: blueviolet;
+    background-color: ${({ theme }) => theme.colors.accent};
     width: 30px;
     height: 30px;
-
-    :nth-of-type(1) {
-      transform: translateZ(15px);
-    }
-    :nth-of-type(2) {
-      transform: rotateY(270deg) translateZ(15 px);
-    }
-    :nth-of-type(3) {
-      transform: rotateX(-90deg) translateZ(15px);
-    }
+    border-radius: 50%;
   }
 `;
-
-const Loading = () => {
-  return (
-    <StyledLoading>
-      <h5>Ładowanie...</h5>
-      <StyledContainer>
-        <StyledLoadingScene>
-          <StyledSquere>
-            <span></span>
-            <span></span>
-            <span></span>
-          </StyledSquere>
-          <StyledSquere>
-            <span></span>
-            <span></span>
-            <span></span>
-          </StyledSquere>
-          <StyledSquere>
-            <span></span>
-            <span></span>
-            <span></span>
-          </StyledSquere>
-          <StyledSquere>
-            <span></span>
-            <span></span>
-            <span></span>
-          </StyledSquere>
-        </StyledLoadingScene>
-      </StyledContainer>
-    </StyledLoading>
-  );
-};
 
 export default Loading;
