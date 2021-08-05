@@ -48,7 +48,7 @@ const ProjectsAdminView = () => {
       } catch (error) {
         setHaveError(error.response.data);
       }
-      setIsLoading(false);
+      //setIsLoading(false);
     })();
   }, []);
 
