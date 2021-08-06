@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import ImageBlock from '../components/utils/ImageBlock';
 import Project from '../components/project/Project';
-import Spinner from '../components/utils/Spinner';
+import Loading from '../components/utils/Loading';
 
 import image from '../assets/project-block.jpg';
 
@@ -25,12 +25,7 @@ const StyledProjects = styled.div`
   }
 `;
 
-const StyledLoading = styled.div`
-  margin: 0 auto;
-  width: 300px;
-  text-align: center;
-  font-size: ${({ theme }) => theme.typography.sizeH5};
-`;
+
 
 
 const Projects = () => {
@@ -47,10 +42,9 @@ const Projects = () => {
   return isLoading ? (
     <>
       <ImageBlock img={image} title="Projekty" />
-      <StyledLoading>
-        <Spinner />
-        <h5>Pobieraie projektów z bazy danych...</h5>
-      </StyledLoading>
+  
+        <Loading loadingMessage='łądowanie projektów'/>
+
     </>
   ) : (
     <StyledProjects>

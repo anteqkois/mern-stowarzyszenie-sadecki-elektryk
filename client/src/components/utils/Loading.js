@@ -2,125 +2,99 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import gsap from 'gsap';
 
-const Loading = () => {
+const Loading = ({loadingMessage = 'Ładowanie'}) => {
   const wrapper = useRef(null);
 
   useEffect(() => {
     const element = wrapper.current;
     const wheel = wrapper.current.children;
 
-    
-  //   const tl = gsap.timeline({ keyframes: true, 
-  // keyframesEase: "circ" })
-  //   .set(element, { x: '-=150', scale: 0.5, autoAlpha: 0 })
+    gsap.to(element, {
+      rotateZ: '360deg',
+      duration: 3,
+      ease: 'none',
+      repeat: Infinity,
+    });
 
-
-gsap.to(element, {rotateZ:'360deg', duration: 10, repeat: Infinity})
-
-gsap.to(wheel, {
-  ease: 'power3.inOut',
-  //ease: 'power1',
-  repeat: Infinity,
-  keyframes: [
-    { x: '-=100', scale: 0.5},
-    { opacity: 1 },
-    { x: '+=50', scale: 1, duration: 0.25 },
-    { x: '+=100',  duration: 0.75 },
-    { x: '+=50',scale: 0.5, duration: 0.25 },
-    { x: '-=100', scale:0.3,duration: 0.5 },
-    { x: '-=100', scale:0.5,duration: 0.5 },
-
-  ],
-  stagger: 0.3,
-});
-
-    //WORKING
-    // .to(element, { autoAlpha: 1, duration: 0.5 })
-    // .to(element, { x: '+=50', scale: 1, duration: 1 })
-    // .to(element, { x: '+=200',  duration: 2 })
-    // .to(element, { x: '+=50',scale: 0.5, duration: 1 })
-    // .to(element, { x: '-=150', scale:0.3,duration: 1 })
-    // .to(element, { x: '-=150', scale:0.5,duration: 1 })
-
-    //gsap.to(tl, {time:tl.duration(), duration:tl.duration(), ease: 'circ.easeInOut'})
-    // const tl = gsap.timeline({paused: true});
-    // tl.set(element, { x: '-=150', scale: 0.5, autoAlpha: 0 });
-    // tl.to(element, { autoAlpha: 1, duration: 0.5 })
-    // .to(element, { x: '+=50', scale: 1, duration: 2 })
-    // .to(element, { x: '+=200', duration: 2 });
-    // gsap.to(tl, {time:tl.duration(), duration:tl.duration(), ease: 'circ.easeInOut'})
-
+    gsap.to(wheel, {
+      ease: 'power4.inOut',
+      repeat: Infinity,
+      keyframes: [
+        { x: '-=100', scale: 0 },
+        { opacity: 1 },
+        { x: '+=50', scale: 1, duration: 0.25 },
+        { x: '+=100', duration: 0.75 },
+        { x: '+=50', scale: 0.5, duration: 0.25 },
+        { x: '-=100', scale: 0.25, duration: 0.25 },
+        { x: '-=100', scale: 0, duration: 0.1 },
+      ],
+      stagger: 0.3,
+    });
   }, []);
 
   return (
     <StyledLoading>
-      <h5>Ładowanie...</h5>
-      <StyledContainer>
-        <StyledLoadingScene ref={wrapper}>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-          <span/>
-        </StyledLoadingScene>
-      </StyledContainer>
+      <h5>{loadingMessage}</h5>
+      <StyledLoadingScene ref={wrapper}>
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+      </StyledLoadingScene>
     </StyledLoading>
   );
 };
 
 const StyledLoading = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 100vw;
-  height: 100vh;
+  max-width: 100vw;
+  padding-block: 20px;
   display: flex;
-  gap: 40px;
+  gap: 20px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: ${({ theme }) => theme.typography.sizeH5};
-  font-weight: ${({ theme }) => theme.typography.weightBold};
-  color: ${({ theme }) => theme.colors.accent};
-  transform: translate(-50%, -50%);
-`;
+  overflow: hidden;
 
-const StyledContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 200px;
-  background-color: azure;
+  h5 {
+    text-transform: uppercase;
+    /* background-image: ${({ theme }) => theme.colors.gradient};
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent; */
+    text-align: center;
+
+    font-size: ${({ theme }) => theme.typography.sizeH5};
+    color: ${({ theme }) => theme.colors.accent};
+  }
 `;
 
 const StyledLoadingScene = styled.div`
-  //position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
-  perspective: 300px;
+  width: 100%;
+  height: 180px;
 
   span {
     position: absolute;
-    background-color: ${({ theme }) => theme.colors.accent};
+    background: ${({ theme }) => theme.colors.accent};
     width: 30px;
     height: 30px;
     border-radius: 50%;
     opacity: 0;
-    
   }
-
 `;
 
 export default Loading;

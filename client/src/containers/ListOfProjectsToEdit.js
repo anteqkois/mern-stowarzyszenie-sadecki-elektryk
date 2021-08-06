@@ -115,7 +115,7 @@ const ListOfProjectsToEdit = ({ location }) => {
   };
 
   return isLoading ? (
-    <Loading />
+    <Loading loadingMessage="łądowanie projektów" />
   ) : haveError ? (
     showError()
   ) : (

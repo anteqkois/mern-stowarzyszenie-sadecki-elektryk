@@ -48,12 +48,12 @@ const ProjectsAdminView = () => {
       } catch (error) {
         setHaveError(error.response.data);
       }
-      //setIsLoading(false);
+      setIsLoading(false);
     })();
   }, []);
 
   return isLoading ? (
-    <Loading />
+    <Loading loadingMessage="łądowanie projektów" />
   ) : haveError ? (
     showError()
   ) : (

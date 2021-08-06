@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Project from '../components/project/Project';
-import Spinner from '../components/utils/Spinner';
+import Loading from '../components/utils/Loading';
 
 import * as projectsAPI from '../helpers/projectsAPI.js';
 
@@ -18,11 +18,6 @@ const StyledProjects = styled.div`
   }
 `;
 
-const StyledLoading = styled.div`
-  h5 {
-    font-size: ${({ theme }) => theme.typography.sizeH5};
-  }
-`;
 
 const AllProjects = () => {
   const [project, setProjects] = useState('');
@@ -36,10 +31,7 @@ const AllProjects = () => {
   }, []);
 
   return isLoading ? (
-    <StyledLoading>
-      <Spinner />
-      <h5>Pobieraie projektów z bazy danych...</h5>
-    </StyledLoading>
+      <Loading loadingMessage="łądowanie projektów" />
   ) : (
     <StyledProjects>
       {project.map(({ slug, _id, title, category, date, description }) => (
