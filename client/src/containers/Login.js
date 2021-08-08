@@ -3,8 +3,11 @@ import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
 
+import { useError } from '../helpers/useError';
 import Button from '../components/utils/Button';
 import Input from '../components/form/Input';
+
+import * as autherizationAPI from '../helpers/autherizationAPI.js';
 
 const StyledLogin = styled.div`
   display: flex;
@@ -45,12 +48,15 @@ const StyledLoginForm = styled.form`
 `;
 
 const Login = (props) => {
-  
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [finished, setFinished] = useState(false);
 
-  const { from } = props.location.state || { from: '/'};
+  const [haveError, setHaveError, showError] = useError(() =>
+    window.location.assign('/login'),
+  );
+
+  const { from } = props.location.state || { from: '/' };
 
   const formik = useFormik({
     initialValues: {
@@ -60,16 +66,34 @@ const Login = (props) => {
     onSubmit: (values, { setSubmitting }) => {
       setLogin(values.login);
       setPassword(values.password);
-      sessionStorage.setItem('isLogged', true)
-      setFinished(true);
+
+      (async () => {
+        try {
+          const body = {
+            login: values.login,
+            password: values.password,
+          };
+
+          const response = await autherizationAPI.post(body);
+          console.log(response);
+
+        } catch (error) {
+          setHaveError(error.response.data);
+        }
+      })();
+
+      //sessionStorage.setItem('isLogged', true);
+      //setFinished(true);
     },
   });
-  
-  if(finished){
-    return <Redirect to={from.pathname}/>
+
+  if (finished) {
+    return <Redirect to={from.pathname} />;
   }
 
-  return (
+  return haveError ? (
+    showError()
+  ) : (
     <StyledLogin>
       <StyledLoginForm onSubmit={formik.handleSubmit}>
         <h2>Zaloguj się</h2>
