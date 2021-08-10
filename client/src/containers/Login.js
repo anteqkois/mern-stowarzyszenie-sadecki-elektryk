@@ -7,7 +7,7 @@ import { useError } from '../helpers/useError';
 import Button from '../components/utils/Button';
 import Input from '../components/form/Input';
 
-import * as autherizationAPI from '../helpers/autherizationAPI.js';
+import * as authorizationAPI from '../helpers/authorizationAPI.js';
 
 const StyledLogin = styled.div`
   display: flex;
@@ -74,16 +74,15 @@ const Login = (props) => {
             password: values.password,
           };
 
-          const response = await autherizationAPI.post(body);
-          console.log(response);
+          // Tokeny zapisane w ciasteczkach !
+          const {accessToken, refreshToken } = await authorizationAPI.login(body);
 
+          sessionStorage.setItem('isLogined', true)
+          setFinished(true);
         } catch (error) {
           setHaveError(error.response.data);
         }
       })();
-
-      //sessionStorage.setItem('isLogged', true);
-      //setFinished(true);
     },
   });
 

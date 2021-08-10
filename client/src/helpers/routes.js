@@ -8,6 +8,6 @@ export const categories = (id) => {
   return id ? `${serverURL}/categories/${id}` : `${serverURL}/categories`;
 };
 
-export const autherization = () => {
-  return `${serverURL}/autherization`;
+export const authorization = () => {
+  return `${serverURL}/authorization`;
 };

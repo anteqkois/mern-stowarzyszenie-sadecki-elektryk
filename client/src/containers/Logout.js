@@ -56,7 +56,7 @@ all: unset;
 const Logout = () => {
 
   useEffect(() => {
-    sessionStorage.removeItem('isLogged');
+    sessionStorage.removeItem('isLogined');
   }, [])
   
   return (

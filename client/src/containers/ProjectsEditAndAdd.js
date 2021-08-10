@@ -125,7 +125,7 @@ const ProjectsEdit = ({ match }) => {
   const [description, setDescription] = useState('');
 
   const [haveError, setHaveError, showError] = useError(() =>
-    window.location.assign('/admin'),
+    window.location.assign(`/admin/projects/edit/${match.params.id}`),
   );
 
   const toAdd = match.path.search(/add/) >= 0;
@@ -167,12 +167,25 @@ const ProjectsEdit = ({ match }) => {
   //     setIsLoading(false);
   //   })();
   // }, [match.params.id, toAdd]);
+  const handleSlug = (titleToConvert) => {
+    const slugToAdd = titleToConvert
+      .toLowerCase()
+      .replaceAll(' ', '-')
+      .replaceAll('ć', 'c')
+      .replaceAll('ś', 's')
+      .replaceAll('ź', 'z')
+      .replaceAll('ż', 'z')
+      .replaceAll('ą', 'a')
+      .replaceAll('ę', 'e');
+    formik.setValues({ ...formik.values, slug: slugToAdd });
+  };
 
   const handlePost = async (values) => {
     await projectsAPI
       .post(values)
       .then(({ data }) => {
         setOption(OPTION_TYPE.saved);
+
       })
       .catch((error) => {
         setHaveError(error.response.data);
@@ -192,18 +205,6 @@ const ProjectsEdit = ({ match }) => {
       });
   };
 
-  const handleSlug = (titleToConvert) => {
-    const slugToAdd = titleToConvert
-      .toLowerCase()
-      .replaceAll(' ', '-')
-      .replaceAll('ć', 'c')
-      .replaceAll('ś', 's')
-      .replaceAll('ź', 'z')
-      .replaceAll('ż', 'z')
-      .replaceAll('ą', 'a')
-      .replaceAll('ę', 'e');
-    formik.setValues({ ...formik.values, slug: slugToAdd });
-  };
 
   const handleDelete = (fn) => {
     const accpet = window.confirm(
