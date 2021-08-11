@@ -36,6 +36,7 @@ const StyledNavigation = styled.nav`
   }
 
   ${({ theme }) => theme.media.tablet} {
+    padding-inline: 15px;
     grid-template-columns: minmax(100px, auto) minmax(auto, 1200px) minmax(
         100px,
         auto

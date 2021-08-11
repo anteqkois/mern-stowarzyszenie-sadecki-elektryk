@@ -11,12 +11,32 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Poppins', sans-serif;
     scroll-behavior: transparent;
   }
-  
-  ::-webkit-scrollbar {
-      //display: none;
+  ::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar
+{
+  display: none;
+  width: 15px;
+
+  ${({ theme }) => theme.media.tablet}{
+  display: initial;
   }
+}
+
+::-webkit-scrollbar-thumb
+{
+  border-radius: 100px;
+  background-image: ${({ theme }) => theme.colors.gradient};
+  box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+}
+
   body{
     background-color: ${({ theme }) => theme.colors.primary};
+    overflow-x: hidden;
   }
 
   *:focus{

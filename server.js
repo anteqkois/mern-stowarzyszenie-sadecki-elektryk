@@ -2,9 +2,10 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const { join } = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const projectRoutes = require('./routes/projectRouter');
 const categoryRoutes = require('./routes/categoryRouter');
-const autherizationRoutes = require('./routes/autherizationRouter');
+const authorizationRoutes = require('./routes/authorizationRouter');
 const { notFound, catchErrors } = require('./middlewares/errors');
 
 const app = express();
@@ -18,11 +19,12 @@ if (process.env.MODULE === 'production') {
 }
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/categories', categoryRoutes);
-app.use('/api/v1/autherization', autherizationRoutes);
+app.use('/api/v1/authorization', authorizationRoutes);
 
 //handling errors
 app.use(notFound);

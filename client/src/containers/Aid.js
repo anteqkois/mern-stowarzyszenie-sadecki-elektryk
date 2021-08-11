@@ -7,11 +7,12 @@ import ImageBlock from '../components/utils/ImageBlock'
 import DescriptionOfAid from '../components/aid/DescriptionOfAid';
 import InstructionHowToAid from '../components/aid/InstructionHowToAid';
 import StudenIllustration from '../components/aid/StudentIllustration';
+import Loading from '../components/utils/Loading'
 
 import image from '../assets/aid-block.jpg';
 
 const StyledAid = styled.div`
-  margin: 70px 0;
+  margin: 70px 0 0 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -23,12 +24,20 @@ const StyledAid = styled.div`
     left: 0;
     width: 100%;
     height: 90px;
-    background: ${({ theme }) => theme.colors.gradient};
-    display: ${({ location }) => location === '/aid' ? 'block':'none'};
+    background: rgb(255, 255, 255);
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(0, 0, 0, 0.4430147058823529) 50%,
+      rgba(0, 0, 0, 0.5130427170868348) 82%
+    );
+    display: ${({ location }) => (location === '/aid' ? 'block' : 'none')};
+    z-index: ${({ theme }) => theme.zIndex.level3};
   }
 
   ${({ theme }) => theme.media.tablet} {
-    margin: 90px 0;
+    margin: ${({ location }) => (location === '/aid' ? '0' : '90px 0')};
+    /* margin: 90px 0; */
     column-gap: 10%;
     row-gap: 3em;
   }
@@ -96,7 +105,7 @@ const Aid = () => {
       />
     </StyledAid>
   ) :(
-    <div>Loading</div>
+    <Loading/>
   );
 }
 

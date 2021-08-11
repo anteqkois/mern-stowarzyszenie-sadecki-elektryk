@@ -52,13 +52,13 @@ const StyledBackgroundFooter = styled(BackgroundFooter)`
   position: absolute;
   bottom: 0;
   left: -45%;
+  height: 107%;
   width: 200%;
   z-index: ${({ theme }) => theme.zIndex.levelMinus1};
 
   ${({ theme }) => theme.media.tablet} {
     left: 0;
     width: 150%;
-    height: 95%;
   }
   ${({ theme }) => theme.media.desktop} {
     left: 0;
