@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "commit": "git add . && git commit -u''",
+    "commit": "git add . && git commit -u",
     "start": "nodemon server.js",
     "production": "set MODULE=production && nodemon server.js",
     "client": "cd client && npm start",
