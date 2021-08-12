@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import ImageBlock from '../components/utils/ImageBlock'
 import DescriptionOfAid from '../components/aid/DescriptionOfAid';
 import InstructionHowToAid from '../components/aid/InstructionHowToAid';
+import TestInstructionHowToAid from '../components/aid/TestInstructionHowToAid';
 import StudenIllustration from '../components/aid/StudentIllustration';
 import Loading from '../components/utils/Loading'
 
@@ -98,7 +99,7 @@ const Aid = () => {
       <ImageBlock img={image} title="Jak wspomoć?" />
       <DescriptionOfAid />
       {!isMobile && <StudenIllustration />}
-      <InstructionHowToAid
+      <TestInstructionHowToAid
         activeStep={activeStep}
         stepToShow={stepToShow}
         handleNextStep={handleNextStep}
