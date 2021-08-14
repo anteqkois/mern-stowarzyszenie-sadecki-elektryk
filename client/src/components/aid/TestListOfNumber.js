@@ -1,4 +1,4 @@
-import Reactdefault,{useRef} from 'react';
+import Reactdefault from 'react';
 import styled from 'styled-components';
 
 const StyledDescriptionOfSteps = styled.ul`
@@ -64,13 +64,23 @@ const StyledProgresWheel = styled.div`
   align-items: center;
   justify-content: center;
   svg {
-    border: 1px solid green;
-    width: 300px;
+    width: 100%;
+    g{
+  transition: all 0.5s ease-in-out ;
+    }
     path {
       /* fill: transparent;
       stroke-width: 0.5;
       stroke: green; */
     }
+    text {
+      font-weight: ${({ theme }) => theme.typography.weightBlack};
+      fill: ${({ theme }) => theme.colors.accent};
+    }
+  }
+
+  ${({ theme }) => theme.media.tablet} {
+    display: none;
   }
 `;
 
@@ -78,6 +88,9 @@ const StyledProgresCurveLine = styled.path`
   fill: transparent;
   stroke-width: 3;
   stroke: ${({ theme }) => theme.colors.accent};
+`;
+const StyledProgresWheelBackGround = styled.path`
+  fill: ${({ theme }) => theme.colors.label};
 `;
 const StyledProgresCurveLineMove = styled.path`
   fill: transparent;
@@ -107,15 +120,21 @@ const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
   return (
     <>
       <StyledProgresWheel>
-        <svg viewBox="0 0 100 100">
+        <svg viewBox="0 0 210 200">
+          <g transform={`translate(${activeStep * 40 - 40} 0)`}>
+            <StyledProgresWheelBackGround d="M0 50 A1 1, 0, 0 1, 50 50 C 50 70, 25 100, 25 95 M0 50 C0 70, 25 100, 25 95 " />
+            <StyledProgresCurveLine
+              d="M5 50 A1 1, 0, 0 1, 45 50  A1 1, 0, 0 1, 5 50"
+            />
+            <StyledProgresCurveLineMove
+              howOffSet={(126 / 5) * activeStep}
+              d="M5 50 A1 1, 0, 0 1, 45 50  A1 1, 0, 0 1, 5 50"
+            />
+            <text x="25" y="50" textAnchor="middle" alignmentBaseline="central">
+              {activeStep}
+            </text>
+          </g>
           <path d="M50 0 v100" />
-          <path d="M0 50 h100" />
-
-          <StyledProgresCurveLine d="M30 50 A1 1, 0, 0 1, 70 50  A1 1, 0, 0 1, 30 50" />
-          <StyledProgresCurveLineMove howOffSet={(126/5)*activeStep} d="M30 50 A1 1, 1, 1 0, 70 50  A1 1, 1, 1 0, 30 50" />
-          <text x="50" y="50" textAnchor="middle" alignmentBaseline="central">
-            {activeStep}
-          </text>
         </svg>
       </StyledProgresWheel>
       <StyledDescriptionOfSteps activeStep={activeStep}>

@@ -5,6 +5,7 @@ const StyledButton = styled.button`
   all: unset;
   padding: 0.5em 1em;
   position: relative;
+  text-align: center;
   text-transform: uppercase;
   font-size: ${({ theme }) => theme.typography.sizeH6};
   font-weight: ${({ theme }) => theme.typography.weightBold};
