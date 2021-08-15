@@ -114,27 +114,17 @@ const StyledProgresDotsBackground = styled.path`
 `;
 
 const StyledClickDots = styled.rect`
-  /* fill: transparent; */
-  
+  fill: transparent;
 `;
 
 const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
   const [totalLengthOfPath, setTotalLengthOfPath] = useState(null);
 
   const pathToGetLength = useRef(null);
-  const clickedDots = useRef(null);
 
   useEffect(() => {
     setTotalLengthOfPath(pathToGetLength.current.getTotalLength());
-
-    // pathToGetLength.current.getTotalLength();
   }, []);
-
-  const handleClick = () => {
-    // clickedDots.current
-
-    console.log(clickedDots.current);
-  };
 
   const numberList = [];
 
@@ -154,7 +144,7 @@ const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
   return (
     <>
       <StyledProgresWheel>
-        <svg viewBox="0 0 210 200">
+        <svg viewBox="0 0 210 150">
           <g transform={`translate(${activeStep * 40 - 40} 0)`}>
             <StyledProgresWheelBackGround d="M0 50 A1 1, 0, 0 1, 50 50 C 50 70, 25 100, 25 95 M0 50 C0 70, 25 100, 25 95 " />
             <StyledProgresCurveLine d="M5 50 A1 1, 0, 0 1, 45 50  A1 1, 0, 0 1, 5 50" />
@@ -168,35 +158,62 @@ const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
           </g>
           <StyledProgresDotsBackground
             ref={pathToGetLength}
-            d="M0 115 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 "
+            d="M0 125 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 "
           />
           <StyledProgresDots
-            d="M0 115 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 "
+            d="M0 125 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 "
             howOffSet={
               totalLengthOfPath + (totalLengthOfPath / 5) * -activeStep
             }
             totalLengthOfPath={totalLengthOfPath}
           />
-          <StyledProgresDotsBackground d="M0 115 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 " />
+          <StyledProgresDotsBackground d="M0 125 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 " />
           <StyledProgresDots
-            d="M0 115 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 "
+            d="M0 125 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 "
             howOffSet={
               totalLengthOfPath + (totalLengthOfPath / 5) * -activeStep
             }
             totalLengthOfPath={totalLengthOfPath}
           />
           <StyledClickDots
-            y="100"
-            height="30"
-            width="210"
-            onClick={() => handleClick()}
-            ref={clickedDots}
+            y="95"
+            height="60"
+            width="42"
+            onClick={() => handleNextStep(1)}
+          />
+          <StyledClickDots
+            y="95"
+            x="42"
+            height="60"
+            width="42"
+            onClick={() => handleNextStep(2)}
+          />
+          <StyledClickDots
+            y="95"
+            x="84"
+            height="60"
+            width="42"
+            onClick={() => handleNextStep(3)}
+          />
+          <StyledClickDots
+            y="95"
+            x="126"
+            height="60"
+            width="42"
+            onClick={() => handleNextStep(4)}
+          />
+          <StyledClickDots
+            y="95"
+            x="168"
+            height="60"
+            width="42"
+            onClick={() => handleNextStep(5)}
           />
         </svg>
       </StyledProgresWheel>
-      <StyledDescriptionOfSteps activeStep={activeStep}>
+      {/* <StyledDescriptionOfSteps activeStep={activeStep}>
         {numberList}
-      </StyledDescriptionOfSteps>
+      </StyledDescriptionOfSteps> */}
     </>
   );
 };
