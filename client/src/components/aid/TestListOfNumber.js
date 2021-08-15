@@ -100,6 +100,19 @@ const StyledProgresCurveLineMove = styled.path`
   stroke-dashoffset: ${({howOffSet})=> howOffSet};
   transition: all 0.5s ease-in-out ;
 `;
+const StyledProgresDots = styled.path`
+  fill: transparent;
+  stroke-width: 3;
+  stroke: ${({ theme }) => theme.colors.accent};
+  stroke-dasharray: 237;
+  stroke-dashoffset: ${({ howOffSet }) => howOffSet};
+  transition: all 0.5s ease-in-out;
+`;
+const StyledProgresDotsBackground = styled.path`
+  fill: transparent;
+  stroke-width: 3;
+  stroke: ${({ theme }) => theme.colors.label};
+`;
 
 const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
   const numberList = [];
@@ -123,9 +136,7 @@ const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
         <svg viewBox="0 0 210 200">
           <g transform={`translate(${activeStep * 40 - 40} 0)`}>
             <StyledProgresWheelBackGround d="M0 50 A1 1, 0, 0 1, 50 50 C 50 70, 25 100, 25 95 M0 50 C0 70, 25 100, 25 95 " />
-            <StyledProgresCurveLine
-              d="M5 50 A1 1, 0, 0 1, 45 50  A1 1, 0, 0 1, 5 50"
-            />
+            <StyledProgresCurveLine d="M5 50 A1 1, 0, 0 1, 45 50  A1 1, 0, 0 1, 5 50" />
             <StyledProgresCurveLineMove
               howOffSet={(126 / 5) * activeStep}
               d="M5 50 A1 1, 0, 0 1, 45 50  A1 1, 0, 0 1, 5 50"
@@ -134,7 +145,18 @@ const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
               {activeStep}
             </text>
           </g>
-          <path d="M50 0 v100" />
+          <StyledProgresDotsBackground
+            d="M15 110 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 "
+            howOffSet={237 + (237 / 5) * -activeStep}
+          />
+          <StyledProgresDots
+            d="M15 110 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 "
+            howOffSet={237 + (237 / 5) * -activeStep}
+          />
+          <StyledProgresDots
+            d="M15 110 a10 10 0 0 0 20 0 h20 a10 10 0 0 0 20 0 h20 a10 10 0 0 0 20 0 h20 a10 10 0 0 0 20 0 h20 a10 10 0 0 0 20 0 "
+            //howOffSet={(237 / 5) * activeStep}
+          />
         </svg>
       </StyledProgresWheel>
       <StyledDescriptionOfSteps activeStep={activeStep}>
