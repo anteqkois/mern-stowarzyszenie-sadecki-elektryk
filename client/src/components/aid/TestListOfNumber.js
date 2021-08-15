@@ -1,4 +1,4 @@
-import Reactdefault from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const StyledDescriptionOfSteps = styled.ul`
@@ -65,13 +65,8 @@ const StyledProgresWheel = styled.div`
   justify-content: center;
   svg {
     width: 100%;
-    g{
-  transition: all 0.5s ease-in-out ;
-    }
-    path {
-      /* fill: transparent;
-      stroke-width: 0.5;
-      stroke: green; */
+    g {
+      transition: all 0.5s ease-in-out;
     }
     text {
       font-weight: ${({ theme }) => theme.typography.weightBlack};
@@ -89,32 +84,58 @@ const StyledProgresCurveLine = styled.path`
   stroke-width: 3;
   stroke: ${({ theme }) => theme.colors.accent};
 `;
+
 const StyledProgresWheelBackGround = styled.path`
-  fill: ${({ theme }) => theme.colors.label};
+  fill: ${({ theme }) => theme.colors.noActive};
 `;
+
 const StyledProgresCurveLineMove = styled.path`
   fill: transparent;
   stroke-width: 3.5;
   stroke: white;
   stroke-dasharray: 126;
-  stroke-dashoffset: ${({howOffSet})=> howOffSet};
-  transition: all 0.5s ease-in-out ;
+  stroke-dashoffset: ${({ howOffSet }) => howOffSet};
+  transition: all 0.5s ease-in-out;
 `;
+
 const StyledProgresDots = styled.path`
   fill: transparent;
   stroke-width: 3;
   stroke: ${({ theme }) => theme.colors.accent};
-  stroke-dasharray: 237;
+  stroke-dasharray: ${({ totalLengthOfPath }) => totalLengthOfPath};
   stroke-dashoffset: ${({ howOffSet }) => howOffSet};
   transition: all 0.5s ease-in-out;
 `;
+
 const StyledProgresDotsBackground = styled.path`
-  fill: transparent;
+  fill: ${({ theme }) => theme.colors.secondary};
   stroke-width: 3;
-  stroke: ${({ theme }) => theme.colors.label};
+  stroke: ${({ theme }) => theme.colors.secondary};
+`;
+
+const StyledClickDots = styled.rect`
+  /* fill: transparent; */
+  
 `;
 
 const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
+  const [totalLengthOfPath, setTotalLengthOfPath] = useState(null);
+
+  const pathToGetLength = useRef(null);
+  const clickedDots = useRef(null);
+
+  useEffect(() => {
+    setTotalLengthOfPath(pathToGetLength.current.getTotalLength());
+
+    // pathToGetLength.current.getTotalLength();
+  }, []);
+
+  const handleClick = () => {
+    // clickedDots.current
+
+    console.log(clickedDots.current);
+  };
+
   const numberList = [];
 
   for (let i = 0; i < 5; i++) {
@@ -138,7 +159,7 @@ const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
             <StyledProgresWheelBackGround d="M0 50 A1 1, 0, 0 1, 50 50 C 50 70, 25 100, 25 95 M0 50 C0 70, 25 100, 25 95 " />
             <StyledProgresCurveLine d="M5 50 A1 1, 0, 0 1, 45 50  A1 1, 0, 0 1, 5 50" />
             <StyledProgresCurveLineMove
-              howOffSet={(126 / 5) * activeStep}
+              howOffSet={(126 / 5) * -activeStep}
               d="M5 50 A1 1, 0, 0 1, 45 50  A1 1, 0, 0 1, 5 50"
             />
             <text x="25" y="50" textAnchor="middle" alignmentBaseline="central">
@@ -146,16 +167,30 @@ const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
             </text>
           </g>
           <StyledProgresDotsBackground
-            d="M15 110 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 "
-            howOffSet={237 + (237 / 5) * -activeStep}
+            ref={pathToGetLength}
+            d="M0 115 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 "
           />
           <StyledProgresDots
-            d="M15 110 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 h20 a10 10 0 0 1 20 0 "
-            howOffSet={237 + (237 / 5) * -activeStep}
+            d="M0 115 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 h13.5 a10 10 0 0 1 26 0 "
+            howOffSet={
+              totalLengthOfPath + (totalLengthOfPath / 5) * -activeStep
+            }
+            totalLengthOfPath={totalLengthOfPath}
           />
+          <StyledProgresDotsBackground d="M0 115 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 " />
           <StyledProgresDots
-            d="M15 110 a10 10 0 0 0 20 0 h20 a10 10 0 0 0 20 0 h20 a10 10 0 0 0 20 0 h20 a10 10 0 0 0 20 0 h20 a10 10 0 0 0 20 0 "
-            //howOffSet={(237 / 5) * activeStep}
+            d="M0 115 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 h13.5 a10 10 0 0 0 26 0 "
+            howOffSet={
+              totalLengthOfPath + (totalLengthOfPath / 5) * -activeStep
+            }
+            totalLengthOfPath={totalLengthOfPath}
+          />
+          <StyledClickDots
+            y="100"
+            height="30"
+            width="210"
+            onClick={() => handleClick()}
+            ref={clickedDots}
           />
         </svg>
       </StyledProgresWheel>
