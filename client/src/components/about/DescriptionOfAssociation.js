@@ -18,6 +18,7 @@ const StyledDescriptionOfAssociation = styled.div`
   p {
     max-width: 55ch;
     margin: 2em 0;
+    color: ${({ theme }) => theme.colors.text};
   }
 
   ${({ theme }) => theme.media.tablet} {

@@ -18,14 +18,14 @@ const StyledHeader = styled.header`
     margin: 1em 0;
     text-transform: uppercase;
     line-height: 1.1em;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.textOposite};
     font-size: ${({ theme }) => theme.typography.sizeH5};
     font-weight: ${({ theme }) => theme.typography.weightExtraBold};
   }
 
   p {
     margin: 3em 0;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.textOposite};
     font-size: ${({ theme }) => theme.typography.sizeNormal};
     max-width: 60ch;
   }

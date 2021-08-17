@@ -3,13 +3,15 @@
 
   const StyledDescriptionOfAid = styled.div`
     max-width: 50ch;
-    p, strong{
+    p,
+    strong {
       padding: 15px;
+      color: ${({ theme }) => theme.colors.text};
     }
-    strong{
+    strong {
       display: block;
-        color: ${({ theme }) => theme.colors.accent};
-        font-weight: ${({ theme }) => theme.typography.weightBold};
+      color: ${({ theme }) => theme.colors.accent};
+      font-weight: ${({ theme }) => theme.typography.weightBold};
     }
     ${({ theme }) => theme.media.bigTablet} {
       max-width: 65ch;

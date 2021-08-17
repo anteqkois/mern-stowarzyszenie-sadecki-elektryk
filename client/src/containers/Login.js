@@ -36,7 +36,7 @@ const StyledLoginForm = styled.form`
   width: 300px;
   width: clamp(300px, 90%, 350px);
   box-shadow: 5px 15px 20px rgba(0, 0, 0, 0.5);
-  background: ${({ theme }) => theme.colors.primary};
+  background: ${({ theme }) => theme.colors.secondary};
   border-radius: 5px;
 
   h2 {
@@ -44,6 +44,7 @@ const StyledLoginForm = styled.form`
     text-transform: uppercase;
     font-size: ${({ theme }) => theme.typography.sizeH4};
     font-weight: ${({ theme }) => theme.typography.weightBold};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 

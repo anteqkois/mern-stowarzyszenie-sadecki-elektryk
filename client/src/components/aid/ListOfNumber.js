@@ -21,7 +21,7 @@ const StyledDescriptionOfSteps = styled.ul`
       position: relative;
       width: 35px;
       height: 35px;
-      color: ${({ theme }) => theme.colors.accent};
+      color: ${({ theme }) => theme.colors.text};
       background-color: ${({ theme }) => theme.colors.primary};
       font-weight: ${({ theme }) => theme.typography.weightExtraBold};
       border-radius: 50%;
@@ -85,7 +85,7 @@ const StyledProgresWheelBackGround = styled.path`
 const StyledProgresCurveLineMove = styled.path`
   fill: transparent;
   stroke-width: 3.5;
-  stroke: white;
+  stroke: ${({ theme }) => theme.colors.secondary};
   stroke-dasharray: 126;
   stroke-dashoffset: ${({ howOffSet }) => howOffSet};
   transition: all 0.5s ease-in-out;

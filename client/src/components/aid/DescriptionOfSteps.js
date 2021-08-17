@@ -26,7 +26,7 @@ const StyledDescriptionOfSteps = styled.ul`
     justify-content: space-around;
 
     li {
-      color: ${({ theme }) => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.textOposite};
       opacity: 0.5;
       transform: scale(0.9);
       transition: transform ease-out 0.15s;

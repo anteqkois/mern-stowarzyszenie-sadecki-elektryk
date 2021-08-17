@@ -15,7 +15,7 @@ const StyledFotter = styled.footer`
   grid-template-rows: 0.8fr 1fr 0.3fr;
   grid-row-gap: 2em;
   place-content: center;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.textOposite};
   overflow-x: hidden;
   overflow-y: clip;
 
