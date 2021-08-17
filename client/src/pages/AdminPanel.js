@@ -19,7 +19,7 @@ max-width: 1200px;
 const AdminPanel = ({ history}) => {
 
   const [isActive, setIsActive] = useState(false);
-  const { path, url } = useRouteMatch();
+  const { path } = useRouteMatch();
   
   return (
     <>

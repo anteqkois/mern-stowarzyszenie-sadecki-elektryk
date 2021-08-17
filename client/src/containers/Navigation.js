@@ -71,7 +71,7 @@ const throttle = (fn, waitTime) => {
   };
 };
 
-const Navigation = () => {
+const Navigation = ({ isDarkMod, setIsDarkMod }) => {
   const [isActive, setIsActive] = useState(false);
   const [withshadowandbackground, setwithshadowandbackground] = useState(false);
   const { isMobile } = useContext(WidthDeviceContext);
@@ -107,7 +107,7 @@ const Navigation = () => {
         isActive={true}
         withshadowandbackground={withshadowandbackground}
       />
-      <DarkModeSwitch />
+      <DarkModeSwitch setIsDarkMod={setIsDarkMod} isDarkMod={isDarkMod} />
     </StyledNavigation>
   );
 };

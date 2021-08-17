@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -39,16 +39,24 @@ const StyledItem = styled(Link)`
   }
 `;
 
-const menuItem = ({ setIsActive, label, link, withshadowandbackground }) => {
+const MenuItem = ({ setIsActive, label, link, withshadowandbackground }) => {
+
+  const item = useRef(null)
+  
+    const handleClick = () => {
+      item.current.blur();
+      setIsActive && setIsActive(false);
+    };
   return (
     <StyledItem
-      onClick={() => setIsActive && setIsActive(false)}
+      onClick={handleClick}
       to={link}
       withshadowandbackground={withshadowandbackground}
+      ref={item}
     >
       {label}
     </StyledItem>
   );
 };
 
-export default menuItem;
+export default MenuItem;

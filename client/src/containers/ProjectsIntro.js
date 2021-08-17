@@ -59,11 +59,6 @@ const StyledLink = styled(Link)`
 const StyledButton = styled(Button)`
   left: 50%;
   transform: translateX(-50%);
-  
-  :hover,
-  :focus {
-    transform: translate(-50%, -7px);
-  }
 
   ${({ theme }) => theme.media.tablet} {
     left: 25%;

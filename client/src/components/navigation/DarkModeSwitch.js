@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
+import { WidthThemeContext } from '../../context/Context';
 
 const StyledDarkModeSwitch = styled.div`
   display: inline-block;
@@ -36,13 +37,13 @@ const svgVariants = {
 };
 
 const DarkModeSwitch = () => {
-  const [isDarkMod, setIsDarkMod] = useState(false);
+  const { isDarkMode, setIsDarkMode } = useContext(WidthThemeContext);
 
   return (
-    <StyledDarkModeSwitch onClick={() => setIsDarkMod(!isDarkMod)}>
+    <StyledDarkModeSwitch onClick={() => setIsDarkMode(!isDarkMode)}>
       <StyledSvg
         variants={svgVariants}
-        animate={isDarkMod ? 'sun' : 'moon'}
+        animate={isDarkMode ? 'sun' : 'moon'}
         transition={{ duration: 0.8, esse: 'easeInOut' }}
         viewBox="0 0 100 100"
         xmlns="http://www.w3.org/2000/svg"

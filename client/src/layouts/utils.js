@@ -1,4 +1,14 @@
-const colors = {
+const lightColors = {
+  primary: '#FFFFFF',
+  secondary: '#F3F3F3',
+  accent: '#4D0A83',
+  text: '#333333',
+  label: '#908E9B',
+  noActive: '#C4C2CD',
+  gradient: 'linear-gradient(35.25deg, #4D0A83 28.05%, #A2141B 107.82%)',
+};
+
+const darkColors = {
   primary: '#FFFFFF',
   secondary: '#F3F3F3',
   accent: '#4D0A83',
@@ -45,8 +55,14 @@ const media = {
   bigPhone: '@media (min-width: 400px)',
 };
 
-export const Theme = {
-  colors,
+export const LightTheme = {
+  colors: lightColors,
+  typography,
+  zIndex,
+  media,
+};
+export const DarkTheme = {
+  colors: darkColors,
   typography,
   zIndex,
   media,

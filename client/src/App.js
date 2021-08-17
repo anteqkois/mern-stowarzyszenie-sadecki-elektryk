@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { WidthDeviceProvider } from './context/Context';
+import { WidthDeviceProvider, WidthThemeProvider } from './context/Context';
 import * as projectsAPI from './helpers/projectsAPI';
 
 import Layout from './layouts/Layout';
@@ -57,6 +57,7 @@ function App() {
 
   return (
     <WidthDeviceProvider>
+    <WidthThemeProvider>
       <Router>
         <Layout>
           <ScrollToTop />
@@ -74,6 +75,7 @@ function App() {
           </Switch>
         </Layout>
       </Router>
+    </WidthThemeProvider>
     </WidthDeviceProvider>
   );
 }

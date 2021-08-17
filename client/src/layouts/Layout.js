@@ -1,6 +1,8 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { Theme } from './utils';
+import { LightTheme, DarkTheme } from './utils';
+
+import { WidthThemeContext } from '../context/Context';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800;900&display=swap');
@@ -46,8 +48,11 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Layout = ({ children }) => {
+
+  const { isDarkMode } = useContext(WidthThemeContext);
+  
   return (
-    <ThemeProvider theme={Theme}>
+    <ThemeProvider theme={isDarkMode ? DarkTheme : LightTheme}>
       <>
         <GlobalStyle />
         {children}

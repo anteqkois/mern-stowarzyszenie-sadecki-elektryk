@@ -14,11 +14,6 @@ const StyledInstructionHowToAid = styled.div`
     left: 50%;
     transform: translateX(-50%);
     z-index: ${({ theme }) => theme.zIndex.level1};
-    
-    :hover,
-    :focus {
-      transform: translate(-50%, -7px);
-    }
   }
 
   ${({ theme }) => theme.media.tablet} {
