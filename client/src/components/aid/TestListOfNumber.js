@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const StyledDescriptionOfSteps = styled.ul`
   display: flex;
@@ -64,7 +64,7 @@ const StyledProgresWheel = styled.div`
   align-items: center;
   justify-content: center;
   svg {
-    width: 100%;
+    width: 200px;
     g {
       transition: all 0.5s ease-in-out;
     }
@@ -96,6 +96,26 @@ const StyledProgresCurveLineMove = styled.path`
   stroke-dasharray: 126;
   stroke-dashoffset: ${({ howOffSet }) => howOffSet};
   transition: all 0.5s ease-in-out;
+`;
+
+const KeyFramesPulse = keyframes`
+  0% {
+  stroke-width:1;
+  }
+  100% {
+    stroke-width: 8;
+  }
+`;
+
+const StyledDot = styled.circle`
+  fill: ${({ theme }) => theme.colors.accent};
+  opacity: ${({ isFill }) => (isFill ? '1' : '0')};
+  stroke: ${({ theme }) => theme.colors.accent};
+  transition: all 0.5s 0.5s  ease-in-out;
+
+  :nth-of-type(${({ activeStep }) => activeStep}) {
+    animation: 1.4s 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${KeyFramesPulse} forwards infinite;
+  }
 `;
 
 const StyledProgresDots = styled.path`
@@ -174,6 +194,41 @@ const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
               totalLengthOfPath + (totalLengthOfPath / 5) * -activeStep
             }
             totalLengthOfPath={totalLengthOfPath}
+          />
+          <StyledDot
+            cy="125"
+            cx="26.5"
+            r="14"
+            isFill={activeStep >= 1}
+            activeStep={activeStep}
+          />
+          <StyledDot
+            cy="125"
+            cx="66"
+            r="14"
+            isFill={activeStep >= 2}
+            activeStep={activeStep}
+          />
+          <StyledDot
+            cy="125"
+            cx="105.5"
+            r="14"
+            isFill={activeStep >= 3}
+            activeStep={activeStep}
+          />
+          <StyledDot
+            cy="125"
+            cx="145"
+            r="14"
+            isFill={activeStep >= 4}
+            activeStep={activeStep}
+          />
+          <StyledDot
+            cy="125"
+            cx="184.5"
+            r="14"
+            isFill={activeStep >= 5}
+            activeStep={activeStep}
           />
           <StyledClickDots
             y="95"
