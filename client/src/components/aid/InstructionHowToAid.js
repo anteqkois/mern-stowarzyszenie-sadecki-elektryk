@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import DescriptionOfSteps from '../aid/DescriptionOfSteps';
-import ListOfNumber from '../aid/ListOfNumber';
+import DescriptionOfSteps from './DescriptionOfSteps';
+import ListOfNumber from './ListOfNumber';
 import Button from '../utils/Button';
 import image from '../../assets/pit.png';
 
 const StyledInstructionHowToAid = styled.div`
   width: 100%;
-  //height: 350px;
-  padding: 35px 15px;
-  //background: ${({ theme }) => theme.colors.gradient};
+  padding: 0 15px 35px 15px;
 
   button {
     left: 50%;
