@@ -13,7 +13,7 @@ const StyledMenuList = styled.ul`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: ${({ theme }) => theme.colors.accent};
+  color: ${({ theme }) => theme.colors.textOposite};
   background-color: ${({ theme }) => theme.colors.primary};
   transform: ${({ isActive }) =>
     isActive ? 'translateX(0vw)' : 'translateX(-100vw)'};

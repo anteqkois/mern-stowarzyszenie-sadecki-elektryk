@@ -3,16 +3,18 @@ const lightColors = {
   secondary: '#F3F3F3',
   accent: '#4D0A83',
   text: '#333333',
+  textOposite: '#F3F3F3',
   label: '#908E9B',
   noActive: '#C4C2CD',
   gradient: 'linear-gradient(35.25deg, #4D0A83 28.05%, #A2141B 107.82%)',
 };
 
 const darkColors = {
-  primary: '#FFFFFF',
-  secondary: '#F3F3F3',
+  primary: '#121212',
+  secondary: '#222222',
   accent: '#4D0A83',
-  text: '#333333',
+  text: '#C4C2CD',
+  textOposite: '#F3F3F3',
   label: '#908E9B',
   noActive: '#C4C2CD',
   gradient: 'linear-gradient(35.25deg, #4D0A83 28.05%, #A2141B 107.82%)',

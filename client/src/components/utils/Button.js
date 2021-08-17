@@ -15,7 +15,7 @@ const StyledButton = styled.button`
     
     switch (option) {
       case 'normal':
-        property = theme.colors.primary;
+        property = theme.colors.textOposite;
         break;
       case 'white':
         property = theme.colors.accent;
@@ -37,7 +37,7 @@ const StyledButton = styled.button`
         property = 'linear-gradient(35.25deg, #4d0a83 38.05%, #a2141b 90%)';
         break;
       case 'white':
-        property = theme.colors.primary;
+        property = theme.colors.textOposite;
         break;
       case 'ghost':
         property = theme.colors.secondary;
@@ -71,7 +71,7 @@ const StyledButton = styled.button`
           property = `0px 15px 20px ${theme.colors.accent}`;
           break;
         case 'white':
-          property = `0px 5px 20px -5px ${theme.colors.primary}`;
+          property = `0px 5px 20px -5px ${theme.colors.textOposite}`;
           break;
         case 'ghost':
           property = `0px 15px 20px ${theme.colors.text}`;

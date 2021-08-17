@@ -18,7 +18,7 @@ const StyledNavigation = styled.nav`
   grid-template-columns: 80px auto 80px;
   align-items: center;
   justify-items: center;
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.secondary};
   z-index: ${({ theme }) => theme.zIndex.level10};
 
   ::after {
@@ -42,7 +42,7 @@ const StyledNavigation = styled.nav`
         auto
       );
     background-color: ${({ withshadowandbackground, theme }) =>
-      withshadowandbackground ? theme.colors.primary : 'transparent'};
+      withshadowandbackground ? theme.colors.secondary : 'transparent'};
     transform: ${({ withshadowandbackground }) =>
       withshadowandbackground ? 'translateY(0px)' : 'translateY(10px)'};
     transition: background-color ease-in-out 0.25s, transform ease-in-out 0.25s;

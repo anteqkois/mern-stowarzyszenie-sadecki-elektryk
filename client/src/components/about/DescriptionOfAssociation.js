@@ -31,10 +31,10 @@ const StyledDescriptionOfAssociation = styled.div`
       line-height: 1.1em;
       font-size: ${({ theme }) => theme.typography.sizeH3};
       font-weight: ${({ theme }) => theme.typography.weightExtraBold};
-      color: ${({ theme }) => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.textOposite};
     }
     p {
-      color: ${({ theme }) => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.textOposite};
     }
     div {
       position: absolute;
