@@ -11,14 +11,31 @@ const StyledImageBlock = styled.div`
     position: absolute;
     left: 0;
     right: 0;
-    background: rgb(255, 255, 255);
-    background: linear-gradient(
+    /* background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 1) 15%,
       rgba(255, 255, 255, 0.5) 30%,
       rgba(255, 255, 255, 0.25) 35%,
       rgba(255, 255, 255, 0) 100%
+    ); */
+    /* background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 1) 18%,
+      rgba(0, 0, 0, 0) 56%,
+      rgba(0, 0, 0, 0) 88%
+    ); */
+    background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 1) 18%,
+      rgba(0, 0, 0, 0) 45%,
+      rgba(0, 0, 0, 0) 88%
     );
+    background: ${({ theme }) => `linear-gradient(
+        0deg,
+        ${theme.colors.primary} 18%,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0) 88%
+      )`};
   }
   img {
     width: 100vw;

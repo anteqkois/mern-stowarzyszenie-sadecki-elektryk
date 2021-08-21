@@ -12,22 +12,22 @@ import { useError } from '../../helpers/useError';
 const StyledProject = styled.div`
   padding: 10px;
   width: 90%;
-  //height: 300px;
+  color: ${({ theme }) => theme.colors.text};
   border-left: ${({ theme }) => theme.colors.noActive} 1px solid;
   border-bottom: ${({ theme }) => theme.colors.noActive} 1px solid;
   border-radius: 10px;
-  background: rgb(231, 230, 230);
-  background: linear-gradient(
-    39deg,
-    rgba(231, 230, 230, 1) 0%,
-    rgba(240, 240, 240, 1) 41%,
-    rgba(241, 241, 241, 1) 95%
-  );
-  box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.3);
+  background: ${({ theme }) => `linear-gradient(
+    120deg,
+   ${theme.colors.primary} 0%,
+    ${theme.colors.secondary} 85%
+  )`};
+  box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
+    ${({ theme }) => theme.colors.primary} 0px -12px 30px,
+    black 0px 0px 10px -4px;
 
   span {
     font-weight: ${({ theme }) => theme.typography.weightBold};
-    color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.label};
   }
   p {
     border-bottom: ${({ theme }) => theme.colors.noActive} 1px solid;

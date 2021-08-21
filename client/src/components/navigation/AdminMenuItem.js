@@ -10,21 +10,21 @@ const StyledItem = styled(Link)`
   justify-content: center;
   text-align: center;
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.accent};
+  color: ${({ theme }) => theme.colors.text};
   font-weight: ${({ theme }) => theme.typography.weightBold};
   padding: 20px 10px;
   border-left: ${({ theme }) => theme.colors.noActive} 1px solid;
   border-bottom: ${({ theme }) => theme.colors.noActive} 1px solid;
   border-radius: 10px;
-  background: rgb(231, 230, 230);
-  background: linear-gradient(
+  background: ${({ theme }) => `linear-gradient(
     39deg,
-    rgba(190, 190, 190, 1) 0%,
-    rgba(210, 210, 210, 1) 41%,
-    rgba(251, 251, 251, 1) 95%
-  );
+   ${theme.colors.primary} 0%,
+    ${theme.colors.secondary} 75%
+  )`};
   background-size: 150%;
-  box-shadow: 0 4px 20px 0 rgba(31, 38, 135, 0.3);
+  box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
+    ${({ theme }) => theme.colors.primary} 0px -12px 30px,
+    black 0px 0px 10px -4px;
   transition: background 0.4s ease-in-out;
 
   :hover {

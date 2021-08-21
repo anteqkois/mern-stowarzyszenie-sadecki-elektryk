@@ -16,6 +16,7 @@ const StyledContainer = styled.div`
 
   header {
     margin: 30px 0 0 0;
+    color: ${({ theme }) => theme.colors.text};
     font-size: ${({ theme }) => theme.typography.sizeH5};
     font-weight: ${({ theme }) => theme.typography.weightBold};
     text-transform: uppercase;

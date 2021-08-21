@@ -16,6 +16,7 @@ const StyledContainer = styled.main`
   header {
     text-align: center;
     margin: 30px 0;
+    color: ${({ theme }) => theme.colors.text};
     font-size: ${({ theme }) => theme.typography.sizeH5};
     font-weight: ${({ theme }) => theme.typography.weightBold};
     text-transform: uppercase;
@@ -36,20 +37,20 @@ const StyledContainer = styled.main`
     width: 100%;
     max-width: 500px;
     list-style-type: none;
-    color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.text};
     font-weight: ${({ theme }) => theme.typography.weightBold};
     border-left: ${({ theme }) => theme.colors.noActive} 1px solid;
     border-bottom: ${({ theme }) => theme.colors.noActive} 1px solid;
     border-radius: 10px;
-    background: rgb(231, 230, 230);
-    background: linear-gradient(
-      39deg,
-      rgba(190, 190, 190, 1) 0%,
-      rgba(210, 210, 210, 1) 41%,
-      rgba(251, 251, 251, 1) 95%
-    );
+    background: ${({ theme }) => `linear-gradient(
+      120deg,
+      ${theme.colors.primary} 0%,
+      ${theme.colors.secondary} 85%
+      )`};
     background-size: 150%;
-    box-shadow: 0 4px 20px 0 rgba(31, 38, 135, 0.3);
+    box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
+      ${({ theme }) => theme.colors.primary} 0px -12px 30px,
+      black 0px 0px 10px -4px;
     transition: background 0.4s ease-in-out;
 
     p {
@@ -81,7 +82,7 @@ const ListOfProjectsToEdit = ({ location }) => {
   const [deleted, setDeleted] = useState(false);
 
   const [haveError, setHaveError, showError] = useError(() =>
-    window.location.assign('/admin')
+    window.location.assign('/admin'),
   );
 
   useEffect(() => {

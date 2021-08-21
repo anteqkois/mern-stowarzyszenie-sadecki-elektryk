@@ -6,8 +6,8 @@ import { WidthThemeContext } from '../../context/Context';
 
 const StyledDarkModeSwitch = styled.div`
   display: inline-block;
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   z-index: ${({ theme }) => theme.zIndex.level1};
 `;
 
@@ -20,10 +20,13 @@ const pathVariants = {
   moon: {
     d: 'M45 0 C20 30 30 90 95 70 C85 98 54 100 50 100 C0 98 0 50 0 50 C0 0 50 0 45 0',
     fill: '#e1dfe9',
+    stroke: '#c7c3d9',
+    strokeWidth: '1',
   },
   sun: {
     d: 'M50 0 C100 2 100 50 100 50 C100 98 54 100 50 100 C0 98 0 50 0 50 C0 0 50 0 50 0',
     fill: '#DE8704',
+    stroke: '#c17502',
   },
 };
 

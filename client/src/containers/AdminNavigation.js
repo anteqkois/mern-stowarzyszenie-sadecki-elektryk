@@ -53,7 +53,9 @@ const StyledHamburgerMenu = styled.nav`
     width: 145px;
     height: 100%;
     background-color: transparent;
-    box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.3);
+    box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
+      ${({ theme }) => theme.colors.primary} 0px -12px 30px,
+      black 0px 0px 10px -4px;
     border-radius: 0 0 0 20px;
     z-index: ${({ theme }) => theme.zIndex.levelMinus1};
   }
@@ -71,6 +73,7 @@ const StyledHamburgerMenu = styled.nav`
     svg {
       left: 100%;
       top: 50%;
+      fill: ${({ theme }) => theme.colors.text};
       border-radius: ${({ isActive }) =>
         isActive ? '0 0 0 20px' : '0 0 20px 0'};
       background-color: ${({ theme }) => theme.colors.secondary};

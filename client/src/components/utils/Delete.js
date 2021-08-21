@@ -6,6 +6,7 @@ display: inline-block;
   padding: 0.5em 1em;
   position: relative;
   text-transform: uppercase;
+  color: ${({theme}) => theme.colors.text};
   font-size: ${({ theme }) => theme.typography.sizeH6};
   font-weight: ${({ theme }) => theme.typography.weightBold};
   border-radius: 5px;
@@ -22,14 +23,14 @@ display: inline-block;
     bottom: 0;
     right: 0;
     border-radius: 5px;
-    box-shadow: ${({ theme }) => `0px 15px 20px ${theme.colors.text}`};
+    box-shadow: ${({ theme }) => `0px 10px 20px ${theme.colors.text}`};
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
   }
 
   :hover,
   :focus {
-    transform: translateY(-4px);
+    //transform: translateY(-4px);
 
     ::before {
       opacity: 1;

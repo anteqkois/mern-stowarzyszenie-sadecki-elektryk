@@ -20,6 +20,7 @@ const StyledContainer = styled.div`
 
   h5 {
     margin: 20px 15px;
+    color: ${({ theme }) => theme.colors.text};
 
     span {
       font-weight: ${({ theme }) => theme.typography.weightMedium};
@@ -35,6 +36,7 @@ const StyledContainer = styled.div`
     resize: none;
     min-height: 50px;
     width: 100%;
+    color: ${({ theme }) => theme.colors.text};
     background-color: ${({ theme }) => theme.colors.primary};
     border: 1px solid ${({ theme }) => theme.colors.noActive};
     border-top: unset;
@@ -42,7 +44,8 @@ const StyledContainer = styled.div`
     border-radius: 5px;
 
     :disabled {
-      background-color: ${({ theme }) => theme.colors.noActive};
+      background-color: ${({ theme }) => theme.colors.text};
+      color: ${({ theme }) => theme.colors.primary};
       cursor: not-allowed;
     }
 
@@ -56,7 +59,7 @@ const StyledContainer = styled.div`
   }
   label {
     margin-left: 5px;
-    color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.text};
     font-weight: ${({ theme }) => theme.typography.weightBold};
   }
 `;
@@ -65,14 +68,14 @@ const StyledForm = styled.form`
   border-left: ${({ theme }) => theme.colors.noActive} 1px solid;
   border-bottom: ${({ theme }) => theme.colors.noActive} 1px solid;
   border-radius: 10px;
-  background: rgb(231, 230, 230);
-  background: linear-gradient(
-    39deg,
-    rgba(204, 204, 204, 1) 0%,
-    rgba(220, 220, 220, 1) 41%,
-    rgba(241, 241, 241, 1) 95%
-  );
-  box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.3);
+  background: ${({ theme }) => `linear-gradient(
+    120deg,
+   ${theme.colors.primary} 0%,
+    ${theme.colors.secondary} 75%
+  )`};
+  box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
+    ${({ theme }) => theme.colors.primary} 0px -12px 30px,
+    black 0px 0px 10px -4px;
 
   div {
     display: flex;
