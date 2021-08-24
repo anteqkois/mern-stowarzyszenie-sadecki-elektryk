@@ -2,7 +2,7 @@ const { createApiError } = require('../middlewares/errors');
 const jwt = require('jsonwebtoken');
 
 const authenticate = (req, res, next) => {
-  console.log(req.headers)
+  // console.log(req.headers)
 
   // const authHeader = req.headers['Authorization'];
   // const token = authHeader && authHeader.split(' ')[1];

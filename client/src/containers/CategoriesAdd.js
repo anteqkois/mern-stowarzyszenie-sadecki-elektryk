@@ -28,6 +28,7 @@ const StyledContainer = styled.div`
     min-height: 50px;
     width: 100%;
     background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.text};
     border: 1px solid ${({ theme }) => theme.colors.noActive};
     border-top: unset;
     border-right: unset;

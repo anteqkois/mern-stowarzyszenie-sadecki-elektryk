@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router';
 import styled from 'styled-components';
 import Delete from '../components/utils/Delete';
 
@@ -54,29 +55,39 @@ const StyledDelete = styled(Delete)`
   }
 `;
 
-export const useError = (afterClosedModal = false) => {
+// export const useError = ({redirectObject = false}) => {
+export const useError = (redirectObject = false) => {
   const [haveError, setHaveError] = useState(null);
+  const [redirect, setRedirect] = useState(false)
 
-  //error && setHaveError(error);
-
+  
   const setIsOpen = () => {
-    afterClosedModal && afterClosedModal();
+    // afterClosedModal && afterClosedModal();
+    redirectObject && setRedirect(true);
+    //console.log(redirectObject);
+
     setHaveError(false);
   };
 
   const showError = () => {
 
-    //console.log(haveError);
+    return haveError ? (
+      <StyledError>
+        <div></div>
+        <div>
+          {haveError}
 
-    return (
-      haveError && (
-        <StyledError>
-          <div></div>
-          <div>{haveError}
-          
           <StyledDelete onClick={setIsOpen} />
-          </div>
-        </StyledError>
+        </div>
+      </StyledError>
+    ) : (
+      redirect && (
+        <Redirect
+          to={{
+            pathname: redirectObject.location,
+            state: { state: redirectObject.state },
+          }}
+        />
       )
     );
   };

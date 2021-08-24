@@ -19,6 +19,7 @@ const findOne = async (req, res, next) => {
   const data = await Project.findOne({
     slug: req.params.slug,
   }).populate('category', 'category');
+
   !data &&
     next(
       createApiError(
@@ -71,6 +72,7 @@ const update = async (req, res, next) => {
         ),
       );
 
+  project.slug = req.body.slug ? req.body.slug : project.slug;
   project.category = req.body.category ? req.body.category : project.category;
   project.title = req.body.title ? req.body.title : project.title;
   project.date = req.body.date ? req.body.date : project.date;

@@ -114,12 +114,12 @@ const OPTION_TYPE = {
 };
 
 const ProjectsEdit = ({ match }) => {
+  const toAdd = match.path.search(/add/) >= 0;
+
   const [isLoading, setIsLoading] = useState(true);
   const [option, setOption] = useState('normal');
-  //const [error, setError] = useState('')
 
   const [categories, setCategories] = useState('');
-  const [project, setProject] = useState('');
 
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
@@ -127,31 +127,42 @@ const ProjectsEdit = ({ match }) => {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
 
-  const [haveError, setHaveError, showError] = useError(() =>
-    window.location.assign(`/admin/projects/edit/${match.params.id}`),
-  );
-
-  const toAdd = match.path.search(/add/) >= 0;
+  const [haveError, setHaveError, showError] = useError({
+    location: toAdd
+      ? `/admin/projects/add`
+      : `/admin/projects/edit/${match.params.id}`,
+  });
 
   useEffect(() => {
     (async () => {
       try {
-        const data = !toAdd ? await projectsAPI.get(match.params.id) : '';
+        //brak obsługi błedu gdy nie ma takiego sluga !!!
+        //+ podmienić obsluge API po błedach z window.location na redirect
 
-        setProject(!toAdd ? await projectsAPI.get(match.params.id) : '');
-        setSlug(data ? data.slug : '');
-        setTitle(data ? data.title : '');
-        setDate(data ? convertDate(data.date) : '');
-        setCategory(data ? data.category : '');
-        setDescription(data ? data.description : '');
+        !toAdd &&
+          (async () => {
+            const data = await projectsAPI.get(match.params.id);
+
+            if (data == null) {
+              throw new Error('problem !');
+            }
+
+            //console.log('siemka')
+
+            setSlug(data.slug);
+            setTitle(data.title);
+            setDate(convertDate(data.date));
+            setCategory(data.category);
+            setDescription(data.description);
+          })();
 
         setCategories(await categoriesAPI.getAll());
-      } catch (error) {
-        console.log(error.response.data);
-        setHaveError(error.response.data);
-      }
 
-      setIsLoading(false);
+        setIsLoading(false);
+      } catch (error) {
+        setHaveError(error.response.data);
+      } finally {
+      }
     })();
   }, [match.params.id, toAdd]);
 
@@ -188,7 +199,6 @@ const ProjectsEdit = ({ match }) => {
       .post(values)
       .then(({ data }) => {
         setOption(OPTION_TYPE.saved);
-
       })
       .catch((error) => {
         setHaveError(error.response.data);
@@ -198,16 +208,17 @@ const ProjectsEdit = ({ match }) => {
 
   const handlePut = async (values) => {
     await projectsAPI
-      .put(slug, values)
+      .put(match.params.id, values)
       .then(({ data }) => {
         setOption(OPTION_TYPE.saved);
+        match.params.id = values.slug;
       })
       .catch((error) => {
+        //console.log(error.response);
         setHaveError(error.response.data);
         setOption(OPTION_TYPE.normal);
       });
   };
-
 
   const handleDelete = (fn) => {
     const accpet = window.confirm(
@@ -216,21 +227,7 @@ const ProjectsEdit = ({ match }) => {
         : 'Czy napewno nie chcesz zapisać nowego projektu?',
     );
 
-    if (accpet) {
-      !toAdd &&
-        (async () => {
-          await projectsAPI
-            .remove(slug)
-            .then(({ data }) => {
-              setOption(OPTION_TYPE.deleted);
-            })
-            .catch((error) => {
-              setHaveError(error.response.data);
-              setOption(OPTION_TYPE.normal);
-            });
-        })();
-      fn();
-    }
+    accpet && fn();
   };
 
   const formik = useFormik({
@@ -256,10 +253,9 @@ const ProjectsEdit = ({ match }) => {
 
   return isLoading ? (
     <Loading />
-  ) : haveError ? (
-    showError()
   ) : (
     <StyledContainer>
+      {showError()}
       {toAdd ? (
         <h5>Wypełnij dane projektu:</h5>
       ) : (
@@ -335,19 +331,14 @@ const ProjectsEdit = ({ match }) => {
         </Modal>
       )}
       {option === OPTION_TYPE.saved && (
-        <Modal setIsOpen={() => setOption(OPTION_TYPE.normal)}>
+        <Modal
+          setIsOpen={() => {
+            setOption(OPTION_TYPE.normal);
+            window.location.assign(`/admin/projects/edit/${match.params.id}`);
+          }}
+        >
           <p>
             Projekt <q>{title}</q> został zapisany!
-          </p>
-          <StyledLink to="/admin">
-            <Button>Wróć do menu</Button>
-          </StyledLink>
-        </Modal>
-      )}
-      {option === OPTION_TYPE.deleted && (
-        <Modal setIsOpen={() => setOption(OPTION_TYPE.normal)}>
-          <p>
-            Projekt <q>{title}</q> został usunięty!
           </p>
           <StyledLink to="/admin">
             <Button>Wróć do menu</Button>

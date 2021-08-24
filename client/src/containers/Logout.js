@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -35,7 +35,9 @@ const StyledLogout = styled.div`
       font-weight: ${({ theme }) => theme.typography.weightBold};
       background: ${({ theme }) => theme.colors.primary};
       color: ${({ theme }) => theme.colors.text};
-      box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.37);
+      box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
+        ${({ theme }) => theme.colors.primary} 0px -12px 30px,
+        black 0px 0px 10px -4px;
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.18);
       transform: translate(-50%, -50%);
@@ -50,23 +52,22 @@ const StyledLogout = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-all: unset;
+  all: unset;
 `;
 
 const Logout = () => {
-
   useEffect(() => {
     sessionStorage.removeItem('isLogined');
-  }, [])
-  
+  }, []);
+
   return (
     <StyledLogout>
       <div></div>
       <div>
-      Zostałeś wylogowany !
-      <StyledLink  to={'/'} >
-        <Button >Strona główna</Button>
-      </StyledLink>
+        Zostałeś wylogowany !
+        <StyledLink to={'/'}>
+          <Button>Strona główna</Button>
+        </StyledLink>
       </div>
     </StyledLogout>
   );
