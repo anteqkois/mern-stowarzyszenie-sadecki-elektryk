@@ -141,19 +141,17 @@ const ProjectsEdit = ({ match }) => {
 
         !toAdd &&
           (async () => {
-            const data = await projectsAPI.get(match.params.id);
+            try {
+              const data = await projectsAPI.get(match.params.id);
 
-            if (data == null) {
-              throw new Error('problem !');
+              setSlug(data.slug);
+              setTitle(data.title);
+              setDate(convertDate(data.date));
+              setCategory(data.category);
+              setDescription(data.description);
+            } catch (error) {
+              setHaveError(error.response.data);
             }
-
-            //console.log('siemka')
-
-            setSlug(data.slug);
-            setTitle(data.title);
-            setDate(convertDate(data.date));
-            setCategory(data.category);
-            setDescription(data.description);
           })();
 
         setCategories(await categoriesAPI.getAll());
