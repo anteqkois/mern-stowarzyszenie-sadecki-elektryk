@@ -19,7 +19,7 @@ const StyledProject = styled.div`
   background: ${({ theme }) => `linear-gradient(
     120deg,
    ${theme.colors.primary} 0%,
-    ${theme.colors.secondary} 85%
+    ${theme.colors.secondary} 97%
   )`};
   box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
     ${({ theme }) => theme.colors.primary} 0px -12px 30px,

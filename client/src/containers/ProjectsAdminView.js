@@ -8,7 +8,6 @@ import { useError } from '../helpers/useError';
 import * as projectsAPI from '../helpers/projectsAPI.js';
 
 const StyledContainer = styled.div`
-  //margin: 70px 0 70px 0;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -51,7 +50,7 @@ const ProjectsAdminView = () => {
       }
       setIsLoading(false);
     })();
-  }, []);
+  }, [setHaveError]);
 
   return isLoading ? (
     <Loading loadingMessage="łądowanie projektów" />

@@ -35,9 +35,6 @@ const StyledLogout = styled.div`
       font-weight: ${({ theme }) => theme.typography.weightBold};
       background: ${({ theme }) => theme.colors.primary};
       color: ${({ theme }) => theme.colors.text};
-      box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
-        ${({ theme }) => theme.colors.primary} 0px -12px 30px,
-        black 0px 0px 10px -4px;
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.18);
       transform: translate(-50%, -50%);

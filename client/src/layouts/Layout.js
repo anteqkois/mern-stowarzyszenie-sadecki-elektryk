@@ -52,9 +52,9 @@ const Layout = ({ children }) => {
   const { isDarkMode } = useContext(WidthThemeContext);
   
   return (
-    <ThemeProvider theme={DarkTheme}>
-    {/* <ThemeProvider theme={LightTheme}>  */}
-    {/* <ThemeProvider theme={isDarkMode ? DarkTheme : LightTheme}> */}
+    // <ThemeProvider theme={DarkTheme}>
+    //<ThemeProvider theme={LightTheme}>
+    <ThemeProvider theme={isDarkMode ? DarkTheme : LightTheme}>
       <>
         <GlobalStyle />
         {children}

@@ -130,14 +130,13 @@ const ProjectsEdit = ({ match }) => {
   const [haveError, setHaveError, showError] = useError({
     location: toAdd
       ? `/admin/projects/add`
-      : `/admin/projects/edit/${match.params.id}`,
+      : `/admin/projects${match.params.id ? `/edit/${match.params.id}` : ''}`,
   });
 
   useEffect(() => {
     (async () => {
       try {
-        //brak obsługi błedu gdy nie ma takiego sluga !!!
-        //+ podmienić obsluge API po błedach z window.location na redirect
+        setCategories(await categoriesAPI.getAll());
 
         !toAdd &&
           (async () => {
@@ -151,10 +150,9 @@ const ProjectsEdit = ({ match }) => {
               setDescription(data.description);
             } catch (error) {
               setHaveError(error.response.data);
+              match.params.id='';
             }
           })();
-
-        setCategories(await categoriesAPI.getAll());
 
         setIsLoading(false);
       } catch (error) {
@@ -162,23 +160,8 @@ const ProjectsEdit = ({ match }) => {
       } finally {
       }
     })();
-  }, [match.params.id, toAdd]);
+  }, [match.params, toAdd, setHaveError]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const data = !toAdd ? await projectsAPI.get(match.params.id) : '';
-
-  //     setProject(!toAdd ? await projectsAPI.get(match.params.id) : '');
-  //     setSlug(data ? data.slug : '');
-  //     setTitle(data ? data.title : '');
-  //     setDate(data ? convertDate(data.date) : '');
-  //     setCategory(data ? data.category : '');
-  //     setDescription(data ? data.description : '');
-
-  //     setCategories(await categoriesAPI.getAll());
-  //     setIsLoading(false);
-  //   })();
-  // }, [match.params.id, toAdd]);
   const handleSlug = (titleToConvert) => {
     const slugToAdd = titleToConvert
       .toLowerCase()
