@@ -107,7 +107,7 @@ const Navigation = ({ isDarkMod, setIsDarkMod }) => {
         isActive={true}
         withshadowandbackground={withshadowandbackground}
       />
-      <DarkModeSwitch setIsDarkMod={setIsDarkMod} isDarkMod={isDarkMod} />
+      <DarkModeSwitch/>
     </StyledNavigation>
   );
 };

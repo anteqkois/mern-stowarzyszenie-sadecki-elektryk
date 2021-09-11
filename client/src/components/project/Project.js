@@ -16,19 +16,13 @@ const StyledProject = styled.div`
   position: relative;
   max-width: 500px;
   background: ${({ theme }) => theme.colors.secondary};
-  /* background: linear-gradient(
-    39deg,
-    rgba(231, 230, 230, 1) 0%,
-    rgba(240, 240, 240, 1) 41%,
-    rgba(241, 241, 241, 1) 95%
-  ); */
   box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
     ${({ theme }) => theme.colors.primary} 0px -12px 30px,
     black 0px 0px 10px -4px;
   backdrop-filter: blur(5.5px);
   -webkit-backdrop-filter: blur(5.5px);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  //border: 1px solid rgba(255, 255, 255, 0.2);
   overflow: hidden;
 
   h1 {

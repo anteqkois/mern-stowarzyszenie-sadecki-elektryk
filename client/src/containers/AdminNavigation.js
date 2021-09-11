@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import HamburgerMenu from '../components/navigation/HamburgerMenu';
 import AdminMenuList from '../components/navigation/AdminMenuList';
+import DarkModeSwitch from '../components/navigation/DarkModeSwitch'
 
 const StyledNavigation = styled.nav`
   width: 100vw;
@@ -28,16 +29,18 @@ const StyledHamburgerMenu = styled.nav`
   position: fixed;
   top: 0;
   right: 0;
+  /* height: 60px; */
   background-color: ${({ theme }) => theme.colors.secondary};
   transition: transform 0.3s ease-in-out 0.25s;
   z-index: ${({ theme }) => theme.zIndex.level1};
-
+  
   svg {
     position: absolute;
     left: -50%;
     top: 50%;
     height: 100%;
     border-radius: 0 0 0 20px;
+    fill: ${({ theme }) => theme.colors.text};
     background-color: ${({ theme }) => theme.colors.secondary};
     padding: 5px 5px 5px 15px;
     transform: translate(0, -50%);
@@ -73,7 +76,6 @@ const StyledHamburgerMenu = styled.nav`
     svg {
       left: 100%;
       top: 50%;
-      fill: ${({ theme }) => theme.colors.text};
       border-radius: ${({ isActive }) =>
         isActive ? '0 0 0 20px' : '0 0 20px 0'};
       background-color: ${({ theme }) => theme.colors.secondary};
@@ -108,10 +110,14 @@ const AdminNavigation = ({ isActive, setIsActive, history }) => {
       </StyledNavigation>
       <StyledHamburgerMenu isActive={isActive}>
         <HamburgerMenu isActive={isActive} setIsActive={setIsActive} />
+        {/* <DarkModeSwitch/> */}
         <svg
-        tabIndex='0'
-        ref={backButton}
-        onClick={()=> {history.goBack(); handleBlur()}}
+          tabIndex="0"
+          ref={backButton}
+          onClick={() => {
+            history.goBack();
+            handleBlur();
+          }}
           xmlns="http://www.w3.org/2000/svg"
           width="55"
           height="50"
