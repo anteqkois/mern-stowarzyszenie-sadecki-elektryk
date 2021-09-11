@@ -97,6 +97,7 @@ const StyledButton = styled.button`
       transition: opacity 0.4s ease-in-out;
     }
   }
+
 `;
 
 const Button = ({children, className, onClick=null, option='normal'}) => {

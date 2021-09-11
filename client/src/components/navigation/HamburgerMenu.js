@@ -9,7 +9,7 @@ const StyledHamburgerMenu = styled.button`
   flex-wrap: wrap;
   height: 60px;
   padding: 10px;
-  margin: auto 10px auto 10px;
+  //margin: auto 10px auto 10px;
   background-color: transparent;
   border: transparent;
   outline: transparent;

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -8,11 +8,14 @@ const StyledDarkModeSwitch = styled.div`
   display: inline-block;
   width: 60px;
   height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: ${({ theme }) => theme.zIndex.level1};
 `;
 
 const StyledSvg = styled(motion.svg)`
-  margin: 8px;
+  margin: 0px;
   cursor: pointer;
 `;
 
@@ -42,8 +45,17 @@ const svgVariants = {
 const DarkModeSwitch = () => {
   const { isDarkMode, setIsDarkMode } = useContext(WidthThemeContext);
 
+const button = useRef(null);
+
   return (
-    <StyledDarkModeSwitch onClick={() => setIsDarkMode(!isDarkMode)}>
+    <StyledDarkModeSwitch
+      ref={button}
+      tabIndex="0"
+      onClick={() => {
+        setIsDarkMode(!isDarkMode);
+        button.current.blur();
+      }}
+    >
       <StyledSvg
         variants={svgVariants}
         animate={isDarkMode ? 'sun' : 'moon'}

@@ -7,6 +7,7 @@ const StyledItem = styled(Link)`
   text-decoration: none;
   position: relative;
   list-style-type: none;
+  color: ${({ theme }) => theme.colors.text};
   text-align: center;
   font-size: 1rem;
   font-weight: ${({ theme }) => theme.typography.weightBold};

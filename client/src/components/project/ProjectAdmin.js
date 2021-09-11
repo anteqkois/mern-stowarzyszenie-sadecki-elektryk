@@ -111,7 +111,10 @@ const ProjectAdmin = ({
         </p>
         <div>
           <Delete onClick={handleDelete}>Usuń</Delete>
-          <StyledLink to={(location) => `${location.pathname}/edit/${slug}`}>
+          <StyledLink
+            to={(location) => `${location.pathname}/edit/${slug}`}
+            tabIndex="-1"
+          >
             <Button>Edytuj</Button>
           </StyledLink>
         </div>
