@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import ListOfProjectsToEdit from '../containers/ListOfProjectsToEdit'
-import AdminNavigation from '../containers/AdminNavigation';
-import AdminMain from '../containers/AdminMain'
-import ProjectsAdminView from '../containers/ProjectsAdminView';
-import ProjectsEditAndAdd from '../containers/ProjectsEditAndAdd';
-import CategoriesAdd from '../containers/CategoriesAdd';
-import Categories from '../containers/Categories';
+import ListOfProjectsToEdit from '../containers/Admin/ListOfProjectsToEdit'
+import AdminNavigation from '../containers/Admin/AdminNavigation';
+import AdminMain from '../containers/Admin/AdminMain'
+import ProjectsAdminView from '../containers/Admin/ProjectsAdminView';
+import ProjectsEditAndAdd from '../containers/Admin/ProjectsEditAndAdd';
+import CategoriesAdd from '../containers/Admin/CategoriesAdd';
+import Categories from '../containers/Admin/Categories';
 
 const StyledWrapper = styled.main`
 margin: 70px auto;

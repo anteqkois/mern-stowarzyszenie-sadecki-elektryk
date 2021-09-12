@@ -39,10 +39,15 @@ const GlobalStyle = createGlobalStyle`
   body{
     background-color: ${({ theme }) => theme.colors.primary};
     overflow-x: hidden;
+    >div{
+      min-height: 100vh;
+    }
   }
 
   *:focus{
-    outline: solid 1px ${({ theme }) => theme.colors.accent};
+    outline: dashed 2px green;
+    outline-offset: 2px;
+    /* outline: dashed 2px ${({ theme }) => theme.colors.accent}; */
   }
 
 `;
@@ -52,8 +57,6 @@ const Layout = ({ children }) => {
   const { isDarkMode } = useContext(WidthThemeContext);
   
   return (
-    // <ThemeProvider theme={DarkTheme}>
-    //<ThemeProvider theme={LightTheme}>
     <ThemeProvider theme={isDarkMode ? DarkTheme : LightTheme}>
       <>
         <GlobalStyle />

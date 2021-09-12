@@ -29,9 +29,9 @@ const StyledProject = styled.div`
     padding: 1.1em 0;
     font-size: ${({ theme }) => theme.typography.sizeH6};
     font-weight: ${({ theme }) => theme.typography.weightExtraBold};
-    color: transparent;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: ${({ theme }) => theme.colors.accent};
+    color: ${({ theme }) => theme.colors.accent};
+    /* -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: ${({ theme }) => theme.colors.accent}; */
     line-height: 1.1em;
     text-transform: uppercase;
   }
@@ -61,7 +61,7 @@ const StyledProject = styled.div`
   }
 
   ${({ theme }) => theme.media.bigTablet} {
-    max-width: 600px;
+    width: 600px;
 
     place-self: start;
     transform: translate(45%, 0);
@@ -122,7 +122,7 @@ const Project = ({ slug, _id, title, category, date, description }) => {
       <img src={categoryOfProject} alt="category of project" />
       <p>{dateToPut}</p>
       <p>{description}</p>
-      <Link to="/projects">
+      <Link to="/projects" tabIndex="-1">
         <Button>Więcej Projektów</Button>
       </Link>
     </StyledProject>

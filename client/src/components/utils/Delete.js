@@ -23,7 +23,7 @@ display: inline-block;
     bottom: 0;
     right: 0;
     border-radius: 5px;
-    box-shadow: ${({ theme }) => `0px 10px 20px ${theme.colors.text}`};
+    box-shadow: ${({ theme }) => `0px 5px 15px ${theme.colors.text}`};
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
   }
@@ -71,7 +71,12 @@ const Delete = ({ className, children, onClick = null }) => {
   };
   
   return (
-    <StyledDelete className={className} ref={button} onClick={handleClick}>
+    <StyledDelete
+      tabIndex="0"
+      className={className}
+      ref={button}
+      onClick={handleClick}
+    >
       {children ? children : <StyledCross></StyledCross>}
     </StyledDelete>
   );

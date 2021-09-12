@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ProjectsIntro from '../containers/ProjectsIntro';
-import AllProjects from '../containers/AllProjects';
+import ProjectsIntro from '../containers/Projects/ProjectsIntro';
+import AllProjects from '../containers/Projects/AllProjects';
 
 const StyledWrapper = styled.div`
   display: flex;

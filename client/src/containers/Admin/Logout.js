@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Button from '../components/utils/Button';
+import Button from '../../components/utils/Button';
 
 const StyledLogout = styled.div`
   position: relative;

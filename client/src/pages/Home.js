@@ -1,9 +1,9 @@
 import React from 'react'
 
-import About from '../containers/About'
-import Projects from '../containers/Projects';
-import Aid from '../containers/Aid';
-import Patron from '../containers/Patron';
+import About from '../containers/Home/About'
+import Projects from '../containers/Projects/Projects';
+import Aid from '../containers/Home/Aid';
+import Patron from '../containers/Home/Patron';
 
 const Home = () => {
   return (

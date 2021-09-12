@@ -68,13 +68,13 @@ const StyledButton = styled.button`
 
       switch (option) {
         case 'normal':
-          property = `0px 15px 20px ${theme.colors.accent}`;
+          property = `0px 5px 15px ${theme.colors.accent}`;
           break;
         case 'white':
-          property = `0px 5px 20px -5px ${theme.colors.textOposite}`;
+          property = `0px 5px 15px -5px ${theme.colors.textOposite}`;
           break;
         case 'ghost':
-          property = `0px 15px 20px ${theme.colors.text}`;
+          property = `0px 5px 15px ${theme.colors.text}`;
           break;
 
         default:
@@ -110,7 +110,7 @@ const Button = ({children, className, onClick=null, option='normal'}) => {
   }
 
   return (
-    <StyledButton ref={button} onClick={handleClick} className={className} option={option}>
+    <StyledButton  ref={button} onClick={handleClick} className={className} option={option}>
       {children}
     </StyledButton>
   )

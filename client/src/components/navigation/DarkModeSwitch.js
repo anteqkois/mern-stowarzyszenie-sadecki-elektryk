@@ -15,7 +15,7 @@ const StyledDarkModeSwitch = styled.div`
 `;
 
 const StyledSvg = styled(motion.svg)`
-  margin: 0px;
+  padding: 8px;
   cursor: pointer;
 `;
 

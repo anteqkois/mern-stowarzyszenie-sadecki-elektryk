@@ -149,6 +149,7 @@ const DescriptionOfSteps = ({ activeStep, handleNextStep }) => {
         onClick={() => {
           handleNextStep(i + 1);
         }}
+        tabIndex="0"
       >
         {i + 1}
       </li>,
