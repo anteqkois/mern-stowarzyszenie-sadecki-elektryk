@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -36,7 +36,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-function App() {
+const homePaths = [ '', 'projects' , 'aid', 'login', 'logout'];
+
+function App({location}) {
   return (
     <WidthDeviceProvider>
       <WidthThemeProvider>
@@ -45,17 +47,18 @@ function App() {
             <ScrollToTop />
             <Switch>
               <PrivateRoute path="/admin" component={AdminPanel} />
-              <>
+              <Route exact path={`/(${homePaths.join('|')})`}>
                 <Navigation />
-                <Route exact path="/" component={Home} />
-                <Route exact path="/projects" component={Projects} />
-                <Route exact path="/aid" component={Aid} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/logout" component={Logout} />
-                <Route exact path="/logout" component={Logout} />
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route exact path="/projects" component={Projects} />
+                  <Route exact path="/aid" component={Aid} />
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/logout" component={Logout} />
+                </Switch>
                 <Fotter />
-              </>
-                {/* <Route path="*" component={NotFound} /> */}
+              </Route>
+              <Route path="*" component={NotFound} />
             </Switch>
           </Layout>
         </Router>
