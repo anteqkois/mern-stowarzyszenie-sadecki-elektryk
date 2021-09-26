@@ -38,7 +38,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const homePaths = [ '', 'projects' , 'aid', 'login', 'logout'];
 
-function App({location}) {
+function App() {
   return (
     <WidthDeviceProvider>
       <WidthThemeProvider>

@@ -2,12 +2,6 @@ const database = require('../config/database');
 const Project = require('../models/project');
 const { createApiError } = require('../middlewares/errors');
 
-// const error = async (req, res, next) => {
-//   next(createApiError(`Testowy error !`, 405));
-
-//   return res.status(200).send({ data: 'wszystko dobrze' });
-// };
-
 const findAll = async (req, res, next) => {
   const data = await Project.find().populate('category', 'category');
   !data && next(createApiError(`Nie znaleziono projektów w bazie`, 404));

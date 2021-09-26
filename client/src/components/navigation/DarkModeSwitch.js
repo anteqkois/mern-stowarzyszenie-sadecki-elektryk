@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -35,7 +35,7 @@ const pathVariants = {
 
 const svgVariants = {
   moon: {
-    filter: 'drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.3))', 
+    filter: 'drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.3))',
   },
   sun: {
     filter: 'drop-shadow(2px 4px 10px rgba(222, 135, 4, 0.7))',
@@ -45,7 +45,7 @@ const svgVariants = {
 const DarkModeSwitch = () => {
   const { isDarkMode, setIsDarkMode } = useContext(WidthThemeContext);
 
-const button = useRef(null);
+  const button = useRef(null);
 
   return (
     <StyledDarkModeSwitch
@@ -53,6 +53,7 @@ const button = useRef(null);
       tabIndex="0"
       onClick={() => {
         setIsDarkMode(!isDarkMode);
+        localStorage.setItem('darkMode', !isDarkMode);
         button.current.blur();
       }}
     >
