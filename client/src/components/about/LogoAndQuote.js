@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components'
+import gsap from 'gsap';
 
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 
@@ -18,10 +19,13 @@ const StyledQuote = styled.h2`
 `;
 
 const LogoAndQuote = () => {
+
+  const quote = useRef(null);
+  
   return (
     <>
       <StyledLogo />
-      <StyledQuote>
+      <StyledQuote ref={quote} >
         ,,Założyliśmy stowarzyszenie, bo łączy nas solidarność interesów,
         wspólność celów i potrzeb.”
       </StyledQuote>

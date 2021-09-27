@@ -17,60 +17,67 @@ const StyledNotFound = styled.div`
     width: 80%;
     margin: 10% auto;
     max-width: 400px;
-
-    ${({ theme }) => theme.media.tablet} {
-      grid-column: 1/2;
-      grid-row: 1/2;
-      place-self: center;
-    }
   }
   a {
     all: unset;
     justify-self: center;
-
-    ${({ theme }) => theme.media.tablet} {
-      grid-column: 2/3;
-      grid-row: 1/2;
-      place-self: center;
-      //transform: translateY(50px);
-      /* place-self: center; */
-    }
   }
-
+  
   ${({ theme }) => theme.media.tablet} {
     grid-template-rows: 1fr;
     grid-template-columns: repeat(2, 1fr);
+    padding: 5vw;
+    
+    svg{
+      max-width: unset;
+      place-self: center;
+      transform: translateY(7vw);
+    }
+    a{
+      grid-column: 2/3;
+      grid-row: 1/2;
+      place-self: center;
+      transform: translateY(10vw);
+    }
   }
 `;
 
 const StyledHeader = styled.div`
-  text-align: center;
-  text-transform: uppercase;
   h1 {
-    font-size: clamp(120px, 35vw, 300px);
+    text-transform: uppercase;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.text};
+    font-size: clamp(120px, 35vw, 350px);
     line-height: 1em;
     font-weight: ${({ theme }) => theme.typography.weightBold};
     :nth-of-type(2) {
-      font-size: clamp(30px, 10vw, 90px);
+      padding: 0 10%;
+      text-transform: unset;
+      font-size: clamp(25px, 5vw, 50px);
     }
   }
   ${({ theme }) => theme.media.tablet} {
     grid-column: 2/3;
     grid-row: 1/2;
     justify-self: center;
+    h1:nth-of-type(2) {
+      padding: 0;
+    }
   }
 `;
 
-function NotFound() {
+function NotFound({location}) {
   return (
     <StyledNotFound>
       <StyledHeader>
         <h1>404</h1>
-        <h1>Page Not Found</h1>
+        <h1>
+          Nie znaleziono strony pod adresem: <i>{location.pathname}</i>
+        </h1>
       </StyledHeader>
-      <TeacherAndStudent/>
-      <Link to="/projects" tabIndex="-1">
-        <Button>Więcej Projektów</Button>
+      <TeacherAndStudent />
+      <Link to="/" tabIndex="-1">
+        <Button>Strona Główna</Button>
       </Link>
     </StyledNotFound>
   );

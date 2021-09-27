@@ -53,7 +53,6 @@ const StyledHeadLine = styled.div`
   }
 
   ${({ theme }) => theme.media.bigTablet} {
-
     img {
       max-height: 300px;
     }
@@ -65,10 +64,10 @@ const StyledHeadLine = styled.div`
   }
 `;
 
-const HeadLine = ({className}) => {
+const HeadLine = ({ className }) => {
   return (
     <StyledHeadLine className={className}>
-      <Logo/>
+      <Logo />
       <h1>Stowarzyszenie Sądecki Elektryk</h1>
     </StyledHeadLine>
   );
