@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React, { useContext } from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { LightTheme, DarkTheme } from './utils';
 
@@ -39,6 +39,8 @@ const GlobalStyle = createGlobalStyle`
   body{
     background-color: ${({ theme }) => theme.colors.primary};
     overflow-x: hidden;
+    scroll-behavior: smooth;
+    
     >div{
       min-height: 100vh;
     }
@@ -53,9 +55,8 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Layout = ({ children }) => {
-
   const { isDarkMode } = useContext(WidthThemeContext);
-  
+
   return (
     <ThemeProvider theme={isDarkMode ? DarkTheme : LightTheme}>
       <>
