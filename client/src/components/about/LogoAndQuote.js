@@ -7,15 +7,27 @@ import { WidthDeviceContext } from '../../context/Context';
 
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 
+const StyledScene = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1;
+  grid-template-rows: 1;
+`;
+
 const StyledLogo = styled.svg`
   width: 100vw;
   overflow: visible;
-  margin-bottom: 300px;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  //margin-bottom: 300px;
 `;
 
 const StyledQuote = styled.h2`
+  grid-column: 1/2;
+  grid-row: 1/2;
   font-size: 400px;
-  padding: 0.6em 2em;
+  //padding: 0.6em 2em;
   white-space: nowrap;
   color: transparent;
   -webkit-text-stroke-width: 8px;
@@ -24,6 +36,8 @@ const StyledQuote = styled.h2`
 
 const LogoAndQuote = () => {
   const { isMobile } = useContext(WidthDeviceContext);
+
+  const aminationScene = useRef(null);
 
   const quote = useRef(null);
   
@@ -41,10 +55,57 @@ const LogoAndQuote = () => {
   //Naprawić error pojawiający się przy przejściu z widoki desktopu na mobile
   useEffect(() => {
     !isMobile && handleQuoteAnimation();
-    !isMobile && handleTextAnimation();
+    //!isMobile && handleLogoAnimation();
   }, [isMobile]);
   
-  const handleTextAnimation = () => {
+  const handleLogoAnimation = () => {
+
+    
+    const tl = gsap.timeline({ default: { ease: 'none' } });
+
+    tl.addLabel('gearAnimation', 0)
+      .to(
+        largeGear.current,
+        { scale: 1, x: 0, y: 0, opacity: 1},
+        'gearAnimation',
+      )
+      .to(
+        smalGear.current,
+        { scale: 1, x: 0, y: 0, opacity: 1 },
+        'gearAnimation',
+        )
+      .to(
+        underLighting.current,
+        {
+          scale: 1,
+          x: 0,
+          y: 0,
+          opacity: 1,
+        },
+        'gearAnimation',
+        )
+      .to(
+        lighting.current,
+        { scale: 1, x: 0, y: 0, opacity: 1 },
+        'gearAnimation',
+      )
+      .addLabel('textAnimation', 1)
+      .to(text.current, { opacity: 1}, 'textAnimation')
+      .to(curveText.current, { opacity: 1 }, 'textAnimation');
+
+    ScrollTrigger.create({
+      animation: tl,
+      trigger: logo.current,
+      start: 'top 200px',
+      pin: true,
+      scrub: 0.5,
+      end: '1400px',
+    });
+  };
+  
+  const handleQuoteAnimation = () => {
+
+    gsap.set(quote.current, { scale: 0.5, x: -quote.current.scrollWidth/7 });
 
     gsap.set(largeGear.current, { scale: 1.5, x: 1000, y: 500, opacity: 0 });
     gsap.set(smalGear.current, { scale: 1.5, x: 1000, y: -500, opacity: 0 });
@@ -53,12 +114,24 @@ const LogoAndQuote = () => {
     gsap.set(text.current, { opacity: 0 });
     gsap.set(curveText.current, { opacity: 0 });
 
-    const tl = gsap.timeline({ default: { ease: 'none' } });
-
-    tl.addLabel('gearAnimation', 0)
+    const tl = gsap.timeline();
+    
+    tl.to(quote.current, { scale: 1, x: '-=700', duration: 1, ease: 'none' })
+      .to(quote.current, {
+        x: `-=${(quote.current.scrollWidth / 4) * 3 + 200}`,
+        duration: 5,
+        ease: 'none',
+      })
+      .to(quote.current, {
+        scale: 0.5,
+        x: '-=350',
+        duration: 2,
+        ease: 'none',
+      })
+      .addLabel('gearAnimation', 6.2)
       .to(
         largeGear.current,
-        { scale: 1, x: 0, y: 0, opacity: 1},
+        { scale: 1, x: 0, y: 0, opacity: 1 },
         'gearAnimation',
       )
       .to(
@@ -81,51 +154,23 @@ const LogoAndQuote = () => {
         { scale: 1, x: 0, y: 0, opacity: 1 },
         'gearAnimation',
       )
-      .addLabel('textAnimation', 1)
-      .to(text.current, { opacity: 1}, 'textAnimation')
+      .addLabel('textAnimation', 6.9)
+      .to(text.current, { opacity: 1 }, 'textAnimation')
       .to(curveText.current, { opacity: 1 }, 'textAnimation');
 
     ScrollTrigger.create({
       animation: tl,
-      trigger: logo.current,
-      start: 'top 200px',
-      pin: true,
-      scrub: 0.5,
-      end: '1400px',
-    });
-  };
-
-  const handleQuoteAnimation = () => {
-    gsap.set(quote.current, { scale: 0.5 });
-
-    const tl = gsap.timeline({ default: { ease: 'none' } });
-
-    tl.to(quote.current, { scale: 1, x: '-=700', duration: 1 })
-      .to(quote.current, {
-        x: `+=${-quote.current.scrollWidth + 1800}`,
-        duration: 8,
-      })
-      .to(quote.current, {
-        scale: 0.5,
-        x: '+=8500',
-        duration: 1,
-      });
-
-    ScrollTrigger.create({
-      animation: tl,
-      trigger: quote.current,
+      trigger: aminationScene.current,
       start: 'top 250px',
+      ease: 'none',
       pin: true,
       scrub: 0.5,
       end: quote.current.scrollWidth,
-      // onLeave: ()=>{
-      //   handleTextAnimation();
-      // }
     });
   };
 
   return (
-    <>
+    <StyledScene ref={aminationScene} >
       <StyledQuote ref={quote}>
         ,,Założyliśmy stowarzyszenie, bo łączy nas solidarność interesów,
         wspólność celów i potrzeb.”
@@ -253,7 +298,7 @@ const LogoAndQuote = () => {
           </g>
         </g>
       </StyledLogo>
-    </>
+    </StyledScene>
   );
 };
 
