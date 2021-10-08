@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "commit": "git add . && git commit -u",
+    "postcommit":"git push",
     "start": "nodemon server.js",
     "production": "set MODULE=production && nodemon server.js",
     "client": "cd client && npm start",
