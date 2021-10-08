@@ -6,8 +6,8 @@ import HeroImage from '../../components/about/HeroImage';
 import HeadLine from '../../components/about/HeadLine';
 import LogoAndQuote from '../../components/about/LogoAndQuote';
 import DescriptionOfAssociation from '../../components/about/DescriptionOfAssociation';
+import TeacherAndStudenIllustration from '../../components/about/TeacherAndStudenIllustration';
 
-import { ReactComponent as TeacherAndStudent } from '../../assets/StudentAndTeacher.svg';
 import { ReactComponent as Background } from '../../assets/background.svg';
 
 const StyledAbout = styled.div`
@@ -16,7 +16,7 @@ const StyledAbout = styled.div`
   ${({ theme }) => theme.media.tablet} {
     padding: 12vw 0 70px 0;
     margin-bottom: 50px;
-  height: 1100px;
+    height: 100vh;
   } ;
 `;
 
@@ -33,18 +33,17 @@ const StyledBackground = styled(Background)`
   }
 `;
 
-const StyledTeacherAndStuden = styled(TeacherAndStudent)`
-  position: absolute;
-  bottom: 70px;
-  right: 10%;
-  width: 60%;
-  max-width: 650px;
+// const StyledTeacherAndStuden = styled(TeacherAndStudent)`
+//   position: absolute;
+//   bottom: 70px;
+//   right: 10%;
+//   width: 60%;
+//   max-width: 650px;
 
-  ${({ theme }) => theme.media.bigDesktop} {
-    bottom: 20%;
-  }
-`;
-
+//   ${({ theme }) => theme.media.bigDesktop} {
+//     bottom: 20%;
+//   }
+// `;
 
 const About = () => {
   const { isMobile } = useContext(WidthDeviceContext);
@@ -57,11 +56,11 @@ const About = () => {
   ) : (
     <>
       <StyledAbout>
-        <StyledBackground fill="url(#light)"/>
+        <StyledBackground fill="url(#light)" />
         <DescriptionOfAssociation />
-        <StyledTeacherAndStuden />
+        <TeacherAndStudenIllustration />
       </StyledAbout>
-      <LogoAndQuote/>
+      <LogoAndQuote />
     </>
   );
 };
