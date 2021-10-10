@@ -3,23 +3,25 @@ import styled from 'styled-components';
 import gsap from 'gsap';
 
 const StyledTeacherAndStudent = styled.svg`
-  position: absolute;
-  bottom: 10px;
-  right: 10%;
-  width: 60%;
-  max-width: 500px;
-  overflow: visible;
+  display: none;
 
   ${({ theme }) => theme.media.desktop} {
-    max-width: 570px;
+    display: block;
+    position: absolute;
+    max-width: 35%;
     bottom: 3vw;
+    right: 10%;
+    opacity:0;
+    overflow: visible;
+
   }
-  ${({ theme }) => theme.media.bigDesktop} {
+  ${({ theme }) => theme.media.huge} {
     max-width: 700px;
   }
 `;
 
 const TeacherAndStudenIllustration = () => {
+  const studentAndTeacher= useRef(null);
   const rightHandTeacher = useRef(null);
   const mouthTeacher = useRef(null);
   const chatIconOne = useRef(null);
@@ -33,13 +35,12 @@ const TeacherAndStudenIllustration = () => {
 
   useEffect(() => {
     //console.log(gsap.utils.toArray(chatIconOneDots.current.children));
-    console.log(LearningMaterialsTwo.current);
+    //console.log(LearningMaterialsTwo.current);
 
     const dots = gsap.utils.toArray(chatIconOneDots.current.children).reverse();
     const lines = gsap.utils.toArray(chatIconTwoLines.current.children);
 
-    const tl = gsap.timeline();
-
+    gsap.set(studentAndTeacher.current, { x: 800});
     gsap.set(dots, { scale: 0, fillOpacity: 0 });
     gsap.set(LearningMaterialsTwo.current, { scale: 0, fillOpacity: 0 });
     gsap.set(LearningMaterialsOne.current, { scale: 0, fillOpacity: 0 });
@@ -59,19 +60,23 @@ const TeacherAndStudenIllustration = () => {
       y: '-=150',
     });
 
+    const tl = gsap.timeline();
+    tl.delay(3)
+
     // ANIMATION
 
-    tl.to(
-      leftHandStudent.current,
-      {
-        rotate: 15,
-        repeat: -1,
-        duration: 2,
-        yoyo: true,
-        transformOrigin: '50% 100%',
-      },
-      3,
-    )
+    tl.to(studentAndTeacher.current, { x: 0, fillOpacity: 1, duration: 2, ease: 'Back.easeOut' })
+      .to(
+        leftHandStudent.current,
+        {
+          rotate: 15,
+          repeat: -1,
+          duration: 2,
+          yoyo: true,
+          transformOrigin: '50% 100%',
+        },
+        5,
+      )
       .fromTo(
         mouthStudent.current,
         {
@@ -84,20 +89,20 @@ const TeacherAndStudenIllustration = () => {
           ease: 'Bounce.easeInOut',
           yoyo: true,
         },
-        3,
+        5,
       )
       .to(
         chatIconOne.current,
         {
           fillOpacity: 1,
           scale: 1.4,
-          duration: 3,
+          duration: 2,
           rotate: 0,
           x: -10,
           y: -20,
-          ease: 'Circ.easeOut',
+          ease: 'Power2.easeIn',
         },
-        1,
+        3,
       )
       .to(
         dots,
@@ -109,7 +114,7 @@ const TeacherAndStudenIllustration = () => {
           stagger: 0.2,
           repeatDelay: 0.4,
         },
-        4,
+        6,
       )
       .to(
         rightHandTeacher.current,
@@ -120,7 +125,7 @@ const TeacherAndStudenIllustration = () => {
           yoyo: true,
           transformOrigin: '75% 95%',
         },
-        8,
+        10,
       )
       .fromTo(
         mouthTeacher.current,
@@ -134,38 +139,38 @@ const TeacherAndStudenIllustration = () => {
           ease: 'Bounce.easeInOut',
           yoyo: true,
         },
-        8,
+        10,
       )
       .to(
         chatIconTwo.current,
         {
           fillOpacity: 1,
           scale: 1.5,
-          duration: 3,
+          duration: 2,
           rotate: 0,
           x: -30,
           y: -20,
-          ease: 'Circ.easeOut',
+          ease: 'Power2.easeIn',
         },
-        5,
+        7,
       )
       .to(
         LearningMaterialsTwo.current,
         {
           fillOpacity: 1,
           scale: 1,
-          duration: 1,
+          duration: 0.5,
         },
-        10,
+        12,
       )
       .to(
         LearningMaterialsOne.current,
         {
           fillOpacity: 1,
           scale: 1,
-          duration: 1,
+          duration: 0.5,
         },
-        12,
+        14,
       )
       .to(
         lines,
@@ -178,7 +183,7 @@ const TeacherAndStudenIllustration = () => {
           stagger: 0.5,
           repeatDelay: 0.5,
         },
-        8,
+        10,
       );
   }, []);
 
@@ -188,7 +193,7 @@ const TeacherAndStudenIllustration = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g id="StudentAndTeacher">
+      <g ref={studentAndTeacher} id="StudentAndTeacher">
         <g id="All">
           <g id="Screen">
             <g id="g43777">

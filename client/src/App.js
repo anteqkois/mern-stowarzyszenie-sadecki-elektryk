@@ -36,7 +36,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-const homePaths = [ '', 'projects' , 'aid', 'login', 'logout'];
+const homePaths = ['', 'projects', 'aid', 'login', 'logout'];
 
 function App() {
   return (
@@ -47,6 +47,9 @@ function App() {
             <ScrollToTop />
             <Switch>
               <PrivateRoute path="/admin" component={AdminPanel} />
+              {/* <Route exact path={`(|projects|aid|logout)`}> */}
+              {/* <Route exact path={`/login` }> */}
+              {/* <Route path='*'> */}
               <Route exact path={`/(${homePaths.join('|')})`}>
                 <Navigation />
                 <Switch>

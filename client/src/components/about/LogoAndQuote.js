@@ -5,14 +5,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { WidthDeviceContext } from '../../context/Context';
 
-import { ReactComponent as Logo } from '../../assets/logo.svg';
-
 const StyledScene = styled.div`
   width: 100vw;
   height: 100vh;
   display: grid;
   grid-template-columns: 1;
   grid-template-rows: 1;
+  align-items: center;
 `;
 
 const StyledLogo = styled.svg`
@@ -155,13 +154,13 @@ const LogoAndQuote = () => {
         'gearAnimation',
       )
       .addLabel('textAnimation', 6.9)
-      .to(text.current, { opacity: 1 }, 'textAnimation')
-      .to(curveText.current, { opacity: 1 }, 'textAnimation');
+      .to(text.current, { opacity: 1}, 'textAnimation')
+      .to(curveText.current, { opacity: 1}, 'textAnimation');
 
     ScrollTrigger.create({
       animation: tl,
       trigger: aminationScene.current,
-      start: 'top 250px',
+      start: 'top top',
       ease: 'none',
       pin: true,
       scrub: 0.5,
