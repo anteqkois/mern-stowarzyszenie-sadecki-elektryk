@@ -78,11 +78,12 @@ const Navigation = ({ isDarkMod, setIsDarkMod }) => {
 
   const trackScroll = () => {
     throttle(
-      50 < window.pageYOffset
-        ? (setwithshadowandbackground(true), 0)
-        : (setwithshadowandbackground(false), 0),
+      setwithshadowandbackground(50 < window.pageYOffset ? true : false),
     );
   };
+  // 50 < window.pageYOffset
+  //   ? (setwithshadowandbackground(true), 0)
+  //   : (setwithshadowandbackground(false), 0),
 
   useEffect(() => {
     window.onscroll = isMobile ? null : throttle(trackScroll, 1);
@@ -107,7 +108,7 @@ const Navigation = ({ isDarkMod, setIsDarkMod }) => {
         isActive={true}
         withshadowandbackground={withshadowandbackground}
       />
-      <DarkModeSwitch/>
+      <DarkModeSwitch />
     </StyledNavigation>
   );
 };

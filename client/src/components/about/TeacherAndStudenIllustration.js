@@ -11,9 +11,8 @@ const StyledTeacherAndStudent = styled.svg`
     max-width: 35%;
     bottom: 3vw;
     right: 10%;
-    opacity:0;
+    opacity: 0;
     overflow: visible;
-
   }
   ${({ theme }) => theme.media.huge} {
     max-width: 700px;
@@ -21,7 +20,7 @@ const StyledTeacherAndStudent = styled.svg`
 `;
 
 const TeacherAndStudenIllustration = () => {
-  const studentAndTeacher= useRef(null);
+  const studentAndTeacher = useRef(null);
   const rightHandTeacher = useRef(null);
   const mouthTeacher = useRef(null);
   const chatIconOne = useRef(null);
@@ -40,7 +39,7 @@ const TeacherAndStudenIllustration = () => {
     const dots = gsap.utils.toArray(chatIconOneDots.current.children).reverse();
     const lines = gsap.utils.toArray(chatIconTwoLines.current.children);
 
-    gsap.set(studentAndTeacher.current, { x: 800});
+    gsap.set(studentAndTeacher.current, { x: 800 });
     gsap.set(dots, { scale: 0, fillOpacity: 0 });
     gsap.set(LearningMaterialsTwo.current, { scale: 0, fillOpacity: 0 });
     gsap.set(LearningMaterialsOne.current, { scale: 0, fillOpacity: 0 });
@@ -61,11 +60,16 @@ const TeacherAndStudenIllustration = () => {
     });
 
     const tl = gsap.timeline();
-    tl.delay(3)
+    tl.delay(3);
 
     // ANIMATION
 
-    tl.to(studentAndTeacher.current, { x: 0, fillOpacity: 1, duration: 2, ease: 'Back.easeOut' })
+    tl.to(studentAndTeacher.current, {
+      x: 0,
+      opacity: 1,
+      duration: 2,
+      ease: 'Back.easeOut',
+    })
       .to(
         leftHandStudent.current,
         {
@@ -192,8 +196,9 @@ const TeacherAndStudenIllustration = () => {
       viewBox="0 0 549 403"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      ref={studentAndTeacher}
     >
-      <g ref={studentAndTeacher} id="StudentAndTeacher">
+      <g id="StudentAndTeacher">
         <g id="All">
           <g id="Screen">
             <g id="g43777">

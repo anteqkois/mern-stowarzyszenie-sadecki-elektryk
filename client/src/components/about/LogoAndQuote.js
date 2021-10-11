@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useRef, useContext, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -19,14 +19,12 @@ const StyledLogo = styled.svg`
   overflow: visible;
   grid-column: 1/2;
   grid-row: 1/2;
-  //margin-bottom: 300px;
 `;
 
 const StyledQuote = styled.h2`
   grid-column: 1/2;
   grid-row: 1/2;
   font-size: 400px;
-  //padding: 0.6em 2em;
   white-space: nowrap;
   color: transparent;
   -webkit-text-stroke-width: 8px;
@@ -39,7 +37,7 @@ const LogoAndQuote = () => {
   const aminationScene = useRef(null);
 
   const quote = useRef(null);
-  
+
   const logo = useRef(null);
   const largeGear = useRef(null);
   const smalGear = useRef(null);
@@ -48,73 +46,41 @@ const LogoAndQuote = () => {
   const text = useRef(null);
   const curveText = useRef(null);
 
-  if (typeof window !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-  }
-  //Naprawić error pojawiający się przy przejściu z widoki desktopu na mobile
-  useEffect(() => {
-    !isMobile && handleQuoteAnimation();
-    //!isMobile && handleLogoAnimation();
+  useLayoutEffect(() => {
+    !isMobile &&
+      (() => {
+        if (typeof window !== 'undefined') {
+          gsap.registerPlugin(ScrollTrigger);
+        }
+        handleQuoteAnimation();
+      })();
+
+    return () => {
+      const triggerRef = ScrollTrigger.getById('logoAndQuoteScrollTrigger');
+
+      if (triggerRef) {
+        triggerRef.kill();
+      }
+    };
   }, [isMobile]);
-  
-  const handleLogoAnimation = () => {
 
-    
-    const tl = gsap.timeline({ default: { ease: 'none' } });
-
-    tl.addLabel('gearAnimation', 0)
-      .to(
-        largeGear.current,
-        { scale: 1, x: 0, y: 0, opacity: 1},
-        'gearAnimation',
-      )
-      .to(
-        smalGear.current,
-        { scale: 1, x: 0, y: 0, opacity: 1 },
-        'gearAnimation',
-        )
-      .to(
-        underLighting.current,
-        {
-          scale: 1,
-          x: 0,
-          y: 0,
-          opacity: 1,
-        },
-        'gearAnimation',
-        )
-      .to(
-        lighting.current,
-        { scale: 1, x: 0, y: 0, opacity: 1 },
-        'gearAnimation',
-      )
-      .addLabel('textAnimation', 1)
-      .to(text.current, { opacity: 1}, 'textAnimation')
-      .to(curveText.current, { opacity: 1 }, 'textAnimation');
-
-    ScrollTrigger.create({
-      animation: tl,
-      trigger: logo.current,
-      start: 'top 200px',
-      pin: true,
-      scrub: 0.5,
-      end: '1400px',
-    });
-  };
-  
   const handleQuoteAnimation = () => {
-
-    gsap.set(quote.current, { scale: 0.5, x: -quote.current.scrollWidth/7 });
+    gsap.set(quote.current, { scale: 0.5, x: -quote.current.scrollWidth / 7 });
 
     gsap.set(largeGear.current, { scale: 1.5, x: 1000, y: 500, opacity: 0 });
     gsap.set(smalGear.current, { scale: 1.5, x: 1000, y: -500, opacity: 0 });
-    gsap.set(underLighting.current, { scale: 1.5, x: -1000,y: 1000, opacity: 0 });
-    gsap.set(lighting.current, { scale: 1.5, x: 1000,y: -1000, opacity: 0 });
+    gsap.set(underLighting.current, {
+      scale: 1.5,
+      x: -1000,
+      y: 1000,
+      opacity: 0,
+    });
+    gsap.set(lighting.current, { scale: 1.5, x: 1000, y: -1000, opacity: 0 });
     gsap.set(text.current, { opacity: 0 });
     gsap.set(curveText.current, { opacity: 0 });
 
     const tl = gsap.timeline();
-    
+
     tl.to(quote.current, { scale: 1, x: '-=700', duration: 1, ease: 'none' })
       .to(quote.current, {
         x: `-=${(quote.current.scrollWidth / 4) * 3 + 200}`,
@@ -154,11 +120,12 @@ const LogoAndQuote = () => {
         'gearAnimation',
       )
       .addLabel('textAnimation', 6.9)
-      .to(text.current, { opacity: 1}, 'textAnimation')
-      .to(curveText.current, { opacity: 1}, 'textAnimation');
+      .to(text.current, { opacity: 1 }, 'textAnimation')
+      .to(curveText.current, { opacity: 1 }, 'textAnimation');
 
     ScrollTrigger.create({
       animation: tl,
+      id: 'logoAndQuoteScrollTrigger',
       trigger: aminationScene.current,
       start: 'top top',
       ease: 'none',
@@ -169,7 +136,7 @@ const LogoAndQuote = () => {
   };
 
   return (
-    <StyledScene ref={aminationScene} >
+    <StyledScene ref={aminationScene}>
       <StyledQuote ref={quote}>
         ,,Założyliśmy stowarzyszenie, bo łączy nas solidarność interesów,
         wspólność celów i potrzeb.”

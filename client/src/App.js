@@ -45,24 +45,21 @@ function App() {
         <Router>
           <Layout>
             <ScrollToTop />
+            <Navigation />
             <Switch>
               <PrivateRoute path="/admin" component={AdminPanel} />
               {/* <Route exact path={`(|projects|aid|logout)`}> */}
               {/* <Route exact path={`/login` }> */}
               {/* <Route path='*'> */}
-              <Route exact path={`/(${homePaths.join('|')})`}>
-                <Navigation />
-                <Switch>
-                  <Route exact path="/" component={Home} />
-                  <Route exact path="/projects" component={Projects} />
-                  <Route exact path="/aid" component={Aid} />
-                  <Route exact path="/login" component={Login} />
-                  <Route exact path="/logout" component={Logout} />
-                </Switch>
-                <Fotter />
-              </Route>
+              {/* <Route exact path={`/(${homePaths.join('|')})`}> */}
+              <Route exact path="/" component={Home} />
+              <Route exact path="/projects" component={Projects} />
+              <Route exact path="/aid" component={Aid} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/logout" component={Logout} />
               <Route path="*" component={NotFound} />
             </Switch>
+            <Fotter />
           </Layout>
         </Router>
       </WidthThemeProvider>
