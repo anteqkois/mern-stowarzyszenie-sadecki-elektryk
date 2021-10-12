@@ -91,10 +91,10 @@ const Login = (props) => {
     return <Redirect to={from.pathname} />;
   }
 
-  return haveError ? (
-    showError()
-  ) : (
+  return (
+    
     <StyledLogin>
+      {haveError && showError()}
       <StyledLoginForm onSubmit={formik.handleSubmit}>
         <h2>Zaloguj się</h2>
         <Input

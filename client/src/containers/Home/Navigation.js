@@ -19,7 +19,7 @@ const StyledNavigation = styled.nav`
   align-items: center;
   justify-items: center;
   background-color: ${({ theme }) => theme.colors.secondary};
-  z-index: ${({ theme }) => theme.zIndex.level10};
+  z-index: ${({ theme }) => theme.zIndex.level9};
 
   ::after {
     content: '';
@@ -58,6 +58,11 @@ const StyledLogo = styled(Logo)`
   height: 55px;
 `;
 
+const StyledLink = styled.a`
+  height: 55px;
+  z-index: ${({ theme }) => theme.zIndex.level10};
+`;
+
 const throttle = (fn, waitTime) => {
   let wait = false;
   return function () {
@@ -93,7 +98,9 @@ const Navigation = ({ isDarkMod, setIsDarkMod }) => {
     <>
       <StyledNavigation isActive={isActive}>
         <DarkModeSwitch />
-        <StyledLogo />
+        <StyledLink href="http://stowarzyszenie.zsem.edu.pl/">
+          <StyledLogo />
+        </StyledLink>
         <HamburgerMenu setIsActive={setIsActive} isActive={isActive} />
       </StyledNavigation>
       <MenuList isActive={isActive} setIsActive={setIsActive} />
@@ -103,7 +110,9 @@ const Navigation = ({ isDarkMod, setIsDarkMod }) => {
       withshadowandbackground={withshadowandbackground}
       isActive={isActive}
     >
-      <StyledLogo />
+      <StyledLink href="http://stowarzyszenie.zsem.edu.pl/">
+        <StyledLogo />
+      </StyledLink>
       <MenuList
         isActive={true}
         withshadowandbackground={withshadowandbackground}
