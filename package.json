@@ -9,10 +9,10 @@
   "scripts": {
     "commit": "git add . && git commit -u",
     "postcommit":"git push",
-    "start": "nodemon server.js",
-    "production": "set MODULE=production && nodemon server.js",
-    "client": "cd client && npm start",
-    "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon server.js\" \"npm run client\""
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "build":" cd client && npm run build",
+    "heroku-postbuild" : "npm install && cd client && npm install && npm run build"
   },
   "author": "Antek Kois",
   "license": "ISC",
