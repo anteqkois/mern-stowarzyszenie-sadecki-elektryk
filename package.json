@@ -8,12 +8,11 @@
   "main": "server.js",
   "scripts": {
     "commit": "git add . && git commit -u",
-    "postcommit":"git push",
+    "postcommit": "git push",
     "dev": "nodemon server.js",
-    "start": "node server.js",
-    "build":" cd client && npm run build",
-    "heroku-postbuild" : "npm install && cd client && npm install && npm run build"
-
+    "start": " node server.js",
+    "build": " cd client && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "author": "Antek Kois",
   "license": "ISC",

@@ -13,6 +13,7 @@ const app = express();
 //database
 const database = require('./config/database');
 
+app.set('port', process.env.PORT || 8080);
 
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -22,11 +23,11 @@ app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/categories', categoryRoutes);
 app.use('/api/v1/authorization', authorizationRoutes);
 
-app.set('port', process.env.PORT || 8080);
+
 if (process.env.MODULE === 'production') {
-  app.use(express.static(join(__dirname, '/client/build')));
+  app.use(express.static(join(__dirname, 'client/build')));
   app.get('*', (req, res) =>{
-    res.sendFile(path.resolve(__dirname, '/client/build/index.html'))
+    res.sendFile(join(__dirname, 'client/build', 'index.html'));
   })
 }
 //handling errors
