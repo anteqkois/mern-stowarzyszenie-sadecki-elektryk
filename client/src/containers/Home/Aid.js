@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import {WidthDeviceContext }from '../../context/Context';
+import { WidthDeviceContext } from '../../context/WidthDeviceContext';
 import styled from 'styled-components';
 
 import ImageBlock from '../../components/utils/ImageBlock'

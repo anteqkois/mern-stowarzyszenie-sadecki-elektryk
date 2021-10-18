@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ProjectAdmin from '../../components/project/ProjectAdmin';
 import Loading from '../../components/utils/Loading';
 
-import { useError } from '../../hooks/useError';
+import useError from '../../hooks/useError';
 import * as projectsAPI from '../../helpers/projectsAPI.js';
 
 const StyledContainer = styled.div`

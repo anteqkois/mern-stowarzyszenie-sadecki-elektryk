@@ -8,7 +8,7 @@ import Modal from '../../components/utils/Modal';
 import Loading from '../../components/utils/Loading';
 
 import * as projectsAPI from '../../helpers/projectsAPI';
-import { useError } from '../../hooks/useError';
+import useError from '../../hooks/useError';
 
 const StyledContainer = styled.main`
   padding: 5px 10px;

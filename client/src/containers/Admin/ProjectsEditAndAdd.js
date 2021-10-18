@@ -10,7 +10,7 @@ import Modal from '../../components/utils/Modal';
 
 import * as projectsAPI from '../../helpers/projectsAPI';
 import * as categoriesAPI from '../../helpers/categoriesAPI';
-import { useError } from '../../hooks/useError';
+import useError from '../../hooks/useError';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -50,9 +50,8 @@ const StyledContainer = styled.div`
     }
 
     &:nth-of-type(3) {
-      
-      :focus{
-      height: 520px;
+      :focus {
+        height: 520px;
       }
 
       ${({ theme }) => theme.media.bigTablet} {
@@ -130,11 +129,17 @@ const ProjectsEdit = ({ match }) => {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
 
-  const [haveError, setHaveError, showError] = useError({
-    location: toAdd
+  const setError = useError(
+    toAdd
       ? `/admin/projects/add`
       : `/admin/projects${match.params.id ? `/edit/${match.params.id}` : ''}`,
-  });
+  );
+
+  // const [haveError, setHaveError, showError] = useError({
+  //   location: toAdd
+  //     ? `/admin/projects/add`
+  //     : `/admin/projects${match.params.id ? `/edit/${match.params.id}` : ''}`,
+  // });
 
   useEffect(() => {
     (async () => {
@@ -152,18 +157,18 @@ const ProjectsEdit = ({ match }) => {
               setCategory(data.category);
               setDescription(data.description);
             } catch (error) {
-              setHaveError(error.response.data);
-              match.params.id='';
+              setError(error.response.data);
+              match.params.id = '';
             }
           })();
 
         setIsLoading(false);
       } catch (error) {
-        setHaveError(error.response.data);
+        setError(error.response.data);
       } finally {
       }
     })();
-  }, [match.params, toAdd, setHaveError]);
+  }, [match.params, toAdd, setError]);
 
   const handleSlug = (titleToConvert) => {
     const slugToAdd = titleToConvert
@@ -185,7 +190,7 @@ const ProjectsEdit = ({ match }) => {
         setOption(OPTION_TYPE.saved);
       })
       .catch((error) => {
-        setHaveError(error.response.data);
+        setError(error.response.data);
         setOption(OPTION_TYPE.normal);
       });
   };
@@ -199,7 +204,7 @@ const ProjectsEdit = ({ match }) => {
       })
       .catch((error) => {
         //console.log(error.response);
-        setHaveError(error.response.data);
+        setError(error.response.data);
         setOption(OPTION_TYPE.normal);
       });
   };
@@ -239,7 +244,6 @@ const ProjectsEdit = ({ match }) => {
     <Loading />
   ) : (
     <StyledContainer>
-      {showError()}
       {toAdd ? (
         <h5>Wypełnij dane projektu:</h5>
       ) : (

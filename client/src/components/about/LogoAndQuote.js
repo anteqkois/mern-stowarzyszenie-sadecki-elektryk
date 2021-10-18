@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import { WidthDeviceContext } from '../../context/Context';
+import { WidthDeviceContext } from '../../context/WidthDeviceContext';
 
 const StyledScene = styled.div`
   width: 100vw;

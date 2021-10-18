@@ -7,7 +7,7 @@ import Delete from '../utils/Delete';
 import Modal from '../utils/Modal';
 
 import * as projectsAPI from '../../helpers/projectsAPI';
-import { useError } from '../../hooks/useError';
+import useError from '../../hooks/useError';
 
 const StyledProject = styled.div`
   padding: 10px;

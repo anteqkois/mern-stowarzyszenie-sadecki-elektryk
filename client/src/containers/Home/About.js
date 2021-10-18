@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { WidthDeviceContext } from '../../context/Context';
+import { WidthDeviceContext } from '../../context/WidthDeviceContext';
 import styled from 'styled-components';
 
 import HeroImage from '../../components/about/HeroImage';

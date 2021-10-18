@@ -6,7 +6,9 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { WidthDeviceProvider, WidthThemeProvider } from './context/Context';
+import { WidthDeviceProvider} from './context/WidthDeviceContext';
+import { ThemeProvider} from './context/ThemeContext';
+import { ErrorProvider} from './hooks/useError';
 
 import Layout from './layouts/Layout';
 import Navigation from './containers/Home/Navigation';
@@ -41,7 +43,8 @@ const homePaths = ['', 'projects', 'aid', 'login', 'logout'];
 function App() {
   return (
     <WidthDeviceProvider>
-      <WidthThemeProvider>
+      <ThemeProvider>
+        <ErrorProvider>
         <Router>
           <Layout>
             <ScrollToTop />
@@ -60,7 +63,8 @@ function App() {
             </Switch>
           </Layout>
         </Router>
-      </WidthThemeProvider>
+        </ErrorProvider>
+      </ThemeProvider>
     </WidthDeviceProvider>
   );
 }

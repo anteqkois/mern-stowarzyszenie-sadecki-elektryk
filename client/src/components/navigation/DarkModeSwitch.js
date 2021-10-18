@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-import { WidthThemeContext } from '../../context/Context';
+import { ThemeContext } from '../../context/ThemeContext';
 
 const StyledDarkModeSwitch = styled.div`
   display: inline-block;
@@ -43,7 +43,7 @@ const svgVariants = {
 };
 
 const DarkModeSwitch = () => {
-  const { isDarkMode, setIsDarkMode } = useContext(WidthThemeContext);
+  const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
 
   const button = useRef(null);
 

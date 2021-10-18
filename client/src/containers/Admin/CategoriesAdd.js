@@ -7,7 +7,7 @@ import Delete from '../../components/utils/Delete';
 import Modal from '../../components/utils/Modal';
 
 import * as categoriesAPI from '../../helpers/categoriesAPI';
-import { useError } from '../../hooks/useError';
+import useError from '../../hooks/useError';
 
 const StyledContainer = styled.div`
   margin: 0 auto;

@@ -11,7 +11,7 @@
     "commit": "git add . && git commit -u",
     "postcommit": "git push",
     "dev": "nodemon server.js",
-    "dev-react": "cd client && npm start",
+    "dev-client": "cd client && npm start",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "start": " node server.js"
   },

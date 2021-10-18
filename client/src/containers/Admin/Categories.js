@@ -6,7 +6,7 @@ import Loading from '../../components/utils/Loading';
 import Modal from '../../components/utils/Modal';
 
 import * as categoriesAPI from '../../helpers/categoriesAPI';
-import { useError } from '../../hooks/useError';
+import useError from '../../hooks/useError';
 
 const StyledContainer = styled.main`
   padding: 5px 10px;

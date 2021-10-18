@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { WidthDeviceContext } from '../../context/Context';
+import { WidthDeviceContext } from '../../context/WidthDeviceContext';
 
 import MenuList from '../../components/navigation/MenuList';
 import HamburgerMenu from '../../components/navigation/HamburgerMenu';

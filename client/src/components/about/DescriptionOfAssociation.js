@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { WidthDeviceContext } from '../../context/Context';
+import { WidthDeviceContext } from '../../context/WidthDeviceContext';
 
 import Button from '../utils/Button';
 

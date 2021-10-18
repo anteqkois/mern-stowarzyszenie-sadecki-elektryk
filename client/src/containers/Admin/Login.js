@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
 
-import { useError } from '../../hooks/useError';
+import useError from '../../hooks/useError';
 import Button from '../../components/utils/Button';
 import Input from '../../components/form/Input';
 
@@ -53,9 +53,9 @@ const Login = (props) => {
   const [password, setPassword] = useState('');
   const [finished, setFinished] = useState(false);
 
-  const [haveError, setHaveError, showError] = useError(() =>
-    window.location.assign('/login'),
-  );
+  // const [haveError, setHaveError, showError] = useError(() =>
+  //   window.location.assign('/login'),
+  // );
 
   const { from } = props.location.state || { from: '/' };
 
@@ -81,7 +81,7 @@ const Login = (props) => {
           sessionStorage.setItem('isLogined', true)
           setFinished(true);
         } catch (error) {
-          setHaveError(error.response.data);
+          // setHaveError(error.response.data);
         }
       })();
     },
@@ -94,7 +94,7 @@ const Login = (props) => {
   return (
     
     <StyledLogin>
-      {haveError && showError()}
+      {/* {haveError && showError()} */}
       <StyledLoginForm onSubmit={formik.handleSubmit}>
         <h2>Zaloguj się</h2>
         <Input
