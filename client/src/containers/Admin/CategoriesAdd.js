@@ -72,9 +72,7 @@ const CategoriesAdd = () => {
   const [category, setCategory] = useState('');
   const [option, setOption] = useState(OPTION_TYPE.normal);
 
-  const [haveError, setHaveError, showError] = useError(() =>
-    window.location.assign('/admin'),
-  );
+  const setError = useError("/admin");
 
   const handlePost = async (values) => {
     await categoriesAPI
@@ -83,7 +81,7 @@ const CategoriesAdd = () => {
         setOption(OPTION_TYPE.saved);
       })
       .catch((error) => {
-        setHaveError(error.response.data);
+        setError(error.response.data);
         setOption(OPTION_TYPE.normal);
       });
   };
@@ -100,9 +98,7 @@ const CategoriesAdd = () => {
     },
   });
 
-  return haveError ? (
-    showError()
-  ) : (
+  return (
     <StyledContainer>
       <h5>Dodaj nową kategorię:</h5>
       <StyledForm onSubmit={formik.handleSubmit}>

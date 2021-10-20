@@ -1,17 +1,16 @@
-import React, { useState, useContext } from 'react';
-import { ErrorModal } from '../components/utils/ErrorModal'
+import React, { useState, useContext, useEffect } from 'react';
+import { ErrorModal } from '../components/utils/ErrorModal';
 
 export const ErrorContext = React.createContext();
 
 export const ErrorProvider = ({ children }) => {
-  const [redirectPath, setRedirectPath] = useState('')
-  const [error, setError] = useState('')
+  const [redirectPath, setRedirectPath] = useState('');
+  const [error, setError] = useState('');
 
-  const handleResetError = ()=>{
+  const handleResetError = () => {
     setError('');
     setRedirectPath('');
-
-  }
+  };
 
   return (
     <ErrorContext.Provider
@@ -19,13 +18,14 @@ export const ErrorProvider = ({ children }) => {
         error: error,
         setError: setError,
         setRedirectPath: setRedirectPath,
-        ErrorComponent: () => (
-          <ErrorModal
-            error={error}
-            redirectPath={redirectPath}
-            handleResetError={handleResetError}
-          />
-        ),
+        ErrorComponent: () =>
+          error && (
+            <ErrorModal
+              error={error}
+              redirectPath={redirectPath}
+              handleResetError={handleResetError}
+            />
+          ),
       }}
     >
       {children}
@@ -33,10 +33,12 @@ export const ErrorProvider = ({ children }) => {
   );
 };
 
-const useError = ({redirectPath}) => {
-
+const useError = (redirectPath = 'siema') => {
   const { setError, setRedirectPath } = useContext(ErrorContext);
-  setRedirectPath(redirectPath);
+
+  useEffect(() => {
+    setRedirectPath(redirectPath);
+  }, [redirectPath]);
 
   return setError;
 };

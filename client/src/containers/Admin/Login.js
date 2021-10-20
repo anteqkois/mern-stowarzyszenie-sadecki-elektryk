@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
 
-import useError from '../../hooks/useError';
+import useError, { ErrorContext} from '../../hooks/useError';
 import Button from '../../components/utils/Button';
 import Input from '../../components/form/Input';
 
@@ -38,7 +38,7 @@ const StyledLoginForm = styled.form`
   box-shadow: 5px 15px 20px rgba(0, 0, 0, 0.5);
   background: ${({ theme }) => theme.colors.secondary};
   border-radius: 5px;
-
+  
   h2 {
     text-align: center;
     text-transform: uppercase;
@@ -53,11 +53,31 @@ const Login = (props) => {
   const [password, setPassword] = useState('');
   const [finished, setFinished] = useState(false);
 
-  // const [haveError, setHaveError, showError] = useError(() =>
-  //   window.location.assign('/login'),
-  // );
+  const { ErrorComponent } = useContext(ErrorContext);
 
+  const setError= useError('/login');
+  
   const { from } = props.location.state || { from: '/' };
+  
+  const handleLogin = (values)=>{
+    (async () => {
+      try {
+        const body = {
+          login: values.login,
+          password: values.password,
+        };
+    
+        // Tokeny zapisane w ciasteczkach !
+        await authorizationAPI.login(body);
+    
+        sessionStorage.setItem('isLogined', true)
+        setFinished(true);
+      } catch (error) {
+        // console.log(error.response.data)
+        setError(error.response.data);
+      }
+    })();
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -67,23 +87,7 @@ const Login = (props) => {
     onSubmit: (values, { setSubmitting }) => {
       setLogin(values.login);
       setPassword(values.password);
-
-      (async () => {
-        try {
-          const body = {
-            login: values.login,
-            password: values.password,
-          };
-
-          // Tokeny zapisane w ciasteczkach !
-          const {accessToken, refreshToken } = await authorizationAPI.login(body);
-
-          sessionStorage.setItem('isLogined', true)
-          setFinished(true);
-        } catch (error) {
-          // setHaveError(error.response.data);
-        }
-      })();
+      handleLogin(values);
     },
   });
 
@@ -92,9 +96,8 @@ const Login = (props) => {
   }
 
   return (
-    
     <StyledLogin>
-      {/* {haveError && showError()} */}
+      <ErrorComponent />
       <StyledLoginForm onSubmit={formik.handleSubmit}>
         <h2>Zaloguj się</h2>
         <Input

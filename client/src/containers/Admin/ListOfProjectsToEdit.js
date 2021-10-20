@@ -81,16 +81,14 @@ const ListOfProjectsToEdit = ({ location }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
 
-  const [haveError, setHaveError, showError] = useError(() =>
-    window.location.assign('/admin'),
-  );
+  const setError = useError('/admin');
 
   useEffect(() => {
     (async () => {
       try {
         setProjects(await projectsAPI.getAll());
       } catch (error) {
-        setHaveError(error.response.data);
+        setError(error.response.data);
       }
       setIsLoading(false);
     })();
@@ -109,7 +107,7 @@ const ListOfProjectsToEdit = ({ location }) => {
             setDeleted(title);
           })
           .catch((error) => {
-            setHaveError(error.response.data);
+            setError(error.response.data);
           });
       })();
     }
@@ -117,8 +115,6 @@ const ListOfProjectsToEdit = ({ location }) => {
 
   return isLoading ? (
     <Loading loadingMessage="łądowanie projektów" />
-  ) : haveError ? (
-    showError()
   ) : (
     <StyledContainer>
       <header>Wszyskie projekty</header>
@@ -147,7 +143,6 @@ const ListOfProjectsToEdit = ({ location }) => {
           </p>
         </Modal>
       )}
-      {showError()}
     </StyledContainer>
   );
 };

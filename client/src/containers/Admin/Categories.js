@@ -70,16 +70,14 @@ const Categories = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
 
-  const [haveError, setHaveError, showError] = useError(() =>
-    window.location.assign('/admin'),
-  );
+  const setError = useError('/admin');
 
   useEffect(() => {
     (async () => {
       try {
         setCategories(await categoriesAPI.getAll());
       } catch (error) {
-        setHaveError(error.response.data);
+        setError(error.response.data);
       }
       setIsLoading(false);
     })();
@@ -97,15 +95,13 @@ const Categories = () => {
           setDeleted(category);
         })
         .catch((error) => {
-          setHaveError(error.response.data);
+          setError(error.response.data);
         });
     }
   };
 
   return isLoading ? (
     <Loading />
-  ) : haveError ? (
-    showError()
   ) : (
     <StyledContainer>
       <header>Wszyskie projekty</header>

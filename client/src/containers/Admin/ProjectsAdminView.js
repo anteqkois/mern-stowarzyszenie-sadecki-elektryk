@@ -37,25 +37,21 @@ const ProjectsAdminView = () => {
   const [projects, setProjects] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  const [haveError, setHaveError, showError] = useError(() =>
-    window.location.assign('/admin'),
-  );
+  const setError = useError('/admin');
 
   useEffect(() => {
     (async () => {
       try {
         setProjects(await projectsAPI.getAll());
       } catch (error) {
-        setHaveError(error.response.data);
+        setError(error.response.data);
       }
       setIsLoading(false);
     })();
-  }, [setHaveError]);
+  }, [setError]);
 
   return isLoading ? (
     <Loading loadingMessage="łądowanie projektów" />
-  ) : haveError ? (
-    showError()
   ) : (
     <StyledContainer>
       <header>Wszyskie projekty</header>

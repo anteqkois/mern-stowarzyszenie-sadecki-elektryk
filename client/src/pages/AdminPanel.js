@@ -20,7 +20,7 @@ const StyledWrapper = styled.main`
 const AdminPanel = ({ history }) => {
   const [isActive, setIsActive] = useState(false);
   const { path } = useRouteMatch();
-  const { error, ErrorComponent } = useContext(ErrorContext);
+  const { ErrorComponent } = useContext(ErrorContext);
 
   // pokazywanie modalu zrobić, czy dobrze provider zrobiony ?
 
@@ -32,7 +32,7 @@ const AdminPanel = ({ history }) => {
         history={history}
       />
       <StyledWrapper>
-        {!!error && <ErrorComponent />}
+        <ErrorComponent />
         <Switch>
           <Route exact path={path} component={AdminMain} />
           <Route

@@ -135,12 +135,6 @@ const ProjectsEdit = ({ match }) => {
       : `/admin/projects${match.params.id ? `/edit/${match.params.id}` : ''}`,
   );
 
-  // const [haveError, setHaveError, showError] = useError({
-  //   location: toAdd
-  //     ? `/admin/projects/add`
-  //     : `/admin/projects${match.params.id ? `/edit/${match.params.id}` : ''}`,
-  // });
-
   useEffect(() => {
     (async () => {
       try {
@@ -203,7 +197,6 @@ const ProjectsEdit = ({ match }) => {
         match.params.id = values.slug;
       })
       .catch((error) => {
-        //console.log(error.response);
         setError(error.response.data);
         setOption(OPTION_TYPE.normal);
       });
@@ -257,7 +250,6 @@ const ProjectsEdit = ({ match }) => {
           <label htmlFor="slug">Slug:</label>
           <textarea
             disabled
-            //disabled={toAdd ? true : false}
             //required
             id="slug"
             name="slug"
