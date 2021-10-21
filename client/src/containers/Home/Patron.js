@@ -75,7 +75,7 @@ const NameOfPatron = [
   },
   {
     company: 'erbet',
-    extension: 'jpg',
+    extension: 'png',
     href: 'https://www.erbet.pl/',
   },
   {

@@ -73,7 +73,6 @@ const Login = (props) => {
         sessionStorage.setItem('isLogined', true)
         setFinished(true);
       } catch (error) {
-        // console.log(error.response.data)
         setError(error.response.data);
       }
     })();
@@ -119,47 +118,3 @@ const Login = (props) => {
 };
 
 export default Login;
-
-{
-  /* <Formik
-        initialValues={{ login: login, password: password }}
-        onSubmit={(values, { setSubmitting }) => {
-          // setTimeout(() => {
-          //   alert(JSON.stringify(values, null, 2));
-          //   setSubmitting(false);
-          // }, 400);
-
-          setLogin(values.login);
-          setPassword(values.password);
-
-          console.log(login, password);
-        }}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isSubmitting,
-        }) => (
-          <StyledLoginForm onSubmit={handleSubmit}>
-            <h2>Zaloguj się</h2>
-            <Input
-              type="text"
-              name="login"
-              handleChange={handleChange}
-              label="login"
-            />
-            <Input
-              type="text"
-              name="password"
-              handleChange={handleChange}
-              label="hasło"
-            />
-            <Button>Zaloguj</Button>
-          </StyledLoginForm>
-        )}
-      </Formik> */
-}

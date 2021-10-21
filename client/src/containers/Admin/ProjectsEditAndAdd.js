@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import { useFormik } from 'formik';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -72,7 +72,7 @@ const StyledForm = styled.form`
   border-radius: 10px;
   background: ${({ theme }) => `linear-gradient(
     120deg,
-   ${theme.colors.primary} 0%,
+    ${theme.colors.primary} 0%,
     ${theme.colors.secondary} 75%
   )`};
   box-shadow: ${({ theme }) => theme.colors.primary} 0px -8px 1px,
@@ -115,10 +115,37 @@ const OPTION_TYPE = {
   deleted: 'deleted',
 };
 
+
+// TODO przenieśc logikę do jednego osobnego komponentu który w śordku będzi dopiero decydować co będzie wyświetlane w zależności od opcji, na wzór Component.processing
+const reducer = (state, action)=>{
+  switch (action.type) {
+    case 'normal':
+      
+      break;
+    case 'processing':
+      
+      break;
+    case 'saved':
+      
+      break;
+    case 'deleted':
+      
+      break;
+  
+    default:
+      break;
+  }
+
+}
+
 const ProjectsEdit = ({ match }) => {
   const toAdd = match.path.search(/add/) >= 0;
 
   const [isLoading, setIsLoading] = useState(true);
+
+  //Uzyż useReducer !!!
+  // const [option, dispatch] = useReducer(reducer, 'normal')
+
   const [option, setOption] = useState('normal');
 
   const [categories, setCategories] = useState('');

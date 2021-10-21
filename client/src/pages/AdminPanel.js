@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { ErrorProvider, ErrorContext } from '../hooks/useError';
+import { ErrorContext } from '../hooks/useError';
 
 import ListOfProjectsToEdit from '../containers/Admin/ListOfProjectsToEdit';
 import AdminNavigation from '../containers/Admin/AdminNavigation';
@@ -21,8 +21,6 @@ const AdminPanel = ({ history }) => {
   const [isActive, setIsActive] = useState(false);
   const { path } = useRouteMatch();
   const { ErrorComponent } = useContext(ErrorContext);
-
-  // pokazywanie modalu zrobić, czy dobrze provider zrobiony ?
 
   return (
     <>

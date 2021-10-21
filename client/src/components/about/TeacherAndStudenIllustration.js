@@ -33,9 +33,6 @@ const TeacherAndStudenIllustration = () => {
   const LearningMaterialsOne = useRef(null);
 
   useEffect(() => {
-    //console.log(gsap.utils.toArray(chatIconOneDots.current.children));
-    //console.log(LearningMaterialsTwo.current);
-
     const dots = gsap.utils.toArray(chatIconOneDots.current.children).reverse();
     const lines = gsap.utils.toArray(chatIconTwoLines.current.children);
 
@@ -60,7 +57,7 @@ const TeacherAndStudenIllustration = () => {
     });
 
     const tl = gsap.timeline();
-    tl.delay(3);
+    tl.delay(2);
 
     // ANIMATION
 
@@ -71,6 +68,19 @@ const TeacherAndStudenIllustration = () => {
       ease: 'Back.easeOut',
     })
       .to(
+        chatIconOne.current,
+        {
+          fillOpacity: 1,
+          scale: 1.4,
+          duration: 2,
+          rotate: 0,
+          x: -10,
+          y: -20,
+          ease: 'Power2.easeIn',
+        },
+        1.5,
+      )
+      .to(
         leftHandStudent.current,
         {
           rotate: 15,
@@ -79,7 +89,7 @@ const TeacherAndStudenIllustration = () => {
           yoyo: true,
           transformOrigin: '50% 100%',
         },
-        5,
+        3.5,
       )
       .fromTo(
         mouthStudent.current,
@@ -93,19 +103,6 @@ const TeacherAndStudenIllustration = () => {
           ease: 'Bounce.easeInOut',
           yoyo: true,
         },
-        5,
-      )
-      .to(
-        chatIconOne.current,
-        {
-          fillOpacity: 1,
-          scale: 1.4,
-          duration: 2,
-          rotate: 0,
-          x: -10,
-          y: -20,
-          ease: 'Power2.easeIn',
-        },
         3,
       )
       .to(
@@ -118,18 +115,7 @@ const TeacherAndStudenIllustration = () => {
           stagger: 0.2,
           repeatDelay: 0.4,
         },
-        6,
-      )
-      .to(
-        rightHandTeacher.current,
-        {
-          rotate: -25,
-          repeat: -1,
-          duration: 2,
-          yoyo: true,
-          transformOrigin: '75% 95%',
-        },
-        10,
+        3.5,
       )
       .fromTo(
         mouthTeacher.current,
@@ -143,7 +129,7 @@ const TeacherAndStudenIllustration = () => {
           ease: 'Bounce.easeInOut',
           yoyo: true,
         },
-        10,
+        5.5,
       )
       .to(
         chatIconTwo.current,
@@ -156,25 +142,7 @@ const TeacherAndStudenIllustration = () => {
           y: -20,
           ease: 'Power2.easeIn',
         },
-        7,
-      )
-      .to(
-        LearningMaterialsTwo.current,
-        {
-          fillOpacity: 1,
-          scale: 1,
-          duration: 0.5,
-        },
-        12,
-      )
-      .to(
-        LearningMaterialsOne.current,
-        {
-          fillOpacity: 1,
-          scale: 1,
-          duration: 0.5,
-        },
-        14,
+        5.5,
       )
       .to(
         lines,
@@ -187,7 +155,36 @@ const TeacherAndStudenIllustration = () => {
           stagger: 0.5,
           repeatDelay: 0.5,
         },
-        10,
+        7.5,
+      )
+      .to(
+        rightHandTeacher.current,
+        {
+          rotate: -25,
+          repeat: -1,
+          duration: 2,
+          yoyo: true,
+          transformOrigin: '75% 95%',
+        },
+        9.5,
+      )
+      .to(
+        LearningMaterialsTwo.current,
+        {
+          fillOpacity: 1,
+          scale: 1,
+          duration: 0.5,
+        },
+        11,
+      )
+      .to(
+        LearningMaterialsOne.current,
+        {
+          fillOpacity: 1,
+          scale: 1,
+          duration: 0.5,
+        },
+        13.5,
       );
   }, []);
 
