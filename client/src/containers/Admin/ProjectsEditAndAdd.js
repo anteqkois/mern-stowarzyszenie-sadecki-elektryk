@@ -114,29 +114,31 @@ const OPTION_TYPE = {
   saved: 'saved',
   deleted: 'deleted',
 };
-
+const PROJECT_TYPE = {
+  update: 'update',
+  delete: 'delete',
+};
 
 // TODO przenieśc logikę do jednego osobnego komponentu który w śordku będzi dopiero decydować co będzie wyświetlane w zależności od opcji, na wzór Component.processing
-const reducer = (state, action)=>{
+const reducer = (state, action) => {
   switch (action.type) {
-    case 'normal':
-      
-      break;
-    case 'processing':
-      
-      break;
-    case 'saved':
-      
-      break;
-    case 'deleted':
-      
-      break;
-  
+    case PROJECT_TYPE.update:
+      return { ...state, ...action.payload };
+    case PROJECT_TYPE.delete:
+      return initialState;
     default:
-      break;
+      return state;
   }
+};
 
-}
+const initialState = {
+  categories: '',
+  title: '',
+  date: '',
+  slug: '',
+  category: '',
+  description: '',
+};
 
 const ProjectsEdit = ({ match }) => {
   const toAdd = match.path.search(/add/) >= 0;
@@ -144,17 +146,9 @@ const ProjectsEdit = ({ match }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   //Uzyż useReducer !!!
-  // const [option, dispatch] = useReducer(reducer, 'normal')
+  const [project, dispatch] = useReducer(reducer, initialState);
 
   const [option, setOption] = useState('normal');
-
-  const [categories, setCategories] = useState('');
-
-  const [title, setTitle] = useState('');
-  const [date, setDate] = useState('');
-  const [slug, setSlug] = useState('');
-  const [category, setCategory] = useState('');
-  const [description, setDescription] = useState('');
 
   const setError = useError(
     toAdd
@@ -165,18 +159,23 @@ const ProjectsEdit = ({ match }) => {
   useEffect(() => {
     (async () => {
       try {
-        setCategories(await categoriesAPI.getAll());
+        dispatch({
+          type: PROJECT_TYPE.update,
+          payload: {categories: await categoriesAPI.getAll()},
+        });
 
         !toAdd &&
           (async () => {
             try {
               const data = await projectsAPI.get(match.params.id);
 
-              setSlug(data.slug);
-              setTitle(data.title);
-              setDate(convertDate(data.date));
-              setCategory(data.category);
-              setDescription(data.description);
+              dispatch({
+                type: PROJECT_TYPE.update,
+                payload: {
+                  ...data,
+                  date: convertDate(data.date),
+                },
+              });
             } catch (error) {
               setError(error.response.data);
               match.params.id = '';
@@ -226,13 +225,14 @@ const ProjectsEdit = ({ match }) => {
       .catch((error) => {
         setError(error.response.data);
         setOption(OPTION_TYPE.normal);
+        // match.params.id = values.slug;
       });
   };
 
   const handleDelete = (fn) => {
     const accpet = window.confirm(
       !toAdd
-        ? `Czy napewno chcesz cofnąć zmiany w projekcie ,,${title}''?`
+        ? `Czy napewno chcesz cofnąć zmiany w projekcie ,,${project.title}''?`
         : 'Czy napewno nie chcesz zapisać nowego projektu?',
     );
 
@@ -241,19 +241,19 @@ const ProjectsEdit = ({ match }) => {
 
   const formik = useFormik({
     initialValues: {
-      slug: slug,
-      title: title,
-      category: category,
-      date: date,
-      description: description,
+      slug: project.slug,
+      title: project.title,
+      category: project.category,
+      date: project.date,
+      description: project.description,
     },
     onSubmit: (values, { setSubmitting, resetForm }) => {
       setOption('processing');
-      setSlug(values.slug);
-      setTitle(values.title);
-      setCategory(values.category);
-      setDate(values.date);
-      setDescription(values.description);
+
+      dispatch({
+        type: PROJECT_TYPE.update,
+        payload: values,
+      });
       (() => (toAdd ? handlePost(values) : handlePut(values)))();
       resetForm();
     },
@@ -268,7 +268,7 @@ const ProjectsEdit = ({ match }) => {
         <h5>Wypełnij dane projektu:</h5>
       ) : (
         <h5>
-          Edytujesz: <span>{title}</span>
+          Edytujesz: <span>{project.title}</span>
         </h5>
       )}
 
@@ -303,7 +303,7 @@ const ProjectsEdit = ({ match }) => {
             <option key={'default'} value="" selected disabled hidden>
               Wybierz kategorię
             </option>
-            {categories.map(({ category, _id }) => (
+            {project.categories.map(({ category, _id }) => (
               <option key={_id} value={_id}>
                 {category}
               </option>
@@ -345,7 +345,7 @@ const ProjectsEdit = ({ match }) => {
           }}
         >
           <p>
-            Projekt <q>{title}</q> został zapisany!
+            Projekt <q>{project.title}</q> został zapisany!
           </p>
           <StyledLink to="/admin">
             <Button>Wróć do menu</Button>

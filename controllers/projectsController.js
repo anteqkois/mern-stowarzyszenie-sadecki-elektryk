@@ -54,18 +54,17 @@ const update = async (req, res, next) => {
         404,
       ),
     );
-  
-    (!req.body.category ||
-      !req.body.title ||
-      !req.body.date ||
-      !req.body.description) &&
-      next(
-        createApiError(
-          `Projekt został zaatualizowany, jednak brakujace pola pozostały bez zmian w stosunku do poprzedniej wersji!`,
-          422,
-        ),
-      );
 
+  (!req.body.category ||
+    !req.body.title ||
+    !req.body.date ||
+    !req.body.description) &&
+    next(
+      createApiError(
+        `Projekt został zaatualizowany, jednak brakujace pola pozostały bez zmian w stosunku do poprzedniej wersji!`,
+        422,
+      ),
+    );
   project.slug = req.body.slug ? req.body.slug : project.slug;
   project.category = req.body.category ? req.body.category : project.category;
   project.title = req.body.title ? req.body.title : project.title;
@@ -75,6 +74,26 @@ const update = async (req, res, next) => {
     : project.description;
 
   await project.save();
+  // project.slug = req.body.slug ? req.body.slug : project.slug;
+  // project.category = req.body.category ? req.body.category : project.category;
+  // project.title = req.body.title ? req.body.title : project.title;
+  // project.date = req.body.date ? req.body.date : project.date;
+  // project.description = req.body.description
+  //   ? req.body.description
+  //   : project.description;
+
+  // await project.save();
+
+  // (!req.body.category ||
+  //   !req.body.title ||
+  //   !req.body.date ||
+  //   !req.body.description) &&
+  //   next(
+  //     createApiError(
+  //       `Projekt został zaatualizowany, jednak brakujace pola pozostały bez zmian w stosunku do poprzedniej wersji!`,
+  //       422,
+  //     ),
+  //   );
 
   return res.status(200).send({ data: project });
 };
